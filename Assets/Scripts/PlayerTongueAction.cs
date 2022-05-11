@@ -8,6 +8,13 @@ public class PlayerTongueAction : MonoBehaviour
 
     public float tongueCooldown;
     float tongueTimer;
+    public float timeTongueShowing = 0.3f;
+
+    public bool isUsingTongue;
+
+    [Header("Sounds")]
+    public AudioSource audioSource;
+    public AudioClip tongueClip;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +35,10 @@ public class PlayerTongueAction : MonoBehaviour
 
     public void LaunchTongue()
     {
+        //audioSource.PlayOneShot(tongueClip);
+
         tongueTimer = 0;
+        isUsingTongue = true;
         tongue.SetActive(true);
         StartCoroutine(TongueVisibleTimer());
         
@@ -36,10 +46,9 @@ public class PlayerTongueAction : MonoBehaviour
 
     IEnumerator TongueVisibleTimer()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(timeTongueShowing);
         tongue.SetActive(false);
+        isUsingTongue = false;
     }
-
-
 
 }
