@@ -12,7 +12,7 @@ public class TreadmillPos : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -42,7 +42,8 @@ public class TreadmillPos : MonoBehaviour
 
     void DestroyIngredient()
     {
-        Destroy(foodOnPlatePos.GetChild(0).gameObject);
+        if (foodOnPlatePos.childCount > 0)
+            Destroy(foodOnPlatePos.GetChild(0).gameObject);
     }
 
     public bool IsOccupied()
