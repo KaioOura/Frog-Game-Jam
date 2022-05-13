@@ -5,12 +5,15 @@ using UnityEngine;
 public class PlayerTongueAction : MonoBehaviour
 {
     public GameObject tongue;
+    public Tongue tongueScript;
+    public BellyFrog bellyFrog;
 
     public float tongueCooldown;
     float tongueTimer;
     public float timeTongueShowing = 0.3f;
 
     public bool isUsingTongue;
+
 
     [Header("Sounds")]
     public AudioSource audioSource;
@@ -31,15 +34,19 @@ public class PlayerTongueAction : MonoBehaviour
         {
             LaunchTongue();
         }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            bellyFrog.ThrowUpAllIngredients();
+        }
     }
 
     public void LaunchTongue()
     {
         //audioSource.PlayOneShot(tongueClip);
-
         tongueTimer = 0;
         isUsingTongue = true;
-        tongue.SetActive(true);
+        //tongue.SetActive(true);
+        tongueScript.AttackTongue();
         StartCoroutine(TongueVisibleTimer());
         
     }
@@ -47,7 +54,7 @@ public class PlayerTongueAction : MonoBehaviour
     IEnumerator TongueVisibleTimer()
     {
         yield return new WaitForSeconds(timeTongueShowing);
-        tongue.SetActive(false);
+        //tongue.SetActive(false);
         isUsingTongue = false;
     }
 
