@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class TreadmillPos : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class TreadmillPos : MonoBehaviour
     public int posIndex;
     public Transform spawnPoint;
     public Transform foodOnPlatePos;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +21,7 @@ public class TreadmillPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, treadmill.treadMillPoints[posIndex].position) < treadmill.speed * Time.deltaTime) //Checa se a posição do prato chegou no atual ponto da esteira
+        if (Vector3.Distance(transform.position, treadmill.treadMillPoints[posIndex].position) < treadmill.speed * Time.deltaTime) //Checa se a posiï¿½ï¿½o do prato chegou no atual ponto da esteira
         {
             posIndex++;
         }
@@ -49,5 +52,9 @@ public class TreadmillPos : MonoBehaviour
     public bool IsOccupied()
     {
         return foodOnPlatePos.childCount > 0;
+    }
+
+    public void ShakePlate(){
+
     }
 }
