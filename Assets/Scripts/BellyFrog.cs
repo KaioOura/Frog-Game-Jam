@@ -9,6 +9,8 @@ public class BellyFrog : MonoBehaviour
     public int maxIngredients;
     public Transform bellyPos;
 
+    public List<Meal> meals;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,6 @@ public class BellyFrog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void AddIngredient(IngredientScriptable ingredient)
@@ -30,6 +31,8 @@ public class BellyFrog : MonoBehaviour
         ingredient.gameObject.SetActive(false);
         ingredient.transform.SetParent(bellyPos.transform);
         ingredient.transform.localPosition = Vector3.zero;
+
+        OnIngredientAdd();
     }
 
     public void ThrowUpAllIngredients()
@@ -62,4 +65,34 @@ public class BellyFrog : MonoBehaviour
     {
         return belly.Count - 1 == maxIngredients;
     }
+
+    void OnIngredientAdd()
+    {
+        if (GetMeal() != null)
+        {
+            Debug.Log(GetMeal().name);
+        }
+        else
+        {
+            Debug.Log("Not a meal");
+        }
+
+    }
+
+    Meal GetMeal()
+    {
+        Meal meal = null;
+
+        foreach (var item in meals)
+        {
+            if (item.Match(belly))
+            {
+                meal = item;
+                break;
+            }
+        }
+
+        return meal;
+    }
+
 }

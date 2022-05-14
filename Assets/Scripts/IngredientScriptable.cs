@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class IngredientScriptable : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class IngredientScriptable : MonoBehaviour
     public Collider col;
 
     public int posIndex;
+
+    public IngredientBase ingredient;
 
     private void Start()
     {
@@ -35,4 +38,11 @@ public class IngredientScriptable : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
+}
+
+[Serializable]
+public class IngredientBase
+{
+    public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo };
+    public Ingredients ingredientEnum;
 }

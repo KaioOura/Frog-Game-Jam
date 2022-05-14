@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
-    public GameObject tomatoPrefab;
+    public GameObject[] ingredientsPrefab;
     public Treadmill treadmill;
+
+    public float timeSpawn = 0.5f;
+    float timeTrack;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +19,12 @@ public class IngredientSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.deltaTime > timeTrack)
+        {
+            timeTrack = Time.deltaTime + timeSpawn;
+            SpawnIngredient();
+        }
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             SpawnIngredient();
@@ -29,7 +38,9 @@ public class IngredientSpawner : MonoBehaviour
             //Checa se existe um prato que ainda não ativo e se não está ocupado
             if (treadmill.positions[i].posIndex == 0 && !treadmill.positions[i].IsOccupied())
             {
-                GameObject go = Instantiate(tomatoPrefab, treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
+                int rand = Random.Range(0, ingredientsPrefab.Length); 
+
+                GameObject go = Instantiate(ingredientsPrefab[rand], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
                 treadmill.positions[i].AssignIngredient(go);
                 break;
             }
