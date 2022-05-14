@@ -32,7 +32,7 @@ public class Order : MonoBehaviour
 
         for (int i = 0; i < meal.recipeIngredients.Length; i++)
         {
-            recipeIngredientsIMG[i].sprite = meal.recipeIngredients[i].;
+            //recipeIngredientsIMG[i].sprite = meal.recipeIngredients[i];
         }
 
     }
