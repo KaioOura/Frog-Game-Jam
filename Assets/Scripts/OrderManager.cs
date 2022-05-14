@@ -12,6 +12,10 @@ public class OrderManager : MonoBehaviour
 
     public static float timeTracker;
 
+    public Order orderGO;
+
+    public Transform ordersPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,10 +32,6 @@ public class OrderManager : MonoBehaviour
             difficultyIndex++;
         }
 
-        if (difficultyIndex == 0)
-        {
-
-        }
     }
 
 
@@ -76,7 +76,7 @@ public class OrderManager : MonoBehaviour
         //Spawnar order
 
         int randMeal = Random.Range(0, mealsAvailable.Count);
-
-
+        Order order = Instantiate(orderGO);
+        
     }
 }
