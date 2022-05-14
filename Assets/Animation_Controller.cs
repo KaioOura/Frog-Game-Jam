@@ -21,16 +21,18 @@ public class Animation_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //UpdateRightOrLeft();
         real_rotation = Input.GetAxis("Horizontal");
         Debug.Log(real_rotation);
         if(real_rotation != rotation_value){
+        
             rotation_value += update_speed;
             if(rotation_value > real_rotation){
                 rotation_value = real_rotation;
             }
         }
         am.SetFloat("Rotation Value",rotation_value);
-        UpdateRightOrLeft();
+
     }
 
     void UpdateRightOrLeft(){
