@@ -3667,8 +3667,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookPositions: {fileID: 0}
   playerTongue: {fileID: 567366229}
-  angle: 45
+  angle: 200
   lookIndex: 0
+  newInput: 1
   audioSource: {fileID: 567366230}
   turnClip: {fileID: 0}
 --- !u!135 &567366225
@@ -3766,7 +3767,7 @@ MonoBehaviour:
   tongue: {fileID: 735878598}
   tongueScript: {fileID: 735878602}
   bellyFrog: {fileID: 567366231}
-  tongueCooldown: 0.5
+  tongueCooldown: 0.4
   timeTongueShowing: 0.3
   isUsingTongue: 0
   audioSource: {fileID: 567366230}

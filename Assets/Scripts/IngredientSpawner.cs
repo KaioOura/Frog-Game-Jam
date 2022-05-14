@@ -19,9 +19,9 @@ public class IngredientSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.deltaTime > timeTrack)
+        if (Time.time > timeTrack)
         {
-            timeTrack = Time.deltaTime + timeSpawn;
+            timeTrack = Time.time + timeSpawn;
             SpawnIngredient();
         }
 
