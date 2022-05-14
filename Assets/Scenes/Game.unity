@@ -3646,6 +3646,7 @@ GameObject:
   - component: {fileID: 567366229}
   - component: {fileID: 567366231}
   - component: {fileID: 567366230}
+  - component: {fileID: 567366232}
   m_Layer: 0
   m_Name: Sapo
   m_TagString: Untagged
@@ -3888,6 +3889,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7e579d631e22dfd4ca88d765482d17d4, type: 2}
   - {fileID: 11400000, guid: 26930eb21eaed8141aa491d70605c4be, type: 2}
   activeMeal: {fileID: 0}
+--- !u!114 &567366232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567366223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a1e70d5af3c5d4c93f084ae8045378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  am: {fileID: 837066841}
+  rotation_value: 0
+  update_speed: 0.2
+  playermov: {fileID: 567366224}
 --- !u!1 &570611693
 GameObject:
   m_ObjectHideFlags: 0
