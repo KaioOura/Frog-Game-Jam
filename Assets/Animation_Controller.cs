@@ -25,7 +25,7 @@ public class Animation_Controller : MonoBehaviour
         real_rotation = Input.GetAxis("Horizontal");
         Debug.Log(real_rotation);
         if(real_rotation != rotation_value){
-        
+
             rotation_value += update_speed;
             if(rotation_value > real_rotation){
                 rotation_value = real_rotation;

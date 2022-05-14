@@ -3882,6 +3882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e700be33bc01f14da0440622aa32937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frogController: {fileID: 837066841}
   bellyDisplay: {fileID: 883258363}
   belly: []
   maxIngredients: 3

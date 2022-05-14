@@ -5,6 +5,7 @@ using System;
 
 public class BellyFrog : MonoBehaviour
 {
+    public Animator frogController;
     public BellyDisplay bellyDisplay;
     public List<IngredientScriptable> belly;
     public int maxIngredients;
@@ -66,6 +67,7 @@ public class BellyFrog : MonoBehaviour
             //Spawnar e lancar meal
             MealGO mealGO = Instantiate(activeMeal.mealGO);
             mealGO.transform.position = bellyPos.transform.position;
+            frogController.SetTrigger("Food Out");
             mealGO.LaunchItSelf(transform.forward);
             activeMeal = null;
         }
@@ -73,9 +75,10 @@ public class BellyFrog : MonoBehaviour
         {
             while (numIngredients >= 0)
             {
+                frogController.SetTrigger("Food Out");
                 LaunchIngredient(belly[numIngredients]);
                 numIngredients--;
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.17f);
             }
         }
 

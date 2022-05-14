@@ -13,7 +13,7 @@ public class PlayerTongueAction : MonoBehaviour
     public float timeTongueShowing = 0.3f;
 
     public bool isUsingTongue;
-
+    
 
     [Header("Sounds")]
     public AudioSource audioSource;
