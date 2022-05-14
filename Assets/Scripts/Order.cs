@@ -11,8 +11,6 @@ public class Order : MonoBehaviour
     public Image mealImage;
     public Image[] recipeIngredientsIMG;
 
-    public TextMeshProUGUI socreTMP;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +30,8 @@ public class Order : MonoBehaviour
 
         for (int i = 0; i < meal.recipeIngredients.Length; i++)
         {
-            //recipeIngredientsIMG[i].sprite = meal.recipeIngredients[i];
+            recipeIngredientsIMG[i].gameObject.SetActive(true);
+            recipeIngredientsIMG[i].sprite = meal.recipeIngredients[i].ingredientScriptable.myImage;
         }
 
     }

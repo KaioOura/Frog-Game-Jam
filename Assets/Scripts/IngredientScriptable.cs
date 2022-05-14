@@ -43,4 +43,5 @@ public class IngredientBase
 {
     public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo };
     public Ingredients ingredientEnum;
+    public IngredientScriptable ingredientScriptable;
 }

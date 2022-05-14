@@ -20,4 +20,6 @@ MonoBehaviour:
   difficulty: 0
   recipeIngredients:
   - ingredientEnum: 1
+    ingredientScriptable: {fileID: 6307512029431296222, guid: f53c25dced7eed44aa0379ca69e77b4e, type: 3}
   - ingredientEnum: 2
+    ingredientScriptable: {fileID: 867407597217187018, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}

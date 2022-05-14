@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Hamburguer
   m_EditorClassIdentifier: 
   mealName: Hamburguer
+  score: 0
   image: {fileID: 0}
+  mealGO: {fileID: 0}
   myMeal: 3
   difficulty: 0
   recipeIngredients:
   - ingredientEnum: 4
+    ingredientScriptable: {fileID: 0}
   - ingredientEnum: 5
+    ingredientScriptable: {fileID: 0}
   - ingredientEnum: 2
+    ingredientScriptable: {fileID: 867407597217187018, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}
