@@ -8,6 +8,9 @@ public class BellyDisplay : MonoBehaviour
     public Image[] bellySlot;
     public BellyFrog bellyFrog;
 
+    public GameObject mealBG;
+    public Image mealImage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,19 @@ public class BellyDisplay : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateMealUI(Meal meal = null)
+    {
+        if (meal == null)
+        {
+            mealBG.SetActive(false);
+            return;
+        }
+
+        mealBG.SetActive(true);
+
+        mealImage.sprite = meal.image;
     }
 
     public void UpdateUI()

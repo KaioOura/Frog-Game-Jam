@@ -6,11 +6,15 @@ using UnityEngine;
 public class Meal : ScriptableObject
 {
     public string mealName;
+    public int score;
     public Sprite image;
+
+    public MealGO mealGO;
+
     public enum MyMeal {macarrao_queijo, macarrao_camarao, hamburguer_camarao, hamburguer, macarrao_almondegas, pizza_peperoni, pizza_cogumelo }
     public MyMeal myMeal;
 
-    public enum Difficulty { easy, noral, hard}
+    public enum Difficulty { easy, normal, hard}
     public Difficulty difficulty;
 
     public IngredientBase[] recipeIngredients;
@@ -25,8 +29,6 @@ public class Meal : ScriptableObject
 
         if (recipeIngredients.Length != ingredientScriptables.Count)
         {
-            Debug.Log("RecipeIngredients count: " + recipeIngredients.Length);
-            Debug.Log("IngredientScriptables count: " + ingredientScriptables.Count);
             Debug.Log("NOT MATCH: Meal ingeredients count not matching");
             return false;
         }

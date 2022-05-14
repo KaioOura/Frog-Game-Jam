@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: NonTransgenicTomato
   baseScore: 0
-  myImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  myImage: {fileID: 21300000, guid: 2f8db1a8cdab9b14c8e9af17c982a373, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: -3318607344491591761}
   col: {fileID: 7061825123847770046}

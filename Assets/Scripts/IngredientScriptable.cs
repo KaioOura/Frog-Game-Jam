@@ -12,8 +12,6 @@ public class IngredientScriptable : MonoBehaviour
     public Rigidbody rb;
     public Collider col;
 
-    public int posIndex;
-
     public IngredientBase ingredient;
 
     private void Start()

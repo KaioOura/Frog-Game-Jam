@@ -12,6 +12,8 @@ public class BellyFrog : MonoBehaviour
 
     public List<Meal> meals;
 
+    public Meal activeMeal;
+
     public Action OnIngredientAdded;
 
     bool isThrowingUp;
@@ -54,15 +56,33 @@ public class BellyFrog : MonoBehaviour
         isThrowingUp = true;
         int numIngredients = belly.Count - 1;
 
-        while (numIngredients >= 0)
+        if (activeMeal != null)
         {
-            LaunchIngredient(belly[numIngredients]);
-            numIngredients--;
-            yield return new WaitForSeconds(0.15f);
+            foreach (var item in belly)
+            {
+                Destroy(item.gameObject);
+            }
+
+            //Spawnar e lancar meal
+            MealGO mealGO = Instantiate(activeMeal.mealGO);
+            mealGO.transform.position = bellyPos.transform.position;
+            mealGO.LaunchItSelf(transform.forward);
+            activeMeal = null;
+        }
+        else
+        {
+            while (numIngredients >= 0)
+            {
+                LaunchIngredient(belly[numIngredients]);
+                numIngredients--;
+                yield return new WaitForSeconds(0.15f);
+            }
         }
 
+        
         belly.Clear();
         bellyDisplay.UpdateUI();
+        bellyDisplay.UpdateMealUI(null);
 
         isThrowingUp = false;
     }
@@ -72,6 +92,11 @@ public class BellyFrog : MonoBehaviour
         ingredient.gameObject.SetActive(true);
         ingredient.transform.SetParent(null);
         ingredient.LaunchItSelf(transform.forward);
+    }
+
+    void LaunchMealGO(MealGO mealGo)
+    {
+        mealGo.LaunchItSelf(transform.forward);
     }
 
     public bool IsBellyFull()
@@ -88,11 +113,13 @@ public class BellyFrog : MonoBehaviour
         }
 
 
-        Meal meal = GetMeal();
+        activeMeal = GetMeal();
 
-        if (meal != null)
+        bellyDisplay.UpdateMealUI(activeMeal);
+
+        if (activeMeal != null)
         {
-            Debug.Log(meal.name);
+            Debug.Log(activeMeal.name);
         }
         else
         {
