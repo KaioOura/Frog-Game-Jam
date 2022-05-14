@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Queijo
   baseScore: 0
-  myImage: {fileID: 0}
+  myImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   foodGO: {fileID: 0}
   rb: {fileID: 6138842287890098041}
   col: {fileID: 7404155497389387624}

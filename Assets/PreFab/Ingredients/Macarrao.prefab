@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Macarrao
   baseScore: 0
-  myImage: {fileID: 0}
+  myImage: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   foodGO: {fileID: 0}
   rb: {fileID: 1058595302603199341}
   col: {fileID: 4414009679051234172}

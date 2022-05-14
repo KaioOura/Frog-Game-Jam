@@ -5,16 +5,21 @@ using System;
 
 public class BellyFrog : MonoBehaviour
 {
+    public BellyDisplay bellyDisplay;
     public List<IngredientScriptable> belly;
     public int maxIngredients;
     public Transform bellyPos;
 
     public List<Meal> meals;
 
+    public Action OnIngredientAdded;
+
+    bool isThrowingUp;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -32,19 +37,24 @@ public class BellyFrog : MonoBehaviour
         ingredient.transform.SetParent(bellyPos.transform);
         ingredient.transform.localPosition = Vector3.zero;
 
+        bellyDisplay.UpdateUI();
         OnIngredientAdd();
     }
 
     public void ThrowUpAllIngredients()
     {
+        if (isThrowingUp)
+            return;
+
         StartCoroutine(ThrowUpIngredients());
     }
 
     IEnumerator ThrowUpIngredients()
     {
+        isThrowingUp = true;
         int numIngredients = belly.Count - 1;
 
-        while(numIngredients >= 0)
+        while (numIngredients >= 0)
         {
             LaunchIngredient(belly[numIngredients]);
             numIngredients--;
@@ -52,6 +62,9 @@ public class BellyFrog : MonoBehaviour
         }
 
         belly.Clear();
+        bellyDisplay.UpdateUI();
+
+        isThrowingUp = false;
     }
 
     void LaunchIngredient(IngredientScriptable ingredient)
@@ -68,9 +81,18 @@ public class BellyFrog : MonoBehaviour
 
     void OnIngredientAdd()
     {
-        if (GetMeal() != null)
+        if (belly.Count < 2)
         {
-            Debug.Log(GetMeal().name);
+            Debug.Log("Not a meal");
+            return;
+        }
+
+
+        Meal meal = GetMeal();
+
+        if (meal != null)
+        {
+            Debug.Log(meal.name);
         }
         else
         {
