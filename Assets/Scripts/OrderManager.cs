@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
+    public static OrderManager instance;
+
     public Meal[] meals;
+    public List<Order> activeOrders;
+
+    public int maxOrders;
 
     public int[] difficultyBreakdown;
+    public float[] timeToSpawn;
+    float timeSpawn;
 
     public int difficultyIndex;
 
@@ -15,6 +22,11 @@ public class OrderManager : MonoBehaviour
     public Order orderGO;
 
     public Transform ordersPos;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +38,17 @@ public class OrderManager : MonoBehaviour
     void Update()
     {
         timeTracker += Time.deltaTime;
+        timeSpawn += Time.deltaTime;
 
-        if (timeTracker < difficultyBreakdown[difficultyIndex])
+        if (timeTracker > difficultyBreakdown[difficultyIndex])
         {
-            //difficultyIndex++;
+            difficultyIndex++;
+        }
+
+        if (timeSpawn > timeToSpawn[difficultyIndex] && activeOrders.Count < maxOrders)
+        {
+            SpawnOrder(difficultyIndex);
+            timeSpawn = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -56,26 +75,26 @@ public class OrderManager : MonoBehaviour
                     }
                 }
             }
-            //else if (i == 1)
-            //{
-            //    foreach (var item in meals)
-            //    {
-            //        if (item.difficulty == Meal.Difficulty.normal)
-            //        {
-            //            mealsAvailable.Add(item);
-            //        }
-            //    }
-            //}
-            //else if (i == 2)
-            //{
-            //    foreach (var item in meals)
-            //    {
-            //        if (item.difficulty == Meal.Difficulty.hard)
-            //        {
-            //            mealsAvailable.Add(item);
-            //        }
-            //    }
-            //}
+            else if (i == 1)
+            {
+                foreach (var item in meals)
+                {
+                    if (item.difficulty == Meal.Difficulty.normal)
+                    {
+                        mealsAvailable.Add(item);
+                    }
+                }
+            }
+            else if (i == 2)
+            {
+                foreach (var item in meals)
+                {
+                    if (item.difficulty == Meal.Difficulty.hard)
+                    {
+                        mealsAvailable.Add(item);
+                    }
+                }
+            }
         }
 
         //Spawnar order
@@ -86,7 +105,38 @@ public class OrderManager : MonoBehaviour
 
         Order order = Instantiate(orderGO, ordersPos);
 
-        order.InitializeOrder(mealsAvailable[0]);
+        order.InitializeOrder(mealsAvailable[randMeal]);
+
+        activeOrders.Add(order);
 
     }
+
+    public void CheckMeal(Meal meal)
+    {
+        if (IsMealMatch(meal))
+        {
+            //Creditar pontos, feedbck de acerto, sumir com pedido
+            Debug.Log("Pontuação!");
+        }
+    }
+
+    public bool IsMealMatch(Meal meal)
+    {
+        bool isMatch = false;
+
+        foreach (var item in activeOrders)
+        {
+            if (item.myMeal == meal)
+            {
+                isMatch = true;
+                activeOrders.Remove(item);
+                item.RemoveOrder();
+                break;
+            }
+        }
+
+        return isMatch;
+    }
+
+
 }

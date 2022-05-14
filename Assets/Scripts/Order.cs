@@ -55,4 +55,9 @@ public class Order : MonoBehaviour
             Debug.Log(timeCount);
         } 
     }
+
+    public void RemoveOrder()
+    {
+        Destroy(gameObject);
+    }
 }

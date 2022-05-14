@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using DG.Tweening;
 
 public class BellyFrog : MonoBehaviour
 {
@@ -15,10 +16,13 @@ public class BellyFrog : MonoBehaviour
     public List<Meal> meals;
 
     public Meal activeMeal;
+    GameObject mealGO;
 
     public Action OnIngredientAdded;
 
     bool isThrowingUp;
+
+    public Transform cartPos;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +58,16 @@ public class BellyFrog : MonoBehaviour
         StartCoroutine(ThrowUpIngredients());
     }
 
+    public void MoveMealToCart()
+    {
+        mealGO.transform.DOMove(cartPos.position, 0.2f).OnComplete(() =>
+        {
+            OrderManager.instance.CheckMeal(activeMeal);
+            activeMeal = null;
+            mealGO = null;
+        });
+    }
+
     IEnumerator ThrowUpIngredients()
     {
         isThrowingUp = true;
@@ -67,12 +81,16 @@ public class BellyFrog : MonoBehaviour
             }
 
             //Spawnar e lancar meal
-            MealGO mealGO = Instantiate(activeMeal.mealGO);
-            mealGO.transform.position = bellyPos.transform.position;
+            MealGO _mealGO = Instantiate(activeMeal.mealGO);
+            mealGO = _mealGO.gameObject;
+            _mealGO.transform.position = bellyPos.transform.position;
             frogController.SetTrigger("Food Out");
             animationController.realayerWeight = 0;
-            mealGO.LaunchItSelf(transform.forward);
-            activeMeal = null;
+
+            MoveMealToCart();
+
+            //_mealGO.LaunchItSelf(transform.forward);
+
         }
         else
         {
