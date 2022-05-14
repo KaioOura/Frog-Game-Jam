@@ -1396,6 +1396,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1042569667}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &176612960
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,6 +2223,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 754872434}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &379646786
 GameObject:
   m_ObjectHideFlags: 0
@@ -3266,6 +3270,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 2026909263}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &514109266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4572,8 +4578,9 @@ GameObject:
   - component: {fileID: 640949969}
   - component: {fileID: 640949968}
   - component: {fileID: 640949967}
+  - component: {fileID: 640949970}
   m_Layer: 0
-  m_Name: Plate (5)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4657,6 +4664,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640949965}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &640949970
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640949965}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &652909759
 GameObject:
   m_ObjectHideFlags: 0
@@ -4764,8 +4790,9 @@ GameObject:
   - component: {fileID: 658868723}
   - component: {fileID: 658868722}
   - component: {fileID: 658868721}
+  - component: {fileID: 658868724}
   m_Layer: 0
-  m_Name: Plate (1)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4778,7 +4805,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658868719}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.03, z: 1}
   m_Children:
@@ -4849,6 +4876,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658868719}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &658868724
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658868719}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &678907817
 GameObject:
   m_ObjectHideFlags: 0
@@ -5942,6 +5988,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1309715975}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &813659365
 GameObject:
   m_ObjectHideFlags: 0
@@ -5954,8 +6002,9 @@ GameObject:
   - component: {fileID: 813659369}
   - component: {fileID: 813659368}
   - component: {fileID: 813659367}
+  - component: {fileID: 813659370}
   m_Layer: 0
-  m_Name: Plate (3)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6039,6 +6088,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813659365}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &813659370
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813659365}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &822678891
 GameObject:
   m_ObjectHideFlags: 0
@@ -7031,8 +7099,9 @@ GameObject:
   - component: {fileID: 877099163}
   - component: {fileID: 877099162}
   - component: {fileID: 877099161}
+  - component: {fileID: 877099164}
   m_Layer: 0
-  m_Name: Plate (11)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7116,6 +7185,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877099159}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &877099164
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877099159}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &883258361
 GameObject:
   m_ObjectHideFlags: 0
@@ -7422,8 +7510,9 @@ GameObject:
   - component: {fileID: 948090868}
   - component: {fileID: 948090867}
   - component: {fileID: 948090866}
+  - component: {fileID: 948090869}
   m_Layer: 0
-  m_Name: Plate (13)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7507,6 +7596,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948090864}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &948090869
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948090864}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &958419257
 GameObject:
   m_ObjectHideFlags: 0
@@ -7849,8 +7957,9 @@ GameObject:
   - component: {fileID: 988182513}
   - component: {fileID: 988182512}
   - component: {fileID: 988182511}
+  - component: {fileID: 988182514}
   m_Layer: 0
-  m_Name: Plate (4)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7934,6 +8043,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988182509}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &988182514
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988182509}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &991998785
 GameObject:
   m_ObjectHideFlags: 0
@@ -7982,6 +8110,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1880639704}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &993900914
 GameObject:
   m_ObjectHideFlags: 0
@@ -8142,8 +8272,9 @@ GameObject:
   - component: {fileID: 997726076}
   - component: {fileID: 997726075}
   - component: {fileID: 997726074}
+  - component: {fileID: 997726077}
   m_Layer: 0
-  m_Name: Plate (10)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8227,6 +8358,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997726072}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &997726077
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997726072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1001357828
 GameObject:
   m_ObjectHideFlags: 0
@@ -10938,8 +11088,9 @@ GameObject:
   - component: {fileID: 1330946495}
   - component: {fileID: 1330946494}
   - component: {fileID: 1330946493}
+  - component: {fileID: 1330946496}
   m_Layer: 0
-  m_Name: Plate (8)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11023,6 +11174,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330946491}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1330946496
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330946491}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1343905660
 GameObject:
   m_ObjectHideFlags: 0
@@ -11071,6 +11241,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 358434755}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1351368171
 GameObject:
   m_ObjectHideFlags: 0
@@ -11220,6 +11392,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1953074964}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1387623620
 GameObject:
   m_ObjectHideFlags: 0
@@ -11327,8 +11501,9 @@ GameObject:
   - component: {fileID: 1391792596}
   - component: {fileID: 1391792595}
   - component: {fileID: 1391792594}
+  - component: {fileID: 1391792597}
   m_Layer: 0
-  m_Name: Plate (12)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11412,6 +11587,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391792592}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1391792597
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391792592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1403061849
 GameObject:
   m_ObjectHideFlags: 0
@@ -11519,6 +11713,7 @@ GameObject:
   - component: {fileID: 1416917898}
   - component: {fileID: 1416917897}
   - component: {fileID: 1416917896}
+  - component: {fileID: 1416917899}
   m_Layer: 0
   m_Name: Plate
   m_TagString: Untagged
@@ -11604,6 +11799,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416917894}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1416917899
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416917894}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1423202978
 GameObject:
   m_ObjectHideFlags: 0
@@ -12226,6 +12440,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 229348829}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1512994157
 GameObject:
   m_ObjectHideFlags: 0
@@ -12891,6 +13107,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 944987010}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1605203880
 GameObject:
   m_ObjectHideFlags: 0
@@ -12933,8 +13151,9 @@ GameObject:
   - component: {fileID: 1617176778}
   - component: {fileID: 1617176777}
   - component: {fileID: 1617176776}
+  - component: {fileID: 1617176779}
   m_Layer: 0
-  m_Name: Plate (9)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13018,6 +13237,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617176774}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1617176779
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617176774}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1621060954
 GameObject:
   m_ObjectHideFlags: 0
@@ -13622,8 +13860,9 @@ GameObject:
   - component: {fileID: 1706106465}
   - component: {fileID: 1706106464}
   - component: {fileID: 1706106463}
+  - component: {fileID: 1706106466}
   m_Layer: 0
-  m_Name: Plate (7)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13707,6 +13946,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706106461}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1706106466
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706106461}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1721028493
 GameObject:
   m_ObjectHideFlags: 0
@@ -13719,8 +13977,9 @@ GameObject:
   - component: {fileID: 1721028497}
   - component: {fileID: 1721028496}
   - component: {fileID: 1721028495}
+  - component: {fileID: 1721028498}
   m_Layer: 0
-  m_Name: Plate (6)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13804,6 +14063,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721028493}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1721028498
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721028493}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1740022244
 GameObject:
   m_ObjectHideFlags: 0
@@ -13947,6 +14225,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1008052530}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1753058251
 GameObject:
   m_ObjectHideFlags: 0
@@ -14185,6 +14465,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 2093606643}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1805059355
 GameObject:
   m_ObjectHideFlags: 0
@@ -14550,6 +14832,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1037224165}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1880639703
 GameObject:
   m_ObjectHideFlags: 0
@@ -14723,6 +15007,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 327280581}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1939824557
 GameObject:
   m_ObjectHideFlags: 0
@@ -15225,8 +15511,9 @@ GameObject:
   - component: {fileID: 2006763864}
   - component: {fileID: 2006763863}
   - component: {fileID: 2006763862}
+  - component: {fileID: 2006763865}
   m_Layer: 0
-  m_Name: Plate (2)
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15310,6 +15597,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006763860}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &2006763865
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006763860}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a88fbc1ce989b7844bc81d788034d1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2026909262
 GameObject:
   m_ObjectHideFlags: 0
@@ -15586,6 +15892,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 424875652}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &2081453663
 GameObject:
   m_ObjectHideFlags: 0

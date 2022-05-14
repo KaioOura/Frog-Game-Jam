@@ -10,17 +10,25 @@ public class TreadmillPos : MonoBehaviour
     public Transform spawnPoint;
     public Transform foodOnPlatePos;
 
+    private bool Shaken;
+    public GameObject plateGO;
+
+    [SerializeField]
+    private Animator plateAnimator;
+    private float shakeCount;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        plateAnimator = GetComponentInChildren<Animator>();
+        plateGO = plateAnimator.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ShakePlate();
         if (Vector3.Distance(transform.position, treadmill.treadMillPoints[posIndex].position) < treadmill.speed * Time.deltaTime) //Checa se a posi��o do prato chegou no atual ponto da esteira
         {
             posIndex++;
@@ -55,6 +63,18 @@ public class TreadmillPos : MonoBehaviour
     }
 
     public void ShakePlate(){
-
+        if(foodOnPlatePos.childCount != 0){
+            Shaken = false;
+            shakeCount = 0;
+        }else{
+            Shaken = true;
+        }
+        if(Shaken && shakeCount == 1){
+            plateAnimator.SetTrigger("ShakePlate");
+            Shaken = false;
+            shakeCount++;
+        }else if(shakeCount == 0){
+            shakeCount++;
+        }
     }
 }
