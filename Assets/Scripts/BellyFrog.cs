@@ -5,6 +5,7 @@ using System;
 
 public class BellyFrog : MonoBehaviour
 {
+    public Animation_Controller animationController;
     public Animator frogController;
     public BellyDisplay bellyDisplay;
     public List<IngredientScriptable> belly;
@@ -22,7 +23,7 @@ public class BellyFrog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        animationController = GetComponent<Animation_Controller>();
     }
 
     // Update is called once per frame
@@ -36,6 +37,7 @@ public class BellyFrog : MonoBehaviour
             return;
 
         belly.Add(ingredient);
+        animationController.realayerWeight += 0.25f;
         ingredient.gameObject.SetActive(false);
         ingredient.transform.SetParent(bellyPos.transform);
         ingredient.transform.localPosition = Vector3.zero;
@@ -68,6 +70,7 @@ public class BellyFrog : MonoBehaviour
             MealGO mealGO = Instantiate(activeMeal.mealGO);
             mealGO.transform.position = bellyPos.transform.position;
             frogController.SetTrigger("Food Out");
+            animationController.realayerWeight = 0;
             mealGO.LaunchItSelf(transform.forward);
             activeMeal = null;
         }
@@ -75,6 +78,7 @@ public class BellyFrog : MonoBehaviour
         {
             while (numIngredients >= 0)
             {
+                animationController.realayerWeight -= 0.25f;
                 frogController.SetTrigger("Food Out");
                 LaunchIngredient(belly[numIngredients]);
                 numIngredients--;

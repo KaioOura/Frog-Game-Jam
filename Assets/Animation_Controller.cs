@@ -8,9 +8,10 @@ public class Animation_Controller : MonoBehaviour
     public float rotation_value;
     private float real_rotation;
 
-    public float update_speed;
+    public float LayerUpdate_speed ,update_speed, layerWeight, realayerWeight;
 
     public PlayerMovement playermov;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,15 @@ public class Animation_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(realayerWeight != layerWeight){
+
+            layerWeight += LayerUpdate_speed;
+            if(layerWeight > realayerWeight){
+                layerWeight = realayerWeight;
+            }
+        }
+        am.SetLayerWeight(1, layerWeight);
         //UpdateRightOrLeft();
         real_rotation = Input.GetAxis("Horizontal");
         Debug.Log(real_rotation);
