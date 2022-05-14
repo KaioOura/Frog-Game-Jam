@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "Meal", menuName = "Meal", order = 1)]
 public class Meal : ScriptableObject
@@ -8,6 +9,7 @@ public class Meal : ScriptableObject
     public string mealName;
     public int score;
     public Sprite image;
+    public int timeSecondsToPrepare;
 
     public MealGO mealGO;
 

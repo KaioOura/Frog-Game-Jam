@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Order : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Order : MonoBehaviour
 
     public Image mealImage;
     public Image[] recipeIngredientsIMG;
+    public int mealTime;
+    int orignalMealTime;
+
+    public Image timeCount;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +32,8 @@ public class Order : MonoBehaviour
     {
         myMeal = meal;
         mealImage.sprite = myMeal.image;
+        mealTime = meal.timeSecondsToPrepare;
+        orignalMealTime = meal.timeSecondsToPrepare;
 
         for (int i = 0; i < meal.recipeIngredients.Length; i++)
         {
@@ -34,5 +41,18 @@ public class Order : MonoBehaviour
             recipeIngredientsIMG[i].sprite = meal.recipeIngredients[i].ingredientScriptable.myImage;
         }
 
+        StartCoroutine(TimeCountDown());
+
+    }
+
+    IEnumerator TimeCountDown()
+    {
+        while(mealTime >= 0)
+        {
+            yield return new WaitForSeconds(1);
+            mealTime -= 1;
+            timeCount.fillAmount = (float)mealTime / (float)orignalMealTime;
+            Debug.Log(timeCount);
+        } 
     }
 }

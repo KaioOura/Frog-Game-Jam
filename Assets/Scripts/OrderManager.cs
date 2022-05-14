@@ -19,7 +19,7 @@ public class OrderManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -29,7 +29,12 @@ public class OrderManager : MonoBehaviour
 
         if (timeTracker < difficultyBreakdown[difficultyIndex])
         {
-            difficultyIndex++;
+            //difficultyIndex++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SpawnOrder(0);
         }
 
     }
@@ -39,7 +44,7 @@ public class OrderManager : MonoBehaviour
     {
         List<Meal> mealsAvailable = new List<Meal>();
 
-        for (int i = 0; i < difficulty; i++)
+        for (int i = 0; i < difficulty + 1; i++)
         {
             if (i == 0)
             {
@@ -51,32 +56,37 @@ public class OrderManager : MonoBehaviour
                     }
                 }
             }
-            else if (i == 1)
-            {
-                foreach (var item in meals)
-                {
-                    if (item.difficulty == Meal.Difficulty.normal)
-                    {
-                        mealsAvailable.Add(item);
-                    }
-                }
-            }
-            else if (i == 2)
-            {
-                foreach (var item in meals)
-                {
-                    if (item.difficulty == Meal.Difficulty.hard)
-                    {
-                        mealsAvailable.Add(item);
-                    }
-                }
-            }
+            //else if (i == 1)
+            //{
+            //    foreach (var item in meals)
+            //    {
+            //        if (item.difficulty == Meal.Difficulty.normal)
+            //        {
+            //            mealsAvailable.Add(item);
+            //        }
+            //    }
+            //}
+            //else if (i == 2)
+            //{
+            //    foreach (var item in meals)
+            //    {
+            //        if (item.difficulty == Meal.Difficulty.hard)
+            //        {
+            //            mealsAvailable.Add(item);
+            //        }
+            //    }
+            //}
         }
 
         //Spawnar order
 
         int randMeal = Random.Range(0, mealsAvailable.Count);
-        Order order = Instantiate(orderGO);
-        
+
+        Debug.Log($"Meal {mealsAvailable.Count}");
+
+        Order order = Instantiate(orderGO, ordersPos);
+
+        order.InitializeOrder(mealsAvailable[0]);
+
     }
 }
