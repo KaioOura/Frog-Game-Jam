@@ -35,11 +35,11 @@ public class PlayerTongueAction : MonoBehaviour
 
         tongueTimer += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.W) && tongueTimer > tongueCooldown)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z) && tongueTimer > tongueCooldown)
         {
             LaunchTongue();
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X))
         {
             bellyFrog.ThrowUpAllIngredients();
         }

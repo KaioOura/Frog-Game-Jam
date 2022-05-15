@@ -11,6 +11,8 @@ public class BellyDisplay : MonoBehaviour
     public GameObject mealBG;
     public Image mealImage;
 
+    public Image ballon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,7 @@ public class BellyDisplay : MonoBehaviour
     {
         if (bellyFrog.belly.Count < 1)
         {
+            ballon.enabled = false;
             foreach (var item in bellySlot)
             {
                 item.gameObject.SetActive(false);
@@ -47,6 +50,8 @@ public class BellyDisplay : MonoBehaviour
 
             return;
         }
+
+        ballon.enabled = true;
 
         for (int i = 0; i < bellyFrog.belly.Count; i++)
         {

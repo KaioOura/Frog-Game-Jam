@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 TurnLeft();
             }
-            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightAlt))
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 TurnRight();
             }
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 TurnLeft();
             }
-            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightAlt))
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 TurnRight();
             }

@@ -15,11 +15,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] gameMusics;
     public AudioClip menuGame;
 
-    public Slider masterSlider;
-    public Slider musicSlider;
-    public Slider sfxSlider;
-
     public float audioSourceMaxVolume;
+
+    public Slider sliderMaster;
+    public Slider sliderMusic;
+    public Slider sliderVolume;
 
     private void Awake()
     {
@@ -32,9 +32,13 @@ public class AudioManager : MonoBehaviour
         audioSourceMaxVolume = audioSource.volume;
 
         PlayMenuMusic();
-        audioMixer.SetFloat("VolumeMaster", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMasterVolume));
-        audioMixer.SetFloat("VolumeMusic", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMusicVolume));
-        audioMixer.SetFloat("VolumeSFX", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioSFXVolume));
+        audioMixer.SetFloat("VolumeMaster", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMasterVolume, -10));
+        audioMixer.SetFloat("VolumeMusic", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMusicVolume, -10));
+        audioMixer.SetFloat("VolumeSFX", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioSFXVolume, -10));
+
+        sliderMaster.value = PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMasterVolume, -10);
+        sliderMusic.value = PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMusicVolume, -10);
+        sliderVolume.value = PlayerPrefs.GetFloat(PlayerPrefsSettings.audioSFXVolume, -10);
 
     }
 

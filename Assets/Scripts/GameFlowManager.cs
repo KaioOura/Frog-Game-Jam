@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameFlowManager : MonoBehaviour
 {
     public GameObject pausePage;
+    bool isPause = false;
 
     // Start is called before the first frame update
     void Start()
@@ -16,11 +17,15 @@ public class GameFlowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape) && (GameManager.instance.gameStates == GameManager.GameStates.game || GameManager.instance.gameStates == GameManager.GameStates.pause))
+        {
+            PauseGame(!isPause);
+        }
     }
 
     public void PauseGame(bool pause)
     {
+        isPause = !isPause;
         if (pause)
         {
             GameManager.instance.gameStates = GameManager.GameStates.pause;

@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void UpdateCurrentScore(int scoreToUpdate)
@@ -106,4 +105,5 @@ public class UIManager : MonoBehaviour
     {
         bellyFrogImage.fillAmount = value / maxValue;
     }
+    
 }

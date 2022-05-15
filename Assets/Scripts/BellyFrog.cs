@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class BellyFrog : MonoBehaviour
 {
-    public GameObject saliva_VFX,Jaw_Pos;
+    public GameObject saliva_VFX, Jaw_Pos;
     public ParticleSystem Sweat_VFX;
 
     public Animation_Controller animationController;
@@ -34,6 +34,7 @@ public class BellyFrog : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip[] swallowClip;
+    public AudioClip succesMeal;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,9 @@ public class BellyFrog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+            return;
+
         CheckFoodInBelly();
     }
 
@@ -75,7 +79,7 @@ public class BellyFrog : MonoBehaviour
         int rand = UnityEngine.Random.Range(0, swallowClip.Length);
         audioSource.PlayOneShot(swallowClip[rand]);
         Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
-        OrderManager.instance.CheckMeal(activeMeal, true);
+        OrderManager.instance.CheckMeal(activeMeal, true, () =>  audioSource.PlayOneShot(succesMeal));
         mealGO.SetActive(true);
         mealGO.gameObject.transform.position = JawPos.position + PosOffset;
         mealGO.transform.DOMove(cartPos.position, 0.1f).OnComplete(() =>
@@ -83,7 +87,7 @@ public class BellyFrog : MonoBehaviour
             OrderManager.instance.CheckMeal(activeMeal);
             CartAnimator.SetTrigger("Cart Out");
             mealGO.transform.SetParent(cartPos);
-            Destroy(mealGO,0.2f);
+            Destroy(mealGO, 0.2f);
             activeMeal = null;
             mealGO = null;
             frogController.SetBool("Has recipe", false);
@@ -105,21 +109,21 @@ public class BellyFrog : MonoBehaviour
 
         if (activeMeal != null)
         {
-            frogController.SetBool("Has recipe",true);
+            frogController.SetBool("Has recipe", true);
             foreach (var item in belly)
             {
                 Destroy(item.gameObject);
             }
 
             //Spawnar e lancar meal
-            
+
             MealGO _mealGO = Instantiate(activeMeal.mealGO);
             mealGO = _mealGO.gameObject;
             mealGO.SetActive(false);
             _mealGO.transform.position = bellyPos.transform.position;
             frogController.SetTrigger("Food Out");
             animationController.realayerWeight = 0;
-            
+
             //Move Meal to Cart agora está sendo comandada por eventos na animação
             //MoveMealToCart();
 
@@ -140,14 +144,14 @@ public class BellyFrog : MonoBehaviour
                 numIngredients--;
                 yield return new WaitForSeconds(0.17f);
             }
-                    
+
             belly.Clear();
             bellyDisplay.UpdateUI();
             bellyDisplay.UpdateMealUI(null);
 
             isThrowingUp = false;
-    }
         }
+    }
 
 
 
@@ -225,8 +229,9 @@ public class BellyFrog : MonoBehaviour
     {
         if (belly.Count > 0 && GameManager.instance.gameStates == GameManager.GameStates.game)
         {
-            if(timeFoodInBelly != 0){
-                Sweat_VFX.emissionRate = (15*timeFoodInBelly)/ maxTimeInBelly;
+            if (timeFoodInBelly != 0)
+            {
+                Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
             }
 
             timeFoodInBelly += Time.deltaTime;

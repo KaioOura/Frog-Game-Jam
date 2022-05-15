@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class OrderManager : MonoBehaviour
 {
@@ -108,7 +109,7 @@ public class OrderManager : MonoBehaviour
 
         //Spawnar order
 
-        int randMeal = Random.Range(0, mealsAvailable.Count);
+        int randMeal = UnityEngine.Random.Range(0, mealsAvailable.Count);
 
         Debug.Log($"Meal {mealsAvailable.Count}");
 
@@ -132,10 +133,11 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    public void CheckMeal(Meal meal, bool stopTimer)
+    public void CheckMeal(Meal meal, bool stopTimer, Action action = null)
     {
         if (IsMealMatch(meal, true))
         {
+            action?.Invoke();
             Debug.Log("Pontua��o!");
         }
     }

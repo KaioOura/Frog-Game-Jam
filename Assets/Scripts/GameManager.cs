@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour
         if (currentScore > highScore)
         {
             highScore = currentScore;
+            PlayerPrefs.SetFloat(PlayerPrefsSettings.highScore, highScore);
+        }
+        else
+        {
+            highScore = (int)PlayerPrefs.GetFloat(PlayerPrefsSettings.highScore, 0);
         }
 
        // OrderManager.instance.ResetOrders();
