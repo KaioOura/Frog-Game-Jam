@@ -6,7 +6,9 @@ using DG.Tweening;
 
 public class BellyFrog : MonoBehaviour
 {
-    
+    public GameObject saliva_VFX,Jaw_Pos;
+
+
     public Animation_Controller animationController;
     public Animator CartAnimator;
     public Animator frogController;
@@ -72,6 +74,7 @@ public class BellyFrog : MonoBehaviour
     {
         int rand = UnityEngine.Random.Range(0, swallowClip.Length);
         audioSource.PlayOneShot(swallowClip[rand]);
+        Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
         OrderManager.instance.CheckMeal(activeMeal, true);
         mealGO.SetActive(true);
         mealGO.gameObject.transform.position = JawPos.position + PosOffset;
@@ -130,7 +133,7 @@ public class BellyFrog : MonoBehaviour
 
                 int rand = UnityEngine.Random.Range(0, swallowClip.Length);
                 audioSource.PlayOneShot(swallowClip[rand]);
-
+                Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
                 animationController.realayerWeight -= 0.25f;
                 frogController.SetTrigger("Food Out");
                 LaunchIngredient(belly[numIngredients]);
