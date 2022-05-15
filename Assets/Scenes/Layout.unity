@@ -1776,6 +1776,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1042569667}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &176612960
 GameObject:
   m_ObjectHideFlags: 0
@@ -3036,6 +3038,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 754872434}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &379646786
 GameObject:
   m_ObjectHideFlags: 0
@@ -3948,6 +3952,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 2026909263}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &514109266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4756,7 +4762,7 @@ Transform:
   - {fileID: 1605203881}
   - {fileID: 271194107}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &567366229
 MonoBehaviour:
@@ -4773,6 +4779,7 @@ MonoBehaviour:
   tongue: {fileID: 735878598}
   tongueScript: {fileID: 735878602}
   bellyFrog: {fileID: 567366231}
+  frog_animation_controller: {fileID: 0}
   tongueCooldown: 0.4
   timeTongueShowing: 0.3
   isUsingTongue: 0
@@ -4886,14 +4893,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e700be33bc01f14da0440622aa32937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationController: {fileID: 0}
+  frogController: {fileID: 0}
   bellyDisplay: {fileID: 883258363}
   belly: []
   maxIngredients: 3
   bellyPos: {fileID: 1605203881}
+  tongue: {fileID: 0}
   meals:
   - {fileID: 11400000, guid: 7e579d631e22dfd4ca88d765482d17d4, type: 2}
   - {fileID: 11400000, guid: 26930eb21eaed8141aa491d70605c4be, type: 2}
   activeMeal: {fileID: 0}
+  cartPos: {fileID: 0}
 --- !u!114 &567366232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4908,7 +4919,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   am: {fileID: 837066841}
   rotation_value: 0
+  LayerUpdate_speed: 0
   update_speed: 0.2
+  layerWeight: 0
+  realayerWeight: 0
   playermov: {fileID: 567366224}
 --- !u!1 &570611693
 GameObject:
@@ -5875,6 +5889,8 @@ MonoBehaviour:
   myMeal: {fileID: 0}
   mealImage: {fileID: 0}
   recipeIngredientsIMG: []
+  mealTime: 0
+  timeCount: {fileID: 0}
 --- !u!1 &695578467
 GameObject:
   m_ObjectHideFlags: 0
@@ -7059,6 +7075,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1309715975}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &813659365
 GameObject:
   m_ObjectHideFlags: 0
@@ -7643,7 +7661,7 @@ Transform:
   - {fileID: 1741938856}
   - {fileID: 365575165}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &854019282
 MonoBehaviour:
@@ -9290,6 +9308,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1880639704}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &993900914
 GameObject:
   m_ObjectHideFlags: 0
@@ -13061,6 +13081,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 358434755}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1351368171
 GameObject:
   m_ObjectHideFlags: 0
@@ -13210,6 +13232,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1953074964}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1387623620
 GameObject:
   m_ObjectHideFlags: 0
@@ -14311,6 +14335,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 229348829}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1512994157
 GameObject:
   m_ObjectHideFlags: 0
@@ -14439,7 +14465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 24.200012, y: 0}
+  m_AnchoredPosition: {x: 24.200073, y: 0}
   m_SizeDelta: {x: 650.226, y: 136.682}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1540624281
@@ -14976,6 +15002,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 944987010}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1605203880
 GameObject:
   m_ObjectHideFlags: 0
@@ -16108,6 +16136,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1008052530}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1753058251
 GameObject:
   m_ObjectHideFlags: 0
@@ -16346,6 +16376,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 2093606643}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1805059355
 GameObject:
   m_ObjectHideFlags: 0
@@ -16901,6 +16933,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1037224165}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1880639703
 GameObject:
   m_ObjectHideFlags: 0
@@ -17244,6 +17278,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 327280581}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &1939824557
 GameObject:
   m_ObjectHideFlags: 0
@@ -18392,6 +18428,8 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 424875652}
+  plateGO: {fileID: 0}
+  plateAnimator: {fileID: 0}
 --- !u!1 &2081453663
 GameObject:
   m_ObjectHideFlags: 0
@@ -19046,7 +19084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4592955038051781535, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4592955038051781535, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19107,7 +19145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4286592312025066313, guid: 582ce909987244241b200ea7b570be70, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4286592312025066313, guid: 582ce909987244241b200ea7b570be70, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19168,7 +19206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7222676615479738251, guid: f53c25dced7eed44aa0379ca69e77b4e, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7222676615479738251, guid: f53c25dced7eed44aa0379ca69e77b4e, type: 3}
       propertyPath: m_LocalPosition.x

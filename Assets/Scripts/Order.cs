@@ -49,7 +49,14 @@ public class Order : MonoBehaviour
     {
         while(mealTime >= 0)
         {
+            if (GameManager.instance.gameStates == GameManager.GameStates.menu)
+            {
+                RemoveOrder();
+                break;
+            }
+
             yield return new WaitForSeconds(1);
+
             mealTime -= 1;
             timeCount.fillAmount = (float)mealTime / (float)orignalMealTime;
             Debug.Log(timeCount);
@@ -61,6 +68,7 @@ public class Order : MonoBehaviour
 
     public void RemoveOrder()
     {
+        OrderManager.instance.RemoveOrderFromList(this);
         StopAllCoroutines();
         Destroy(gameObject);
     }

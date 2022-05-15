@@ -125,6 +125,14 @@ public class OrderManager : MonoBehaviour
         }
     }
 
+    public void CheckMeal(Meal meal, bool stopTimer)
+    {
+        if (IsMealMatch(meal, true))
+        {
+            Debug.Log("Pontuação!");
+        }
+    }
+
     public bool IsMealMatch(Meal meal)
     {
         bool isMatch = false;
@@ -143,5 +151,37 @@ public class OrderManager : MonoBehaviour
         return isMatch;
     }
 
+    bool IsMealMatch(Meal meal, bool stopTimer)
+    {
+        bool isMatch = false;
+
+        foreach (var item in activeOrders)
+        {
+            if (item.myMeal == meal)
+            {
+                isMatch = true;
+                item.StopAllCoroutines();
+                break;
+            }
+        }
+
+        return isMatch;
+    }
+
+    public void ResetOrders()
+    {
+        foreach (var item in activeOrders)
+        {
+            item.RemoveOrder();
+        }
+    }
+
+    public void RemoveOrderFromList(Order order)
+    {
+        if (activeOrders.Contains(order))
+        {
+            activeOrders.Remove(order);
+        }
+    }
 
 }

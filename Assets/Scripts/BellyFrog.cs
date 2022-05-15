@@ -24,6 +24,9 @@ public class BellyFrog : MonoBehaviour
 
     public Transform cartPos;
 
+    public AudioSource audioSource;
+    public AudioClip[] swallowClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +63,8 @@ public class BellyFrog : MonoBehaviour
 
     public void MoveMealToCart()
     {
+        OrderManager.instance.CheckMeal(activeMeal, true);
+
         mealGO.transform.DOMove(cartPos.position, 0.2f).OnComplete(() =>
         {
             OrderManager.instance.CheckMeal(activeMeal);
@@ -87,7 +92,8 @@ public class BellyFrog : MonoBehaviour
             _mealGO.transform.position = bellyPos.transform.position;
             frogController.SetTrigger("Food Out");
             animationController.realayerWeight = 0;
-
+            int rand = UnityEngine.Random.Range(0, swallowClip.Length);
+            audioSource.PlayOneShot(swallowClip[rand]);
             MoveMealToCart();
 
             //_mealGO.LaunchItSelf(transform.forward);
@@ -97,6 +103,10 @@ public class BellyFrog : MonoBehaviour
         {
             while (numIngredients >= 0)
             {
+
+                int rand = UnityEngine.Random.Range(0, swallowClip.Length);
+                audioSource.PlayOneShot(swallowClip[rand]);
+
                 animationController.realayerWeight -= 0.25f;
                 frogController.SetTrigger("Food Out");
                 LaunchIngredient(belly[numIngredients]);
@@ -168,6 +178,13 @@ public class BellyFrog : MonoBehaviour
         }
 
         return meal;
+    }
+
+    public void ResetBellyFrog()
+    {
+        belly.Clear();
+        bellyDisplay.UpdateUI();
+        bellyDisplay.UpdateMealUI(null);
     }
 
 }

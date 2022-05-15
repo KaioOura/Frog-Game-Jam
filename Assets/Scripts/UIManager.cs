@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI currentScore;
 
+    public GameObject menu;
+
     private void Awake()
     {
         instance = this;
@@ -59,5 +61,17 @@ public class UIManager : MonoBehaviour
             lifeImages[i].gameObject.SetActive(true);
         }
 
+    }
+
+    public void ShowHideMenu(bool shouldShow)
+    {
+        if (shouldShow)
+        {
+            menu.SetActive(true);
+        }
+        else
+        {
+            menu.SetActive(false);
+        }
     }
 }

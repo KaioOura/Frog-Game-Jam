@@ -19,6 +19,9 @@ public class IngredientSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+            return;
+
         if (Time.time > timeTrack)
         {
             timeTrack = Time.time + timeSpawn;

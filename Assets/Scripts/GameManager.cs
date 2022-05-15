@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public BellyFrog bellyFrog;
+    public Animator an;
+
     public enum GameStates { menu, pause, game, finish}
     public GameStates gameStates;
 
@@ -36,6 +39,32 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         gameStates = GameStates.game;
+
+        ResetScore();
+        ResetLife();
+
+        IngredientScriptable[] ingredients = FindObjectsOfType<IngredientScriptable>();
+
+        foreach (var item in ingredients)
+        {
+            Destroy(item);
+        }
+
+        OrderManager.instance.ResetOrders();
+
+        bellyFrog.ResetBellyFrog();
+
+        UIManager.instance.ShowHideMenu(shouldShow: false);
+
+        an.SetTrigger("Game");
+    }
+
+    public void LoseGame()
+    {
+        gameStates = GameStates.finish;
+        an.SetTrigger("Menu");
+        UIManager.instance.ShowHideMenu(shouldShow: true);
+
     }
 
     public void AddScore(int scoreToAdd)
@@ -54,9 +83,9 @@ public class GameManager : MonoBehaviour
         lives += changeAmount;
         UIManager.instance.UpdateLives(lives);
 
-        if (lives <= 0)
+        if (lives <= 0 && gameStates == GameStates.game)
         {
-            gameStates = GameStates.finish;
+            LoseGame();
 
             //Trigar tela de derrota, mostrar score, highscore, etc
         }
