@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Macarrao_Almondegas
   m_EditorClassIdentifier: 
   mealName: "Macarr\xE3o Almondegas"
-  score: 50
-  image: {fileID: 21300000, guid: e028b3fda24b20f49acbce1d7538507b, type: 3}
-  timeSecondsToPrepare: 30
+  score: 75
+  image: {fileID: 21300000, guid: 9c6a182356520794a85b20033a238cc3, type: 3}
+  timeSecondsToPrepare: 60
   mealGO: {fileID: 8455296564966409583, guid: e541ea9b7de78f64399d1a2ce920132b, type: 3}
   myMeal: 5
   difficulty: 1

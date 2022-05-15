@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Macarrao_Camarao
   m_EditorClassIdentifier: 
   mealName: "Macarr\xE3o Camar\xE3o"
-  score: 50
-  image: {fileID: 21300000, guid: e028b3fda24b20f49acbce1d7538507b, type: 3}
-  timeSecondsToPrepare: 30
-  mealGO: {fileID: 8455296564966409583, guid: 9a09636cc1ed01647a42b60e70337fd9, type: 3}
+  score: 100
+  image: {fileID: 21300000, guid: 97aeb7ac91dfab04e89010553276a6ca, type: 3}
+  timeSecondsToPrepare: 80
+  mealGO: {fileID: 8455296564966409583, guid: b273a2ff336b18642aa24b8918f79a89, type: 3}
   myMeal: 2
-  difficulty: 1
+  difficulty: 2
   recipeIngredients:
   - ingredientEnum: 1
     difficulty: 0

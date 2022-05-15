@@ -13,16 +13,22 @@ MonoBehaviour:
   m_Name: Pizza_Pepperoni
   m_EditorClassIdentifier: 
   mealName: Macarrao Queijo
-  score: 50
-  image: {fileID: 21300000, guid: e028b3fda24b20f49acbce1d7538507b, type: 3}
-  timeSecondsToPrepare: 30
-  mealGO: {fileID: 8455296564966409583, guid: 47148f03bab8a374a9f449f89e3d80b3, type: 3}
-  myMeal: 0
-  difficulty: 0
+  score: 100
+  image: {fileID: 21300000, guid: 1f8b585735c07214aa7dd5ce24699452, type: 3}
+  timeSecondsToPrepare: 80
+  mealGO: {fileID: 8455296564966409583, guid: 69a1fb2017fb68b4eabd6a0b039a0d59, type: 3}
+  myMeal: 6
+  difficulty: 2
   recipeIngredients:
-  - ingredientEnum: 1
+  - ingredientEnum: 8
     difficulty: 0
-    ingredientScriptable: {fileID: 6307512029431296222, guid: f53c25dced7eed44aa0379ca69e77b4e, type: 3}
+    ingredientScriptable: {fileID: 7837796086130080073, guid: 9e08ac8da51f7ab448fed38ba99a1e76, type: 3}
   - ingredientEnum: 2
     difficulty: 0
     ingredientScriptable: {fileID: 867407597217187018, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}
+  - ingredientEnum: 0
+    difficulty: 0
+    ingredientScriptable: {fileID: 633277087768994844, guid: 582ce909987244241b200ea7b570be70, type: 3}
+  - ingredientEnum: 9
+    difficulty: 0
+    ingredientScriptable: {fileID: 4623350457961759635, guid: 1f6473731794ec44e926e3943fcf01e7, type: 3}
