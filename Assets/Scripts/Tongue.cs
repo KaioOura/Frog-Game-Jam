@@ -11,6 +11,9 @@ public class Tongue : MonoBehaviour
     public bool isTongueOccupied;
     public IngredientScriptable ingredientCollected;
 
+    public AudioSource audioSource;
+    public AudioClip[] swallow;
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +61,8 @@ public class Tongue : MonoBehaviour
         //Adicionar ingrediente na lista de ingredientes na barriga
         if (ingredientCollected != null)
         {
+            int rand = Random.Range(0, swallow.Length);
+            audioSource.PlayOneShot(swallow[rand]);
             bellyFrog.AddIngredient(ingredientCollected);
             ingredientCollected = null;
         }

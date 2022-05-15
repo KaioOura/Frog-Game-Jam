@@ -19,7 +19,7 @@ public class PlayerTongueAction : MonoBehaviour
 
     [Header("Sounds")]
     public AudioSource audioSource;
-    public AudioClip tongueClip;
+    public AudioClip[] tongueClip;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +47,8 @@ public class PlayerTongueAction : MonoBehaviour
 
     public void LaunchTongue()
     {
-        //audioSource.PlayOneShot(tongueClip);
+        int rand = Random.Range(0, tongueClip.Length);
+        audioSource.PlayOneShot(tongueClip[rand]);
         frog_animation_controller.am.SetTrigger("Attack");
         tongueTimer = 0;
         isUsingTongue = true;

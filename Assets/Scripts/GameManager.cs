@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
 
     public int lives;
 
-
-
     private void Awake()
     {
         instance = this;
@@ -59,6 +57,8 @@ public class GameManager : MonoBehaviour
         UIManager.instance.ShowHideMenu(shouldShow: false);
 
         an.SetTrigger("Game");
+
+        AudioManager.instance.PlayGameMusic();
     }
 
     public void LoseGame()
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMenu()
     {
+        AudioManager.instance.PlayMenuMusic();
         UIManager.instance.ShowHideMenu(shouldShow: true);
     }
 
