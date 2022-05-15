@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -63,6 +64,8 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame()
     {
+        var rotationVector = new Vector3(0,180,0);
+        bellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;
         an.SetTrigger("Menu");
         UIManager.instance.ShowHidePostGame(shouldShow: true);
