@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &539962399013206327
+--- !u!1 &1386686277515706209
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,73 +8,73 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4286592312025066313}
-  - component: {fileID: 7061825123847770046}
-  - component: {fileID: 633277087768994844}
-  - component: {fileID: -3318607344491591761}
+  - component: {fileID: 3403916327405497631}
+  - component: {fileID: 8520968457840527848}
+  - component: {fileID: 2056439711196111434}
+  - component: {fileID: 5022035927998333433}
   m_Layer: 0
-  m_Name: Tomato
+  m_Name: Camarao
   m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4286592312025066313
+--- !u!4 &3403916327405497631
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539962399013206327}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.3527703, y: 1.497745, z: -1.0620002}
+  m_GameObject: {fileID: 1386686277515706209}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.894, y: 1.497745, z: -1.0620002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5422807356749107673}
+  - {fileID: 1531708002381696221}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7061825123847770046
+--- !u!135 &8520968457840527848
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539962399013206327}
+  m_GameObject: {fileID: 1386686277515706209}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &633277087768994844
+--- !u!114 &2056439711196111434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539962399013206327}
+  m_GameObject: {fileID: 1386686277515706209}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0973f193facb6f4499f583f1ba70d8f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myName: NonTransgenicTomato
+  myName: Camarao
   baseScore: 0
-  myImage: {fileID: 21300000, guid: 2f8db1a8cdab9b14c8e9af17c982a373, type: 3}
+  myImage: {fileID: 21300000, guid: 62a3d34c351ef744fbed26603c4b674b, type: 3}
   foodGO: {fileID: 0}
-  rb: {fileID: -3318607344491591761}
-  col: {fileID: 7061825123847770046}
+  rb: {fileID: 5022035927998333433}
+  col: {fileID: 8520968457840527848}
   ingredient:
-    ingredientEnum: 0
+    ingredientEnum: 3
     ingredientScriptable: {fileID: 0}
---- !u!54 &-3318607344491591761
+--- !u!54 &5022035927998333433
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539962399013206327}
+  m_GameObject: {fileID: 1386686277515706209}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -84,69 +84,69 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &5533542896224613938
+--- !u!1001 &1354177407537965878
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4286592312025066313}
+    m_TransformParent: {fileID: 3403916327405497631}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.057452347
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+    - target: {fileID: -7511558181221131132, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 72d0f9f48e7aa3147bedb1ca574b4bb0, type: 2}
-    - target: {fileID: 919132149155446097, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+      objectReference: {fileID: 2100000, guid: c53d978d693ff434ba7d25f718ca3179, type: 2}
+    - target: {fileID: 919132149155446097, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_Name
-      value: TomateFBX
+      value: CamaraoFBX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
---- !u!4 &5422807356749107673 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
+--- !u!4 &1531708002381696221 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
-  m_PrefabInstance: {fileID: 5533542896224613938}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
+  m_PrefabInstance: {fileID: 1354177407537965878}
   m_PrefabAsset: {fileID: 0}

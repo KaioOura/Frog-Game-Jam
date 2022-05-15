@@ -64,7 +64,7 @@ public class BellyFrog : MonoBehaviour
 
     public void ThrowUpAllIngredients()
     {
-        if (isThrowingUp)
+        if (isThrowingUp || tongue.isTongueOccupied)
             return;
 
         StartCoroutine(ThrowUpIngredients());

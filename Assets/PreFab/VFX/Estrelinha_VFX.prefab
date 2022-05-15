@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7769493904050122182}
   - component: {fileID: 9196208070920377313}
   m_Layer: 0
-  m_Name: Right Order
+  m_Name: Estrelinha_VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

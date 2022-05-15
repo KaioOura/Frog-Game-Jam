@@ -41,7 +41,7 @@ public class IngredientScriptable : MonoBehaviour
 [Serializable]
 public class IngredientBase
 {
-    public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo };
+    public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo, alho, farinha, pepperoni };
     public Ingredients ingredientEnum;
     public IngredientScriptable ingredientScriptable;
 }

@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
             highScore = currentScore;
         }
 
+        OrderManager.instance.ResetOrders();
+
         UIManager.instance.UpdateCurrentFinalScore(currentScore);
         UIManager.instance.UpdateCurrentHighScore(highScore);
     }
