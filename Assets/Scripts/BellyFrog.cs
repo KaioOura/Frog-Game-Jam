@@ -8,6 +8,7 @@ public class BellyFrog : MonoBehaviour
 {
     
     public Animation_Controller animationController;
+    public Animator CartAnimator;
     public Animator frogController;
     public BellyDisplay bellyDisplay;
     public List<IngredientScriptable> belly;
@@ -72,7 +73,9 @@ public class BellyFrog : MonoBehaviour
         mealGO.transform.DOMove(cartPos.position, 0.1f).OnComplete(() =>
         {
             OrderManager.instance.CheckMeal(activeMeal);
-            Destroy(mealGO);
+            CartAnimator.SetTrigger("Cart Out");
+            mealGO.transform.SetParent(cartPos);
+            Destroy(mealGO,0.2f);
             activeMeal = null;
             mealGO = null;
             frogController.SetBool("Has recipe", false);
