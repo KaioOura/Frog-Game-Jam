@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
+        if (GameManager.instance.gameStates == GameManager.GameStates.game)
+            HandleInput();
     }
 
     void HandleInput()

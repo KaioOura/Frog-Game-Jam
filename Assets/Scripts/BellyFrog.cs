@@ -63,6 +63,7 @@ public class BellyFrog : MonoBehaviour
         mealGO.transform.DOMove(cartPos.position, 0.2f).OnComplete(() =>
         {
             OrderManager.instance.CheckMeal(activeMeal);
+            Destroy(mealGO);
             activeMeal = null;
             mealGO = null;
         });

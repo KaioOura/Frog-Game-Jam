@@ -13,7 +13,7 @@ public class PlayerTongueAction : MonoBehaviour
     public float timeTongueShowing = 0.3f;
 
     public bool isUsingTongue;
-    
+
 
     [Header("Sounds")]
     public AudioSource audioSource;
@@ -22,12 +22,15 @@ public class PlayerTongueAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+            return;
+
         tongueTimer += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.W) && tongueTimer > tongueCooldown)
@@ -48,7 +51,7 @@ public class PlayerTongueAction : MonoBehaviour
         //tongue.SetActive(true);
         tongueScript.AttackTongue();
         StartCoroutine(TongueVisibleTimer());
-        
+
     }
 
     IEnumerator TongueVisibleTimer()

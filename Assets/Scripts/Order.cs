@@ -53,11 +53,15 @@ public class Order : MonoBehaviour
             mealTime -= 1;
             timeCount.fillAmount = (float)mealTime / (float)orignalMealTime;
             Debug.Log(timeCount);
-        } 
+        }
+
+        GameManager.instance.ChangeLife(-1);
+        RemoveOrder();
     }
 
     public void RemoveOrder()
     {
+        StopAllCoroutines();
         Destroy(gameObject);
     }
 }

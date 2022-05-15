@@ -37,6 +37,10 @@ public class OrderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+            return;
+
         timeTracker += Time.deltaTime;
         timeSpawn += Time.deltaTime;
 
@@ -116,6 +120,7 @@ public class OrderManager : MonoBehaviour
         if (IsMealMatch(meal))
         {
             //Creditar pontos, feedbck de acerto, sumir com pedido
+            GameManager.instance.AddScore(meal.score);
             Debug.Log("Pontuação!");
         }
     }

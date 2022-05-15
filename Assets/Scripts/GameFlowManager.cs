@@ -23,12 +23,14 @@ public class GameFlowManager : MonoBehaviour
     {
         if (pause)
         {
+            GameManager.instance.gameStates = GameManager.GameStates.pause;
             pausePage.SetActive(true);
             Time.timeScale = 0;
         }
         else
         {
             Time.timeScale = 1;
+            GameManager.instance.gameStates = GameManager.GameStates.game;
             pausePage.SetActive(false);
         }
     }
