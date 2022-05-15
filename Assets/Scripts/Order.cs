@@ -49,10 +49,9 @@ public class Order : MonoBehaviour
     {
         while(mealTime >= 0)
         {
-            if (GameManager.instance.gameStates == GameManager.GameStates.menu)
+            if (GameManager.instance.gameStates == GameManager.GameStates.finish)
             {
-                RemoveOrder();
-                break;
+                yield break;
             }
 
             yield return new WaitForSeconds(1);

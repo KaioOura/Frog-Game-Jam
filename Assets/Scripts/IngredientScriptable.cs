@@ -43,5 +43,8 @@ public class IngredientBase
 {
     public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo, alho, farinha, pepperoni };
     public Ingredients ingredientEnum;
+    public enum Difficulty { easy, normal, hard }
+    public Difficulty difficulty;
+
     public IngredientScriptable ingredientScriptable;
 }

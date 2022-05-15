@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
-    public GameObject[] ingredientsPrefab;
+    public IngredientScriptable[] ingredientsPrefab;
     public Treadmill treadmill;
 
     public float timeSpawn = 0.5f;
@@ -41,10 +41,47 @@ public class IngredientSpawner : MonoBehaviour
             //Checa se existe um prato que ainda não ativo e se não está ocupado
             if (treadmill.positions[i].posIndex == 0 && !treadmill.positions[i].IsOccupied())
             {
-                int rand = Random.Range(0, ingredientsPrefab.Length); 
 
-                GameObject go = Instantiate(ingredientsPrefab[rand], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
-                treadmill.positions[i].AssignIngredient(go);
+                List<IngredientScriptable> ingredientsAvailable = new List<IngredientScriptable>();
+
+                for (int y = 0; y < OrderManager.instance.difficultyIndex + 1; y++)
+                {
+                    if (y == 0)
+                    {
+                        foreach (var item in ingredientsPrefab)
+                        {
+                            if (item.ingredient.difficulty == IngredientBase.Difficulty.easy)
+                            {
+                                ingredientsAvailable.Add(item);
+                            }
+                        }
+                    }
+                    else if (y == 1)
+                    {
+                        foreach (var item in ingredientsPrefab)
+                        {
+                            if (item.ingredient.difficulty == IngredientBase.Difficulty.normal)
+                            {
+                                ingredientsAvailable.Add(item);
+                            }
+                        }
+                    }
+                    else if (y == 2)
+                    {
+                        foreach (var item in ingredientsPrefab)
+                        {
+                            if (item.ingredient.difficulty == IngredientBase.Difficulty.hard)
+                            {
+                                ingredientsAvailable.Add(item);
+                            }
+                        }
+                    }
+                }
+
+                int rand = Random.Range(0, ingredientsAvailable.Count); 
+
+                IngredientScriptable go = Instantiate(ingredientsAvailable[rand], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
+                treadmill.positions[i].AssignIngredient(go.gameObject);
                 break;
             }
         }

@@ -67,6 +67,7 @@ MonoBehaviour:
   col: {fileID: 7061825123847770046}
   ingredient:
     ingredientEnum: 0
+    difficulty: 1
     ingredientScriptable: {fileID: 0}
 --- !u!54 &-3318607344491591761
 Rigidbody:

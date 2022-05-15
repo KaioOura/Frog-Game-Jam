@@ -43,7 +43,8 @@ public class GameManager : MonoBehaviour
         
         ResetScore();
         ResetLife();
-        
+        OrderManager.instance.ResetOrders();
+
         IngredientScriptable[] ingredients = FindObjectsOfType<IngredientScriptable>();
 
         foreach (var item in ingredients)
@@ -51,8 +52,6 @@ public class GameManager : MonoBehaviour
             Destroy(item.gameObject);
 
         }
-
-        OrderManager.instance.ResetOrders();
 
         bellyFrog.ResetBellyFrog();
 
@@ -77,7 +76,7 @@ public class GameManager : MonoBehaviour
             highScore = currentScore;
         }
 
-        OrderManager.instance.ResetOrders();
+       // OrderManager.instance.ResetOrders();
 
         UIManager.instance.UpdateCurrentFinalScore(currentScore);
         UIManager.instance.UpdateCurrentHighScore(highScore);

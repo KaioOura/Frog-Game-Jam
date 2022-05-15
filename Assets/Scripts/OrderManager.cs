@@ -48,9 +48,10 @@ public class OrderManager : MonoBehaviour
         timeTracker += Time.deltaTime;
         timeSpawn += Time.deltaTime;
 
-        if (timeTracker > difficultyBreakdown[difficultyIndex])
+        if (timeTracker > difficultyBreakdown[difficultyIndex] && difficultyIndex < difficultyBreakdown.Length - 1)
         {
             difficultyIndex++;
+            timeTracker = 0;
         }
 
         if (timeSpawn > timeToSpawn[difficultyIndex] && activeOrders.Count < maxOrders)
@@ -176,10 +177,17 @@ public class OrderManager : MonoBehaviour
 
     public void ResetOrders()
     {
+
+        timeTracker = 0;
+        timeSpawn = 0;
+        difficultyIndex = 0;
+
         foreach (var item in activeOrders)
         {
-            item.RemoveOrder();
+            Destroy(item.gameObject);
         }
+
+        activeOrders.Clear();
     }
 
     public void RemoveOrderFromList(Order order)

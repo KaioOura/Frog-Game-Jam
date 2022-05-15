@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386686277515706209}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.894, y: 1.497745, z: -1.0620002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -67,6 +67,7 @@ MonoBehaviour:
   col: {fileID: 8520968457840527848}
   ingredient:
     ingredientEnum: 3
+    difficulty: 1
     ingredientScriptable: {fileID: 0}
 --- !u!54 &5022035927998333433
 Rigidbody:
@@ -94,6 +95,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
       propertyPath: m_LocalPosition.x
