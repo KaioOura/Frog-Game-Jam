@@ -108,6 +108,7 @@ public class OrderManager : MonoBehaviour
         Debug.Log($"Meal {mealsAvailable.Count}");
 
         Order order = Instantiate(orderGO, ordersPos);
+        order.transform.localPosition = new Vector2(order.transform.localPosition.x, 71);
 
         order.InitializeOrder(mealsAvailable[randMeal]);
 

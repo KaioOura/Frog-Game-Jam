@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     public Image[] lifeImages;
 
+    public Image bellyFrogImage;
+
     public TextMeshProUGUI currentScoreTMP, finalScoreTMP, highScoreTMP;
 
     public GameObject menu, postGame;
@@ -95,5 +97,10 @@ public class UIManager : MonoBehaviour
         {
             postGame.SetActive(false);
         }
+    }
+
+    public void UpdateBellyFrog(float value, float maxValue)
+    {
+        bellyFrogImage.fillAmount = value / maxValue;
     }
 }

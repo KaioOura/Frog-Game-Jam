@@ -20,6 +20,10 @@ public class BellyFrog : MonoBehaviour
     public Meal activeMeal;
     GameObject mealGO;
 
+    public float maxTimeInBelly;
+    public float timeFoodInBelly;
+    public float reduceTimeInBelly;
+
     public Action OnIngredientAdded;
 
     bool isThrowingUp;
@@ -38,6 +42,7 @@ public class BellyFrog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckFoodInBelly();
     }
 
     public void AddIngredient(IngredientScriptable ingredient)
@@ -57,7 +62,7 @@ public class BellyFrog : MonoBehaviour
 
     public void ThrowUpAllIngredients()
     {
-        if (isThrowingUp || tongue.isTongueOccupied)
+        if (isThrowingUp)
             return;
 
         StartCoroutine(ThrowUpIngredients());
@@ -91,6 +96,9 @@ public class BellyFrog : MonoBehaviour
     {
         isThrowingUp = true;
         int numIngredients = belly.Count - 1;
+
+        while (tongue.isTongueOccupied)
+            yield return null;
 
         if (activeMeal != null)
         {
@@ -159,6 +167,9 @@ public class BellyFrog : MonoBehaviour
 
     void OnIngredientAdd()
     {
+
+        timeFoodInBelly -= reduceTimeInBelly;
+
         if (belly.Count < 2)
         {
             Debug.Log("Not a meal");
@@ -203,7 +214,29 @@ public class BellyFrog : MonoBehaviour
         bellyDisplay.UpdateUI();
         bellyDisplay.UpdateMealUI(null);
         animationController.realayerWeight = 0;
+        timeFoodInBelly = 0;
 
+    }
+
+    void CheckFoodInBelly()
+    {
+        if (belly.Count > 0 && GameManager.instance.gameStates != GameManager.GameStates.game)
+        {
+            timeFoodInBelly += Time.deltaTime;
+
+            if (timeFoodInBelly >= maxTimeInBelly)
+            {
+                ThrowUpAllIngredients();
+                timeFoodInBelly = 0;
+            }
+        }
+        else
+        {
+            timeFoodInBelly = 0;
+        }
+
+        timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
+        UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
     }
 
 }
