@@ -10,9 +10,9 @@ public class UIManager : MonoBehaviour
 
     public Image[] lifeImages;
 
-    public TextMeshProUGUI currentScore;
+    public TextMeshProUGUI currentScoreTMP, finalScoreTMP, highScoreTMP;
 
-    public GameObject menu;
+    public GameObject menu, postGame;
 
     private void Awake()
     {
@@ -33,7 +33,17 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentScore(int scoreToUpdate)
     {
-        currentScore.text = scoreToUpdate.ToString();
+        currentScoreTMP.text = scoreToUpdate.ToString();
+    }
+
+    public void UpdateCurrentFinalScore(int scoreToUpdate)
+    {
+        finalScoreTMP.text = scoreToUpdate.ToString();
+    }
+
+    public void UpdateCurrentHighScore(int scoreToUpdate)
+    {
+        highScoreTMP.text = scoreToUpdate.ToString();
     }
 
     public void UpdateLives(int life)
@@ -72,6 +82,18 @@ public class UIManager : MonoBehaviour
         else
         {
             menu.SetActive(false);
+        }
+    }
+
+    public void ShowHidePostGame(bool shouldShow)
+    {
+        if (shouldShow)
+        {
+            postGame.SetActive(true);
+        }
+        else
+        {
+            postGame.SetActive(false);
         }
     }
 }

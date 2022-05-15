@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public int lives;
 
+
+
     private void Awake()
     {
         instance = this;
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var item in ingredients)
         {
-            Destroy(item);
+            Destroy(item.gameObject);
         }
 
         OrderManager.instance.ResetOrders();
@@ -63,8 +65,20 @@ public class GameManager : MonoBehaviour
     {
         gameStates = GameStates.finish;
         an.SetTrigger("Menu");
-        UIManager.instance.ShowHideMenu(shouldShow: true);
+        UIManager.instance.ShowHidePostGame(shouldShow: true);
 
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+        }
+
+        UIManager.instance.UpdateCurrentFinalScore(currentScore);
+        UIManager.instance.UpdateCurrentHighScore(highScore);
+    }
+
+    public void GoToMenu()
+    {
+        UIManager.instance.ShowHideMenu(shouldShow: true);
     }
 
     public void AddScore(int scoreToAdd)
