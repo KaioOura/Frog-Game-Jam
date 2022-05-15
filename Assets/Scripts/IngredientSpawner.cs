@@ -22,6 +22,9 @@ public class IngredientSpawner : MonoBehaviour
         if (GameManager.instance.gameStates != GameManager.GameStates.game)
             return;
 
+        if (OrderManager.instance.activeOrders.Count < 1)
+            return;
+
         if (Time.time > timeTrack)
         {
             timeTrack = Time.time + timeSpawn;
@@ -44,38 +47,13 @@ public class IngredientSpawner : MonoBehaviour
 
                 List<IngredientScriptable> ingredientsAvailable = new List<IngredientScriptable>();
 
-                for (int y = 0; y < OrderManager.instance.difficultyIndex + 1; y++)
+                foreach (var item in OrderManager.instance.activeOrders)
                 {
-                    if (y == 0)
+                    foreach (var item2 in item.myMeal.recipeIngredients)
                     {
-                        foreach (var item in ingredientsPrefab)
-                        {
-                            if (item.ingredient.difficulty == IngredientBase.Difficulty.easy)
-                            {
-                                ingredientsAvailable.Add(item);
-                            }
-                        }
+                        ingredientsAvailable.Add(item2.ingredientScriptable);
                     }
-                    else if (y == 1)
-                    {
-                        foreach (var item in ingredientsPrefab)
-                        {
-                            if (item.ingredient.difficulty == IngredientBase.Difficulty.normal)
-                            {
-                                ingredientsAvailable.Add(item);
-                            }
-                        }
-                    }
-                    else if (y == 2)
-                    {
-                        foreach (var item in ingredientsPrefab)
-                        {
-                            if (item.ingredient.difficulty == IngredientBase.Difficulty.hard)
-                            {
-                                ingredientsAvailable.Add(item);
-                            }
-                        }
-                    }
+
                 }
 
                 int rand = Random.Range(0, ingredientsAvailable.Count); 
