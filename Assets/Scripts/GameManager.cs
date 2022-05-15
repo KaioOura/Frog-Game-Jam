@@ -118,4 +118,9 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateLives(lives);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }

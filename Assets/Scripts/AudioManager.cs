@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip[] gameMusics;
     public AudioClip menuGame;
+
+    public Slider masterSlider;
+    public Slider musicSlider;
+    public Slider sfxSlider;
 
     public float audioSourceMaxVolume;
 
@@ -27,6 +32,10 @@ public class AudioManager : MonoBehaviour
         audioSourceMaxVolume = audioSource.volume;
 
         PlayMenuMusic();
+        audioMixer.SetFloat("VolumeMaster", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMasterVolume));
+        audioMixer.SetFloat("VolumeMusic", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMusicVolume));
+        audioMixer.SetFloat("VolumeSFX", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioSFXVolume));
+
     }
 
     // Update is called once per frame
@@ -63,5 +72,38 @@ public class AudioManager : MonoBehaviour
             DOTween.To(() => audioSource.volume, x => audioSource.volume = x, audioSourceMaxVolume, 1);
 
         });
+    }
+
+    public void Mute()
+    {
+        float volume;
+        audioMixer.GetFloat("VolumeMaster", out volume);
+
+        if (volume == -80)
+        {
+            audioMixer.SetFloat("VolumeMaster", PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMasterVolume));
+        }
+        else
+        {
+            audioMixer.SetFloat("VolumeMaster", -80);
+        }
+    }
+
+    public void OnMasterValueChanged(float value)
+    {
+        audioMixer.SetFloat("VolumeMaster", value);
+        PlayerPrefs.SetFloat(PlayerPrefsSettings.audioMasterVolume, value);
+    }
+
+    public void OnMusicValueChanged(float value)
+    {
+        audioMixer.SetFloat("VolumeMusic", value);
+        PlayerPrefs.SetFloat(PlayerPrefsSettings.audioMusicVolume, value);
+    }
+
+    public void OnSFXValueChanged(float value)
+    {
+        audioMixer.SetFloat("VolumeSFX", value);
+        PlayerPrefs.SetFloat(PlayerPrefsSettings.audioSFXVolume, value);
     }
 }

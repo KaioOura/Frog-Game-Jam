@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI currentScoreTMP, finalScoreTMP, highScoreTMP;
 
-    public GameObject menu, postGame;
+    public GameObject menu, game,postGame;
 
     private void Awake()
     {
@@ -80,10 +80,12 @@ public class UIManager : MonoBehaviour
         if (shouldShow)
         {
             menu.SetActive(true);
+            game.SetActive(false);
         }
         else
         {
             menu.SetActive(false);
+            game.SetActive(true);
         }
     }
 
@@ -92,6 +94,7 @@ public class UIManager : MonoBehaviour
         if (shouldShow)
         {
             postGame.SetActive(true);
+            game.SetActive(false);
         }
         else
         {
