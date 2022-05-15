@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 557982883739600228}
   - component: {fileID: 8455296564966409583}
   m_Layer: 0
-  m_Name: Macarrao_Queijo_Meal
+  m_Name: Pizza_Pepperoni_Meal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
   myImage: {fileID: 0}
   rb: {fileID: 557982883739600228}
   col: {fileID: 3769247643788610933}
-  meal: {fileID: 11400000, guid: d70680ae4bf7f3046bd77b449c3ba3d1, type: 2}
+  meal: {fileID: 11400000, guid: 7e579d631e22dfd4ca88d765482d17d4, type: 2}
 --- !u!1 &7968450451561311699
 GameObject:
   m_ObjectHideFlags: 0

@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 557982883739600228}
   - component: {fileID: 8455296564966409583}
   m_Layer: 0
-  m_Name: Macarrao_Queijo_Meal
+  m_Name: Macarrao_Camarao_Meal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

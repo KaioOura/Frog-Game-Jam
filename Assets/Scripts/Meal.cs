@@ -13,7 +13,7 @@ public class Meal : ScriptableObject
 
     public MealGO mealGO;
 
-    public enum MyMeal {macarrao_queijo, macarrao_camarao, hamburguer_camarao, hamburguer, macarrao_almondegas, pizza_peperoni, pizza_cogumelo }
+    public enum MyMeal {macarrao_queijo, esfiha, macarrao_camarao, hamburguer_camarao, hamburguer, macarrao_almondegas, pizza_peperoni, pizza_cogumelo }
     public MyMeal myMeal;
 
     public enum Difficulty { easy, normal, hard}

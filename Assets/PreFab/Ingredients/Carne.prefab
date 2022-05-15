@@ -67,7 +67,8 @@ MonoBehaviour:
   col: {fileID: 208388525035540083}
   ingredient:
     ingredientEnum: 5
-    ingredientScriptable: {fileID: 0}
+    difficulty: 0
+    ingredientScriptable: {fileID: 7506698955028145617}
 --- !u!54 &3536747347775145570
 Rigidbody:
   m_ObjectHideFlags: 0
