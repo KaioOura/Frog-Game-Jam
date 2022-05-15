@@ -8,6 +8,8 @@ public class PlayerTongueAction : MonoBehaviour
     public Tongue tongueScript;
     public BellyFrog bellyFrog;
 
+    public Animation_Controller frog_animation_controller;
+
     public float tongueCooldown;
     float tongueTimer;
     public float timeTongueShowing = 0.3f;
@@ -46,6 +48,7 @@ public class PlayerTongueAction : MonoBehaviour
     public void LaunchTongue()
     {
         //audioSource.PlayOneShot(tongueClip);
+        frog_animation_controller.am.SetTrigger("Attack");
         tongueTimer = 0;
         isUsingTongue = true;
         //tongue.SetActive(true);

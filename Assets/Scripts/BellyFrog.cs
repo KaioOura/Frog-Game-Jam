@@ -12,7 +12,7 @@ public class BellyFrog : MonoBehaviour
     public List<IngredientScriptable> belly;
     public int maxIngredients;
     public Transform bellyPos;
-
+    public Tongue tongue;
     public List<Meal> meals;
 
     public Meal activeMeal;
@@ -52,7 +52,7 @@ public class BellyFrog : MonoBehaviour
 
     public void ThrowUpAllIngredients()
     {
-        if (isThrowingUp)
+        if (isThrowingUp || tongue.isTongueOccupied)
             return;
 
         StartCoroutine(ThrowUpIngredients());

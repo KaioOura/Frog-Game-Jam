@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Tongue : MonoBehaviour
 {
     public BellyFrog bellyFrog;
@@ -25,7 +26,7 @@ public class Tongue : MonoBehaviour
 
     public void AttackTongue()
     {
-        an.SetTrigger("Attack");
+        //an.SetTrigger("Attack");
     }
 
     public void OnTriggerEnter(Collider other)
@@ -40,7 +41,7 @@ public class Tongue : MonoBehaviour
     public void OnTongueHit(IngredientScriptable ingredient)
     {
         isTongueOccupied = true;
-        an.SetTrigger("PickedSomething");
+        //an.SetTrigger("PickedSomething");
 
         //Colocar ingrediente na lingua
 
