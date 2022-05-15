@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pickable
+  - Anim_Checker
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Anim Checker
   - Water
   - UI
   - 

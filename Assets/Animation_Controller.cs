@@ -12,6 +12,8 @@ public class Animation_Controller : MonoBehaviour
 
     public PlayerMovement playermov;
 
+    public LayerMask ColliderLayer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,7 @@ public class Animation_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        WichSideLooking();
         if(realayerWeight != layerWeight){
 
             layerWeight += LayerUpdate_speed;
@@ -78,4 +80,28 @@ public class Animation_Controller : MonoBehaviour
             am.SetBool("FT", false);
         }
     }
+
+    void WichSideLooking(){
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out hit, Mathf.Infinity, ColliderLayer)){
+            if(hit.collider.gameObject.name == "FrontCollider"){
+                am.SetBool("FoodOut_Front", true);
+            }else{
+                am.SetBool("FoodOut_Front", false);
+            }
+            if(hit.collider.gameObject.name == "LeftCollider"){
+                am.SetBool("FoodOut_Left", true);
+            }else{
+                am.SetBool("FoodOut_Left", false);
+            }
+            if(hit.collider.gameObject.name == "BackCollider"){
+                am.SetBool("FoodOut_Back", true);
+            }else{
+                am.SetBool("FoodOut_Back", false);
+            }
+            
+        }
+    }
+
+
 }

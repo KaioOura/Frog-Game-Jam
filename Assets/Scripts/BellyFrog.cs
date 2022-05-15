@@ -6,12 +6,13 @@ using DG.Tweening;
 
 public class BellyFrog : MonoBehaviour
 {
+    
     public Animation_Controller animationController;
     public Animator frogController;
     public BellyDisplay bellyDisplay;
     public List<IngredientScriptable> belly;
     public int maxIngredients;
-    public Transform bellyPos;
+    public Transform bellyPos, JawPos;
     public Tongue tongue;
     public List<Meal> meals;
 
@@ -61,16 +62,25 @@ public class BellyFrog : MonoBehaviour
         StartCoroutine(ThrowUpIngredients());
     }
 
-    public void MoveMealToCart()
+    public void MoveMealToCart(Vector3 PosOffset)
     {
+        int rand = UnityEngine.Random.Range(0, swallowClip.Length);
+        audioSource.PlayOneShot(swallowClip[rand]);
         OrderManager.instance.CheckMeal(activeMeal, true);
-
-        mealGO.transform.DOMove(cartPos.position, 0.2f).OnComplete(() =>
+        mealGO.SetActive(true);
+        mealGO.gameObject.transform.position = JawPos.position + PosOffset;
+        mealGO.transform.DOMove(cartPos.position, 0.1f).OnComplete(() =>
         {
             OrderManager.instance.CheckMeal(activeMeal);
             Destroy(mealGO);
             activeMeal = null;
             mealGO = null;
+            frogController.SetBool("Has recipe", false);
+            belly.Clear();
+            bellyDisplay.UpdateUI();
+            bellyDisplay.UpdateMealUI(null);
+
+            isThrowingUp = false;
         });
     }
 
@@ -81,20 +91,23 @@ public class BellyFrog : MonoBehaviour
 
         if (activeMeal != null)
         {
+            frogController.SetBool("Has recipe",true);
             foreach (var item in belly)
             {
                 Destroy(item.gameObject);
             }
 
             //Spawnar e lancar meal
+            
             MealGO _mealGO = Instantiate(activeMeal.mealGO);
             mealGO = _mealGO.gameObject;
+            mealGO.SetActive(false);
             _mealGO.transform.position = bellyPos.transform.position;
             frogController.SetTrigger("Food Out");
             animationController.realayerWeight = 0;
-            int rand = UnityEngine.Random.Range(0, swallowClip.Length);
-            audioSource.PlayOneShot(swallowClip[rand]);
-            MoveMealToCart();
+            
+            //Move Meal to Cart agora está sendo comandada por eventos na animação
+            //MoveMealToCart();
 
             //_mealGO.LaunchItSelf(transform.forward);
 
@@ -113,15 +126,16 @@ public class BellyFrog : MonoBehaviour
                 numIngredients--;
                 yield return new WaitForSeconds(0.17f);
             }
+                    
+            belly.Clear();
+            bellyDisplay.UpdateUI();
+            bellyDisplay.UpdateMealUI(null);
+
+            isThrowingUp = false;
+    }
         }
 
-        
-        belly.Clear();
-        bellyDisplay.UpdateUI();
-        bellyDisplay.UpdateMealUI(null);
 
-        isThrowingUp = false;
-    }
 
     void LaunchIngredient(IngredientScriptable ingredient)
     {
