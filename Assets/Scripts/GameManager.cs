@@ -40,15 +40,16 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         gameStates = GameStates.game;
-
+        
         ResetScore();
         ResetLife();
-
+        
         IngredientScriptable[] ingredients = FindObjectsOfType<IngredientScriptable>();
 
         foreach (var item in ingredients)
         {
             Destroy(item.gameObject);
+
         }
 
         OrderManager.instance.ResetOrders();
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame()
     {
+        
         var rotationVector = new Vector3(0,180,0);
         bellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;

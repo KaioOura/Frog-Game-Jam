@@ -185,6 +185,8 @@ public class BellyFrog : MonoBehaviour
         belly.Clear();
         bellyDisplay.UpdateUI();
         bellyDisplay.UpdateMealUI(null);
+        animationController.realayerWeight = 0;
+
     }
 
 }
