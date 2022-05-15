@@ -7,7 +7,7 @@ using DG.Tweening;
 public class BellyFrog : MonoBehaviour
 {
     public GameObject saliva_VFX,Jaw_Pos;
-
+    public ParticleSystem Sweat_VFX;
 
     public Animation_Controller animationController;
     public Animator CartAnimator;
@@ -223,8 +223,12 @@ public class BellyFrog : MonoBehaviour
 
     void CheckFoodInBelly()
     {
-        if (belly.Count > 0 && GameManager.instance.gameStates != GameManager.GameStates.game)
+        if (belly.Count > 0 && GameManager.instance.gameStates == GameManager.GameStates.game)
         {
+            if(timeFoodInBelly != 0){
+                Sweat_VFX.emissionRate = (15*timeFoodInBelly)/ maxTimeInBelly;
+            }
+
             timeFoodInBelly += Time.deltaTime;
 
             if (timeFoodInBelly >= maxTimeInBelly)
@@ -235,6 +239,7 @@ public class BellyFrog : MonoBehaviour
         }
         else
         {
+            Sweat_VFX.emissionRate = 0;
             timeFoodInBelly = 0;
         }
 
