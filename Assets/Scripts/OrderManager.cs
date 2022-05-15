@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
+
+    public GameObject sapo;
+    public GameObject StarVFX_GO;
+
     public static OrderManager instance;
 
     public Meal[] meals;
@@ -121,8 +125,9 @@ public class OrderManager : MonoBehaviour
         if (IsMealMatch(meal))
         {
             //Creditar pontos, feedbck de acerto, sumir com pedido
+            Instantiate(StarVFX_GO, sapo.transform.position,Quaternion.identity);
             GameManager.instance.AddScore(meal.score);
-            Debug.Log("Pontuação!");
+            Debug.Log("Pontuaï¿½ï¿½o!");
         }
     }
 
@@ -130,7 +135,7 @@ public class OrderManager : MonoBehaviour
     {
         if (IsMealMatch(meal, true))
         {
-            Debug.Log("Pontuação!");
+            Debug.Log("Pontuaï¿½ï¿½o!");
         }
     }
 

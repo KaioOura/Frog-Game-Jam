@@ -1349,6 +1349,11 @@ MonoBehaviour:
   foodOnPlatePos: {fileID: 1042569667}
   plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
+--- !u!1 &172379878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7084681356965443767, guid: 789fdeb649915d94d8d35ae192e4a990, type: 3}
+  m_PrefabInstance: {fileID: 412064759}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &176612960
 GameObject:
   m_ObjectHideFlags: 0
@@ -13235,6 +13240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98a977e6b236a349b4d747a9272180a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sapo: {fileID: 172379878}
+  StarVFX_GO: {fileID: 5861348718821792581, guid: 6fc24b23e219b3d43b510399945bcf14, type: 3}
   meals:
   - {fileID: 11400000, guid: 7e579d631e22dfd4ca88d765482d17d4, type: 2}
   activeOrders: []
