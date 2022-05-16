@@ -111,7 +111,7 @@ public class OrderManager : MonoBehaviour
 
         int randMeal = UnityEngine.Random.Range(0, mealsAvailable.Count);
 
-        Debug.Log($"Meal {mealsAvailable.Count}");
+        //Debug.Log($"Meal {mealsAvailable.Count}");
 
         Order order = Instantiate(orderGO, ordersPos);
         order.transform.localPosition = new Vector2(order.transform.localPosition.x, 71);

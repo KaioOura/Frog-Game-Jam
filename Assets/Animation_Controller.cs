@@ -35,7 +35,7 @@ public class Animation_Controller : MonoBehaviour
         am.SetLayerWeight(1, layerWeight);
         //UpdateRightOrLeft();
         real_rotation = Input.GetAxis("Horizontal");
-        Debug.Log(real_rotation);
+        //Debug.Log(real_rotation);
         if(real_rotation != rotation_value){
 
             rotation_value += update_speed;

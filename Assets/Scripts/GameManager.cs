@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
             highScore = (int)PlayerPrefs.GetFloat(PlayerPrefsSettings.highScore, 0);
         }
 
-       // OrderManager.instance.ResetOrders();
+        OrderManager.instance.ResetOrders();
 
         UIManager.instance.UpdateCurrentFinalScore(currentScore);
         UIManager.instance.UpdateCurrentHighScore(highScore);

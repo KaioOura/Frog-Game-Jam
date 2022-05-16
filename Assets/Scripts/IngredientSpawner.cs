@@ -50,9 +50,10 @@ public class IngredientSpawner : MonoBehaviour
 
                 foreach (var item in OrderManager.instance.activeOrders)
                 {
-                    if (!item.isOnPriorityLine && item.timeCount.fillAmount <= 0.3f)
+                    if (!item.isOnPriorityLine && item.timeCount.fillAmount <= 0.4f)
                     {
                         item.isOnPriorityLine = true;
+
                         foreach (var item2 in item.myMeal.recipeIngredients)
                         {
                             priorityIngredients.Add(item2.ingredientScriptable);
