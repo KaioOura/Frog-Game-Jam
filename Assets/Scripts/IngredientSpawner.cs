@@ -5,6 +5,7 @@ using UnityEngine;
 public class IngredientSpawner : MonoBehaviour
 {
     public IngredientScriptable[] ingredientsPrefab;
+    public List<IngredientScriptable> priorityIngredients; 
     public Treadmill treadmill;
 
     public float timeSpawn = 0.5f;
@@ -49,15 +50,37 @@ public class IngredientSpawner : MonoBehaviour
 
                 foreach (var item in OrderManager.instance.activeOrders)
                 {
-                    foreach (var item2 in item.myMeal.recipeIngredients)
+                    if (!item.isOnPriorityLine && item.timeCount.fillAmount <= 0.3f)
                     {
-                        ingredientsAvailable.Add(item2.ingredientScriptable);
+                        item.isOnPriorityLine = true;
+                        foreach (var item2 in item.myMeal.recipeIngredients)
+                        {
+                            priorityIngredients.Add(item2.ingredientScriptable);
+                        }
                     }
+                    else
+                    {
+                        foreach (var item2 in item.myMeal.recipeIngredients)
+                        {
+                            ingredientsAvailable.Add(item2.ingredientScriptable);
+                        }
+                    }
+                    
                 }
 
-                int rand = Random.Range(0, ingredientsAvailable.Count); 
+                IngredientScriptable go;
 
-                IngredientScriptable go = Instantiate(ingredientsAvailable[rand], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
+                if (priorityIngredients.Count > 0)
+                {
+                    go = Instantiate(priorityIngredients[0], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
+                    priorityIngredients.Remove(priorityIngredients[0]);
+                }
+                else
+                {
+                    int rand = Random.Range(0, ingredientsAvailable.Count);
+                    go = Instantiate(ingredientsAvailable[rand], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
+                }
+               
                 treadmill.positions[i].AssignIngredient(go.gameObject);
                 break;
             }

@@ -295,7 +295,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -614,4 +614,6 @@ MonoBehaviour:
   - {fileID: 2942519018959612196}
   - {fileID: 2942519018755673957}
   - {fileID: 2942519019975766932}
+  mealTime: 0
   timeCount: {fileID: 2942519019520157253}
+  isOnPriorityLine: 0

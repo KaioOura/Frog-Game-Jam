@@ -3521,7 +3521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
@@ -5145,6 +5145,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180
       objectReference: {fileID: 0}
+    - target: {fileID: 8346182225286605493, guid: 5cec3f8ac60d9b5418d15f43dc76cbdf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d69d1319c750d6e4db315d09d187274b, type: 2}
     - target: {fileID: 8879528566716807029, guid: 5cec3f8ac60d9b5418d15f43dc76cbdf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -89.98021
@@ -7248,7 +7252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &626467309
 Transform:
   m_ObjectHideFlags: 0
@@ -12820,6 +12824,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.711
       objectReference: {fileID: 0}
+    - target: {fileID: 5385010075012768462, guid: bbc6d39fd6d24f7408875c16e3d6e287, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d69d1319c750d6e4db315d09d187274b, type: 2}
     - target: {fileID: 6473291668353051514, guid: bbc6d39fd6d24f7408875c16e3d6e287, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -18937,6 +18945,7 @@ MonoBehaviour:
   - {fileID: 4623350457961759635, guid: 1f6473731794ec44e926e3943fcf01e7, type: 3}
   - {fileID: 867407597217187018, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}
   - {fileID: 633277087768994844, guid: 582ce909987244241b200ea7b570be70, type: 3}
+  priorityIngredients: []
   treadmill: {fileID: 854019282}
   timeSpawn: 0.5
 --- !u!1 &1568781657
