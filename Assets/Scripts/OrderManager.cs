@@ -8,7 +8,7 @@ public class OrderManager : MonoBehaviour
 
     public GameObject sapo;
     public GameObject StarVFX_GO;
-
+    public Animator layoutanim, boomboxanim;
     public static OrderManager instance;
 
     public Meal[] meals;
@@ -127,6 +127,8 @@ public class OrderManager : MonoBehaviour
         if (IsMealMatch(meal))
         {
             //Creditar pontos, feedbck de acerto, sumir com pedido
+            layoutanim.SetTrigger("Success");
+            boomboxanim.SetTrigger("Pulo");
             Instantiate(StarVFX_GO, sapo.transform.position,Quaternion.identity);
             GameManager.instance.AddScore(meal.score);
             Debug.Log("Pontua��o!");

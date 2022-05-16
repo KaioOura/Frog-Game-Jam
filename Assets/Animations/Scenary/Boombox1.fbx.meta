@@ -1,17 +1,11 @@
 fileFormatVersion: 2
-guid: 2db666fe82c0b3448b48b60e93ff8479
+guid: bd00ab4d3edabab489860f015f8640db
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: 4724723491815386068
-    second: Bumbo
-  - first:
-      74: -2021014571893886886
-    second: PuloTrue
-  - first:
-      74: -2495968335620303792
-    second: Bumbo
+      74: 6697807678942601320
+    second: pulo
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -41,40 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Bumbo
-      takeName: BoomBoxArmature|BoomBoxBoom
+      name: pulo
+      takeName: BoomBoxArmature|BoomBoxArmature|BoomBoxArmature|BoomBoxJump|BoomBoxArmature|Boo
       internalID: 0
       firstFrame: 0
-      lastFrame: 46
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: PuloTrue
-      takeName: BoomBoxArmature|BoomBoxJump
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 37
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
