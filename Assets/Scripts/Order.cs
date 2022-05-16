@@ -16,6 +16,8 @@ public class Order : MonoBehaviour
 
     public Image timeCount;
 
+    public bool isMyIngridientSpawned;
+
     // Start is called before the first frame update
     void Start()
     {

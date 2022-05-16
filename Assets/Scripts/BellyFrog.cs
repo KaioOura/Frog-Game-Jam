@@ -236,7 +236,7 @@ public class BellyFrog : MonoBehaviour
 
             timeFoodInBelly += Time.deltaTime;
 
-            if (timeFoodInBelly >= maxTimeInBelly)
+            if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
             {
                 ThrowUpAllIngredients();
                 timeFoodInBelly = 0;

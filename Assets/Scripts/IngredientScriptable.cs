@@ -12,6 +12,8 @@ public class IngredientScriptable : MonoBehaviour
     public Rigidbody rb;
     public Collider col;
 
+    public bool isSpawned = false;
+
     public IngredientBase ingredient;
 
     private void Start()

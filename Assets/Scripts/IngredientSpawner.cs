@@ -53,7 +53,6 @@ public class IngredientSpawner : MonoBehaviour
                     {
                         ingredientsAvailable.Add(item2.ingredientScriptable);
                     }
-
                 }
 
                 int rand = Random.Range(0, ingredientsAvailable.Count); 
