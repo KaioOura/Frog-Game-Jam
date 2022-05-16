@@ -9,6 +9,9 @@ public class BellyFrog : MonoBehaviour
     public GameObject saliva_VFX, Jaw_Pos;
     public ParticleSystem Sweat_VFX;
 
+    public bool targeting;
+    private IngredientScriptable ingredient;
+
     public Animation_Controller animationController;
     public Animator CartAnimator;
     public Animator frogController;
@@ -36,6 +39,9 @@ public class BellyFrog : MonoBehaviour
     public AudioClip[] swallowClip;
     public AudioClip succesMeal;
 
+
+    public LayerMask IngredientLayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +53,6 @@ public class BellyFrog : MonoBehaviour
     {
         if (GameManager.instance.gameStates != GameManager.GameStates.game)
             return;
-
         CheckFoodInBelly();
     }
 
@@ -251,5 +256,17 @@ public class BellyFrog : MonoBehaviour
         timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
         UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
     }
+        private void OnTriggerEnter(Collider other) {
+            if(other.CompareTag("Pickable")){
+                ingredient = other.GetComponent<IngredientScriptable>();
+                ingredient.istargeted = true;
+            }
+        }
 
+        private void OnTriggerExit(Collider other) {
+            if(other.CompareTag("Pickable")){
+                ingredient = other.GetComponent<IngredientScriptable>();
+                ingredient.istargeted = false;
+            }
+        }
 }

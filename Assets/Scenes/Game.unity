@@ -6408,6 +6408,7 @@ GameObject:
   - component: {fileID: 567366231}
   - component: {fileID: 567366230}
   - component: {fileID: 567366232}
+  - component: {fileID: 567366233}
   m_Layer: 0
   m_Name: Sapo
   m_TagString: Untagged
@@ -6649,6 +6650,7 @@ MonoBehaviour:
   saliva_VFX: {fileID: 8406649802983650092, guid: 6f02b66f8283bc74b90c2d2ab8e7ff5b, type: 3}
   Jaw_Pos: {fileID: 172379878}
   Sweat_VFX: {fileID: 525305174}
+  targeting: 0
   animationController: {fileID: 567366232}
   CartAnimator: {fileID: 474318076}
   frogController: {fileID: 837066841}
@@ -6676,6 +6678,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 95c149feff7b8394d8d9027d13005e23, type: 3}
   - {fileID: 8300000, guid: fa06e2fed80d5684cb296a9dbb3689b8, type: 3}
   succesMeal: {fileID: 8300000, guid: b1209d01f5c825647be98ab0c3d89a60, type: 3}
+  IngredientLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &567366232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6698,6 +6703,19 @@ MonoBehaviour:
   ColliderLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!65 &567366233
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567366223}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.91137654, y: 2.2057846, z: 6.9363527}
+  m_Center: {x: -0.25952435, y: 0.6028918, z: 3.3867142}
 --- !u!1 &570611693
 GameObject:
   m_ObjectHideFlags: 0
@@ -20695,10 +20713,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f22c0e56f4aa68a40a32eb49abd6b2b5, type: 2}
   activeOrders: []
   maxOrders: 5
-  difficultyBreakdown: 6400000096000000c8000000
+  difficultyBreakdown: 4600000096000000c8000000
   timeToSpawn:
   - 5
-  - 8
+  - 6
   - 8
   difficultyIndex: 0
   orderGO: {fileID: 2942519020468061393, guid: 58d62fd1dc490174c8dfebc3289bd8b8, type: 3}

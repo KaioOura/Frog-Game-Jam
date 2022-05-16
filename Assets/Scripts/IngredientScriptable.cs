@@ -5,6 +5,8 @@ using System;
 
 public class IngredientScriptable : MonoBehaviour
 {
+    public GameObject targetVFXGO;
+    public bool istargeted;
     public string myName;
     public int baseScore;
     public Sprite myImage;
@@ -23,7 +25,11 @@ public class IngredientScriptable : MonoBehaviour
 
     private void Update()
     {
-        
+        if(istargeted && !targetVFXGO.activeInHierarchy){
+            targetVFXGO.SetActive(true);
+        }else if(!istargeted && targetVFXGO.activeInHierarchy){
+            targetVFXGO.SetActive(false);
+        }
     }
 
     public void OnCollected()
