@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mealName: Esfiha
   score: 50
-  image: {fileID: 21300000, guid: d9f0eff0c4faee64f9e4ada461520973, type: 3}
+  image: {fileID: 21300000, guid: a29c9840d8655e14f862e113d5880721, type: 3}
   timeSecondsToPrepare: 30
   mealGO: {fileID: 8455296564966409583, guid: cfa638d3f29334846b4deddebb167bdd, type: 3}
   myMeal: 1

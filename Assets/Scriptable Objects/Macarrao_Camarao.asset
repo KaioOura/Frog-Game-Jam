@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mealName: "Macarr\xE3o Camar\xE3o"
   score: 100
-  image: {fileID: 21300000, guid: 97aeb7ac91dfab04e89010553276a6ca, type: 3}
+  image: {fileID: 21300000, guid: e9037f2bd581b1f43a5f7ed4851bcfbd, type: 3}
   timeSecondsToPrepare: 80
   mealGO: {fileID: 8455296564966409583, guid: b273a2ff336b18642aa24b8918f79a89, type: 3}
   myMeal: 2

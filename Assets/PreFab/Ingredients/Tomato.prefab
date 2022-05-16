@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: NonTransgenicTomato
   baseScore: 0
-  myImage: {fileID: 21300000, guid: 2f8db1a8cdab9b14c8e9af17c982a373, type: 3}
+  myImage: {fileID: 21300000, guid: 54c9ca6692d06e04a9dbb82ee55235be, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: -3318607344491591761}
   col: {fileID: 7061825123847770046}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 0
     difficulty: 1

@@ -3508,15 +3508,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.0038974
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.75000024
+      value: 1.651
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.95518
+      value: -1.178
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3546,6 +3546,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4651679642082461976, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66f414d1c1a00e9409899d7c60d2e9b7, type: 2}
     - target: {fileID: -379415675479739003, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3556,7 +3560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db666fe82c0b3448b48b60e93ff8479, type: 3}
@@ -20679,6 +20683,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sapo: {fileID: 172379878}
   StarVFX_GO: {fileID: 5861348718821792581, guid: 6fc24b23e219b3d43b510399945bcf14, type: 3}
+  layoutanim: {fileID: 533283777}
+  boomboxanim: {fileID: 295898796}
   meals:
   - {fileID: 11400000, guid: 7e579d631e22dfd4ca88d765482d17d4, type: 2}
   - {fileID: 11400000, guid: c258e4583830c5e4792b98ae19af405d, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mealName: Macarrao Queijo
   score: 50
-  image: {fileID: 21300000, guid: e028b3fda24b20f49acbce1d7538507b, type: 3}
+  image: {fileID: 21300000, guid: 2516c22b1a3f65a4181b5604df2eb5e3, type: 3}
   timeSecondsToPrepare: 30
   mealGO: {fileID: 8455296564966409583, guid: 47148f03bab8a374a9f449f89e3d80b3, type: 3}
   myMeal: 0

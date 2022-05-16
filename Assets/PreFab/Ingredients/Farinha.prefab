@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Farinha
   baseScore: 0
-  myImage: {fileID: 21300000, guid: 1143fc527a499884fa85a5e4bb7ceea3, type: 3}
+  myImage: {fileID: 21300000, guid: 3269044eae8ea5c4e9514f55a7f24f78, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 3890362511239944954}
   col: {fileID: 435737199230030571}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 8
     difficulty: 0

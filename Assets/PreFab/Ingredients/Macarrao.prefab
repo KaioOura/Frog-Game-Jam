@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Macarrao
   baseScore: 0
-  myImage: {fileID: 21300000, guid: d115f083d8753d440a9eeb4143fe72e1, type: 3}
+  myImage: {fileID: 21300000, guid: cfb29ace4cc7577438ba26ea279fe219, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 1058595302603199341}
   col: {fileID: 4414009679051234172}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 1
     difficulty: 0

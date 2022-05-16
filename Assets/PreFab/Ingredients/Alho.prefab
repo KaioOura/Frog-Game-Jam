@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Alho
   baseScore: 0
-  myImage: {fileID: 21300000, guid: c3fdce2dbe36d4f458646fc70ce0e1fd, type: 3}
+  myImage: {fileID: 21300000, guid: a85202cd82f6adb42a1d30c5c22766b8, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 8390337392647563926}
   col: {fileID: 5152438879107474055}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 7
     difficulty: 2

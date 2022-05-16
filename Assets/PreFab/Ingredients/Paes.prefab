@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Pao
   baseScore: 0
-  myImage: {fileID: 21300000, guid: edb672edd4d27f6409fdeeae6420c231, type: 3}
+  myImage: {fileID: 21300000, guid: 580be7d0a80f26e48848db40045cb51f, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 5510123468844914167}
   col: {fileID: 9189226303209397734}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 4
     difficulty: 0

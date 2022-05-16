@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Pepperoni
   baseScore: 0
-  myImage: {fileID: 21300000, guid: 9a884ac2557074d4dab2d06c63d17c2b, type: 3}
+  myImage: {fileID: 21300000, guid: c53df7ad8ce92794d9299087af6c8e11, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 1806324615782178848}
   col: {fileID: 3089484814694098993}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 9
     difficulty: 2

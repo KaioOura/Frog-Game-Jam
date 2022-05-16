@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Carne
   baseScore: 0
-  myImage: {fileID: 21300000, guid: 39e32032262c46746be0fe5b74a2e4ae, type: 3}
+  myImage: {fileID: 21300000, guid: 4e86152743b224243967af9c4d3142a1, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 3536747347775145570}
   col: {fileID: 208388525035540083}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 5
     difficulty: 0

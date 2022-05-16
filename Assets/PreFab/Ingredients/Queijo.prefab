@@ -61,10 +61,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Queijo
   baseScore: 0
-  myImage: {fileID: 21300000, guid: 2cfc6c5bfcf7753488850a8814287720, type: 3}
+  myImage: {fileID: 21300000, guid: 79e8c325e60cd1d4bae43ca0745b3d98, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 6138842287890098041}
   col: {fileID: 7404155497389387624}
+  isSpawned: 0
   ingredient:
     ingredientEnum: 2
     difficulty: 0
