@@ -15187,6 +15187,8 @@ MonoBehaviour:
   sliderMaster: {fileID: 511293643}
   sliderMusic: {fileID: 1126209769}
   sliderVolume: {fileID: 1426411432}
+  musicLength: 0
+  lastMusic: {fileID: 8300000, guid: 9c030f615a236834987afe7a69f009da, type: 3}
 --- !u!1 &1181691313
 GameObject:
   m_ObjectHideFlags: 0
@@ -20720,6 +20722,7 @@ MonoBehaviour:
   - 8
   difficultyIndex: 0
   orderGO: {fileID: 2942519020468061393, guid: 58d62fd1dc490174c8dfebc3289bd8b8, type: 3}
+  lastOrderMeal: {fileID: 0}
   ordersPos: {fileID: 1519834816}
 --- !u!4 &1697820085
 Transform:

@@ -84,7 +84,7 @@ public class BellyFrog : MonoBehaviour
         int rand = UnityEngine.Random.Range(0, swallowClip.Length);
         audioSource.PlayOneShot(swallowClip[rand]);
         Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
-        OrderManager.instance.CheckMeal(activeMeal, true, () =>  audioSource.PlayOneShot(succesMeal));
+        OrderManager.instance.CheckMeal(activeMeal, true, () => audioSource.PlayOneShot(succesMeal));
         mealGO.SetActive(true);
         mealGO.gameObject.transform.position = JawPos.position + PosOffset;
         mealGO.transform.DOMove(cartPos.position, 0.1f).OnComplete(() =>
@@ -256,17 +256,21 @@ public class BellyFrog : MonoBehaviour
         timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
         UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
     }
-        private void OnTriggerEnter(Collider other) {
-            if(other.CompareTag("Pickable")){
-                ingredient = other.GetComponent<IngredientScriptable>();
-                ingredient.istargeted = true;
-            }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Pickable"))
+        {
+            ingredient = other.GetComponent<IngredientScriptable>();
+            ingredient.istargeted = true;
         }
+    }
 
-        private void OnTriggerExit(Collider other) {
-            if(other.CompareTag("Pickable")){
-                ingredient = other.GetComponent<IngredientScriptable>();
-                ingredient.istargeted = false;
-            }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Pickable"))
+        {
+            ingredient = other.GetComponent<IngredientScriptable>();
+            ingredient.istargeted = false;
         }
+    }
 }

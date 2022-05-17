@@ -25,6 +25,8 @@ public class OrderManager : MonoBehaviour
     public static float timeTracker;
 
     public Order orderGO;
+    public Meal lastOrderMeal;
+
 
     public Transform ordersPos;
 
@@ -113,10 +115,18 @@ public class OrderManager : MonoBehaviour
 
         //Debug.Log($"Meal {mealsAvailable.Count}");
 
+        if (mealsAvailable[randMeal] == lastOrderMeal)
+        {
+            SpawnOrder(difficultyIndex);
+            return;
+        }
+
         Order order = Instantiate(orderGO, ordersPos);
         order.transform.localPosition = new Vector2(order.transform.localPosition.x, 71);
 
         order.InitializeOrder(mealsAvailable[randMeal]);
+
+        lastOrderMeal = mealsAvailable[randMeal];
 
         activeOrders.Add(order);
 

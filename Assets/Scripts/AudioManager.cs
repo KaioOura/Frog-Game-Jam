@@ -21,6 +21,9 @@ public class AudioManager : MonoBehaviour
     public Slider sliderMusic;
     public Slider sliderVolume;
 
+    public float musicLength;
+    public AudioClip lastMusic;
+
     private void Awake()
     {
         instance = this;
@@ -59,11 +62,13 @@ public class AudioManager : MonoBehaviour
     public void PlayGameMusic()
     {
         int rand = Random.Range(0, gameMusics.Length);
-        ChangeMusic(gameMusics[rand]);
+        ChangeMusic(gameMusics[rand], playMuiscAfterEnd: true);
     }
 
-    public void ChangeMusic(AudioClip audioClip)
+    public void ChangeMusic(AudioClip audioClip, bool playMuiscAfterEnd = false)
     {
+        lastMusic = audioClip;
+
         float to = 0;
         DOTween.To(() => audioSource.volume, x => audioSource.volume = x, to, 0.5f).OnComplete(() =>
         {
@@ -72,10 +77,28 @@ public class AudioManager : MonoBehaviour
             audioSource.clip = audioClip;
             audioSource.Play();
 
+            musicLength = audioClip.length;
 
             DOTween.To(() => audioSource.volume, x => audioSource.volume = x, audioSourceMaxVolume, 1);
 
+            if (playMuiscAfterEnd)
+                StartCoroutine(PlayMusicDelayed());
+
         });
+    }
+
+    IEnumerator PlayMusicDelayed()
+    {
+        yield return new WaitForSeconds(musicLength);
+        int rand = Random.Range(0, gameMusics.Length);
+
+        while (lastMusic == gameMusics[rand])
+        {
+            rand = Random.Range(0, gameMusics.Length);
+            yield return null;
+        }
+
+        ChangeMusic(gameMusics[rand], playMuiscAfterEnd: true);
     }
 
     public void Mute()

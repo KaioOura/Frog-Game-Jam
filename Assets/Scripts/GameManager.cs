@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     {
         ResetScore();
         ResetLife();
+
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
