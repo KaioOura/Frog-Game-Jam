@@ -91,8 +91,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMenu()
     {
-        AudioManager.instance.PlayMenuMusic();
-        UIManager.instance.ShowHideMenu(shouldShow: true);
+        Time.timeScale = 1;
     }
 
     public void AddScore(int scoreToAdd)
