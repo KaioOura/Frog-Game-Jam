@@ -63,7 +63,7 @@ public class Order : MonoBehaviour
             //Debug.Log(timeCount);
         }
 
-        GameManager.instance.ChangeLife(-1);
+        GameManager.instance.ChangeLife(-2);
         RemoveOrder();
     }
 

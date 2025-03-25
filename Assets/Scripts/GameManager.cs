@@ -107,6 +107,12 @@ public class GameManager : MonoBehaviour
 
     public void ChangeLife(int changeAmount)
     {
+        if (changeAmount < 0)
+        {
+            //Tocar som de dano!
+            bellyFrog.PlayHurtSound();
+        }
+
         lives += changeAmount;
         UIManager.instance.UpdateLives(lives);
 
@@ -120,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetLife()
     {
-        lives = 3;
+        lives = 6;
         UIManager.instance.UpdateLives(lives);
     }
 

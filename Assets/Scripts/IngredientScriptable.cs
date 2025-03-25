@@ -13,6 +13,7 @@ public class IngredientScriptable : MonoBehaviour
     public GameObject foodGO;
     public Rigidbody rb;
     public Collider col;
+    public bool isRottenFood = false;
 
     public bool isSpawned = false;
 
@@ -49,7 +50,7 @@ public class IngredientScriptable : MonoBehaviour
 [Serializable]
 public class IngredientBase
 {
-    public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo, alho, farinha, pepperoni };
+    public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo, alho, farinha, pepperoni , rotten};
     public Ingredients ingredientEnum;
     public enum Difficulty { easy, normal, hard }
     public Difficulty difficulty;

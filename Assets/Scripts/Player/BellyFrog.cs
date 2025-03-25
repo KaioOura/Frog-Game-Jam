@@ -38,6 +38,7 @@ public class BellyFrog : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip[] swallowClip;
     public AudioClip succesMeal;
+    public AudioClip hurtClip;
 
 
     public LayerMask IngredientLayer;
@@ -66,6 +67,14 @@ public class BellyFrog : MonoBehaviour
         ingredient.gameObject.SetActive(false);
         ingredient.transform.SetParent(bellyPos.transform);
         ingredient.transform.localPosition = Vector3.zero;
+
+        if (ingredient.isRottenFood)
+        {
+            //Perder vida, cuspir tudo
+            GameManager.instance.ChangeLife(-1);
+            ThrowUpAllIngredients();
+            return;
+        }
 
         bellyDisplay.UpdateUI();
         OnIngredientAdd();
@@ -188,7 +197,6 @@ public class BellyFrog : MonoBehaviour
             return;
         }
 
-
         activeMeal = GetMeal();
 
         bellyDisplay.UpdateMealUI(activeMeal);
@@ -255,6 +263,11 @@ public class BellyFrog : MonoBehaviour
 
         timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
         UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
+    }
+
+    public void PlayHurtSound()
+    {
+        audioSource.PlayOneShot(hurtClip);
     }
     private void OnTriggerEnter(Collider other)
     {

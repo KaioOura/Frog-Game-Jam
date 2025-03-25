@@ -5,8 +5,13 @@ using UnityEngine;
 public class IngredientSpawner : MonoBehaviour
 {
     public IngredientScriptable[] ingredientsPrefab;
-    public List<IngredientScriptable> priorityIngredients; 
+    public List<IngredientScriptable> priorityIngredients;
+    public List<IngredientScriptable> closeExpireIngredients;
     public Treadmill treadmill;
+    public IngredientScriptable rottenIngredient;
+    private Order orderCloseToExpire;
+
+    public int chanceToSpawnRotten;
 
     public float timeSpawn = 0.5f;
     float timeTrack;
@@ -14,7 +19,7 @@ public class IngredientSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -42,7 +47,7 @@ public class IngredientSpawner : MonoBehaviour
     {
         for (int i = 0; i < treadmill.positions.Count; i++)
         {
-            //Checa se existe um prato que ainda não ativo e se não está ocupado
+            //Checa se existe um prato que ainda nï¿½o ativo e se nï¿½o estï¿½ ocupado
             if (treadmill.positions[i].posIndex == 0 && !treadmill.positions[i].IsOccupied())
             {
 
@@ -50,41 +55,65 @@ public class IngredientSpawner : MonoBehaviour
 
                 foreach (var item in OrderManager.instance.activeOrders)
                 {
-                    if (!item.isOnPriorityLine && item.timeCount.fillAmount <= 0.4f)
+                    if (item.timeCount.fillAmount <= 0.9f && orderCloseToExpire == null)
                     {
-                        item.isOnPriorityLine = true;
-
-                        foreach (var item2 in item.myMeal.recipeIngredients)
-                        {
-                            priorityIngredients.Add(item2.ingredientScriptable);
-                        }
+                        orderCloseToExpire = item;
+                        closeExpireIngredients.Clear();
                     }
                     else
                     {
                         foreach (var item2 in item.myMeal.recipeIngredients)
-                        {
                             ingredientsAvailable.Add(item2.ingredientScriptable);
-                        }
                     }
-                    
                 }
+
+                int randRot = Random.Range(0, 10);
+                if (randRot >= 2)
+                    ingredientsAvailable.Add(rottenIngredient);
 
                 IngredientScriptable go;
 
-                if (priorityIngredients.Count > 0)
+                int randExpireOrderSpawn = Random.Range(0, 10);
+
+                if (randExpireOrderSpawn >= 4 && orderCloseToExpire != null)
                 {
-                    go = Instantiate(priorityIngredients[0], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
-                    priorityIngredients.Remove(priorityIngredients[0]);
+                    go = Instantiate(ForceIngredientOrderExpire(), treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
                 }
                 else
                 {
                     int rand = Random.Range(0, ingredientsAvailable.Count);
                     go = Instantiate(ingredientsAvailable[rand], treadmill.positions[i].foodOnPlatePos.position, Quaternion.identity);
                 }
-               
+
                 treadmill.positions[i].AssignIngredient(go.gameObject);
                 break;
             }
         }
+    }
+
+    IngredientScriptable ForceIngredientOrderExpire()
+    {
+        int randIngridient;
+        IngredientScriptable ingredientScriptable = null;
+
+        for (int i = 0; i < orderCloseToExpire.myMeal.recipeIngredients.Length; i++)
+        {
+            if (!closeExpireIngredients.Contains(orderCloseToExpire.myMeal.recipeIngredients[i].ingredientScriptable))
+            {
+                ingredientScriptable = orderCloseToExpire.myMeal.recipeIngredients[i].ingredientScriptable;
+                closeExpireIngredients.Add(ingredientScriptable);
+                break;
+            }
+        }
+
+        if (ingredientScriptable == null)
+        {
+            closeExpireIngredients.Clear();
+            ingredientScriptable = orderCloseToExpire.myMeal.recipeIngredients[0].ingredientScriptable;
+
+            closeExpireIngredients.Add(ingredientScriptable);
+        }
+
+        return ingredientScriptable;
     }
 }
