@@ -251,6 +251,7 @@ public class BellyFrog : MonoBehaviour
 
             if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
             {
+                GameManager.instance.ChangeLife(-1);
                 ThrowUpAllIngredients();
                 timeFoodInBelly = 0;
             }
