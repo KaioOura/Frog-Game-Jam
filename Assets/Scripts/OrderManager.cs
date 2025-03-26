@@ -45,7 +45,7 @@ public class OrderManager : MonoBehaviour
     void Update()
     {
 
-        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+        if (GameManager.instance.gameStates != GameStates.game)
             return;
 
         timeTracker += Time.deltaTime;

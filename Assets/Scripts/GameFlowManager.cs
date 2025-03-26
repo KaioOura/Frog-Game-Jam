@@ -17,7 +17,7 @@ public class GameFlowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && (GameManager.instance.gameStates == GameManager.GameStates.game || GameManager.instance.gameStates == GameManager.GameStates.pause))
+        if (Input.GetKeyDown(KeyCode.Escape) && (GameManager.instance.gameStates == GameStates.game || GameManager.instance.gameStates == GameStates.pause))
         {
             PauseGame(!isPause);
         }
@@ -28,14 +28,14 @@ public class GameFlowManager : MonoBehaviour
         isPause = !isPause;
         if (pause)
         {
-            GameManager.instance.gameStates = GameManager.GameStates.pause;
+            GameManager.instance.gameStates = GameStates.pause;
             pausePage.SetActive(true);
             Time.timeScale = 0;
         }
         else
         {
             Time.timeScale = 1;
-            GameManager.instance.gameStates = GameManager.GameStates.game;
+            GameManager.instance.gameStates = GameStates.game;
             pausePage.SetActive(false);
         }
     }

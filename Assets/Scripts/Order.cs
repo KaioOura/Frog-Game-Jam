@@ -51,7 +51,7 @@ public class Order : MonoBehaviour
     {
         while(mealTime >= 0)
         {
-            if (GameManager.instance.gameStates == GameManager.GameStates.finish)
+            if (GameManager.instance.gameStates == GameStates.finish)
             {
                 yield break;
             }

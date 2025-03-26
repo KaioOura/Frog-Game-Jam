@@ -25,7 +25,7 @@ public class IngredientSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+        if (GameManager.instance.gameStates != GameStates.game)
             return;
 
         if (OrderManager.instance.activeOrders.Count < 1)

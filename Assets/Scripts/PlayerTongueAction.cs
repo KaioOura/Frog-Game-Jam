@@ -30,12 +30,12 @@ public class PlayerTongueAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+        if (GameManager.instance.gameStates != GameStates.game)
             return;
 
         tongueTimer += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z) && tongueTimer > tongueCooldown)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
         {
             LaunchTongue();
         }
@@ -47,6 +47,9 @@ public class PlayerTongueAction : MonoBehaviour
 
     public void LaunchTongue()
     {
+        if (tongueTimer < tongueCooldown)
+            return;
+        
         int rand = Random.Range(0, tongueClip.Length);
         audioSource.PlayOneShot(tongueClip[rand]);
         frog_animation_controller.am.SetTrigger("Attack");
