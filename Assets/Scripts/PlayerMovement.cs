@@ -12,10 +12,13 @@ public class PlayerMovement : MonoBehaviour
     public int lookIndex;
 
     public bool newInput;
+    [SerializeField] private float rotationSpeed = 5;
 
-    [Header("Sounds")]
-    public AudioSource audioSource;
+    [Header("Sounds")] public AudioSource audioSource;
     public AudioClip turnClip;
+
+    private Joystick _joystick;
+    private GameManager _gameManager;
 
     private void OnEnable()
     {
@@ -29,23 +32,30 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(lookPositions.positions[lookIndex].position);
     }
 
+    public void Initialize(GameManager gameManager)
+    {
+        _gameManager = gameManager;
+        _joystick = gameManager.Joystick;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.gameStates == GameManager.GameStates.game)
+        if (_gameManager.gameStates == GameStates.game)
             HandleInput();
     }
 
     void HandleInput()
     {
-        Turn();
-    }
-
-    void Turn()
-    {
         if (playerTongue.isUsingTongue)
             return;
 
+        KeyboardTurn();
+        MobileTurn();
+    }
+
+    void KeyboardTurn()
+    {
         //audioSource.PlayOneShot(tongueClip);
 
         if (newInput)
@@ -70,7 +80,24 @@ public class PlayerMovement : MonoBehaviour
                 TurnRight();
             }
         }
+    }
 
+    void MobileTurn()
+    {
+        Vector2 direction = _joystick.Direction;
+
+        // Verifica se há input suficiente para rotacionar
+        if (direction.magnitude > 0.1f)
+        {
+            // Converte o vetor do canvas para o espaço do mundo
+            Vector3 worldDirection = new Vector3(direction.x, 0, direction.y);
+
+            // Calcula a rotação desejada
+            Quaternion targetRotation = Quaternion.LookRotation(worldDirection, Vector3.up);
+
+            // Suaviza a rotação do personagem
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        }
     }
 
     public void TurnRight()
@@ -90,7 +117,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void TurnLeft()
     {
-
         if (newInput)
         {
             transform.localEulerAngles -= new Vector3(0, angle, 0) * Time.deltaTime;

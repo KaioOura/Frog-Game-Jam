@@ -7,10 +7,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public Joystick Joystick => joystick;
+
+    public bool isMobile; //TODO: remover isso quando criar um meio de alternar build mobile e web
+    [SerializeField] private Joystick joystick;
+    [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
+    [SerializeField] private GameObject deliverButton;
+    [SerializeField] private Character character;
+
     public BellyFrog bellyFrog;
     public Animator an;
 
-    public enum GameStates { menu, pause, game, finish}
+    
     public GameStates gameStates;
 
     public int currentScore;
@@ -31,6 +39,12 @@ public class GameManager : MonoBehaviour
         ResetLife();
 
         Application.targetFrameRate = 60;
+
+        character.InitializeComponents(this);
+
+        joystick.gameObject.SetActive(isMobile);
+        deliverButton.SetActive(isMobile);
+        actionButton.SetActive(isMobile);
     }
 
     // Update is called once per frame
@@ -136,3 +150,5 @@ public class GameManager : MonoBehaviour
     }
 
 }
+
+public enum GameStates { menu, pause, game, finish}

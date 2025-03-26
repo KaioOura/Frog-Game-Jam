@@ -52,7 +52,7 @@ public class BellyFrog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.gameStates != GameManager.GameStates.game)
+        if (GameManager.instance.gameStates != GameStates.game)
             return;
         CheckFoodInBelly();
     }
@@ -240,7 +240,7 @@ public class BellyFrog : MonoBehaviour
 
     void CheckFoodInBelly()
     {
-        if (belly.Count > 0 && GameManager.instance.gameStates == GameManager.GameStates.game)
+        if (belly.Count > 0 && GameManager.instance.gameStates == GameStates.game)
         {
             if (timeFoodInBelly != 0)
             {
