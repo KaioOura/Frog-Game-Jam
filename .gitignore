@@ -163,3 +163,5 @@ Assets/PlayFabEditorExtensions/Editor/Resources/PlayFabEditorPrefsSO.asset
 
 # Ignore rider personal configs
 .idea/.idea.Petness/.idea/
+.idea/.idea.Frog-Game-Jam/.idea/projectSettingsUpdater.xml
+.idea/.idea.Frog-Game-Jam/.idea/indexLayout.xml
