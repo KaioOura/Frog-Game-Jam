@@ -12,19 +12,7 @@ public class BellyDisplay : MonoBehaviour
     public Image mealImage;
 
     public Image ballon;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void UpdateMealUI(Meal meal = null)
     {
         if (meal == null)

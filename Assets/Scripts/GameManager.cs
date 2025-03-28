@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
     [SerializeField] private GameObject deliverButton;
     [SerializeField] private Character character;
+    [SerializeField] private IngredientSpawner ingredientSpawner;
 
     public BellyFrog bellyFrog;
     public Animator an;
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
         ResetScore();
         ResetLife();
 
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
 
         character.InitializeComponents(this);
 
@@ -75,12 +76,14 @@ public class GameManager : MonoBehaviour
 
         an.SetTrigger("Game");
 
+        ingredientSpawner.StartIngredientSpawn();
+        
         AudioManager.instance.PlayGameMusic();
     }
 
     public void LoseGame()
     {
-        
+        ingredientSpawner.StopIngredientSpawn();
         var rotationVector = new Vector3(0,180,0);
         bellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;

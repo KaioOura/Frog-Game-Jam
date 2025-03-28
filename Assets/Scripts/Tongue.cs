@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 
 public class Tongue : MonoBehaviour
@@ -13,46 +14,29 @@ public class Tongue : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip[] swallow;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void AttackTongue()
-    {
-        //an.SetTrigger("Attack");
-    }
-
+    
     public void OnTriggerEnter(Collider other)
     {
+        Profiler.BeginSample("Kaio Profiller: Picked Ingredient");
         if (other.CompareTag("Pickable") && !isTongueOccupied && !bellyFrog.IsBellyFull())
         {
-            OnTongueHit(other.GetComponent<IngredientScriptable>());
-            Debug.Log("Licked: " + other.gameObject);
+            if (other.TryGetComponent(out IngredientScriptable ingredient))
+            {
+                OnTongueHit(ingredient);
+                Debug.Log("Licked: " + other.gameObject);
+            }
+            
         }
+        Profiler.EndSample();
     }
 
     public void OnTongueHit(IngredientScriptable ingredient)
     {
         isTongueOccupied = true;
-        //an.SetTrigger("PickedSomething");
-
-        //Colocar ingrediente na lingua
-
         ingredientCollected = ingredient;
         ingredientCollected.OnCollected();
         ingredientCollected.transform.SetParent(ingredientPos);
         ingredientCollected.transform.localPosition = Vector3.zero;
-
     }
 
     public void OnTongueRecover()

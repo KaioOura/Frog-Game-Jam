@@ -55,8 +55,6 @@ public class PlayerTongueAction : MonoBehaviour
         frog_animation_controller.am.SetTrigger("Attack");
         tongueTimer = 0;
         isUsingTongue = true;
-        //tongue.SetActive(true);
-        tongueScript.AttackTongue();
         StartCoroutine(TongueVisibleTimer());
 
     }

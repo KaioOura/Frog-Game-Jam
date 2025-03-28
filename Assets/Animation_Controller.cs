@@ -13,17 +13,13 @@ public class Animation_Controller : MonoBehaviour
     public PlayerMovement playermov;
 
     public LayerMask ColliderLayer;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
+        
+        return;
         WichSideLooking();
         if(realayerWeight != layerWeight){
 

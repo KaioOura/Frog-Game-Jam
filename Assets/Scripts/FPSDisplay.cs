@@ -1,20 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class FPSDisplay : MonoBehaviour
 {
-    private float fps;
-    public TMPro.TextMeshProUGUI FPSCounterText;
+    public TextMeshProUGUI fpsText;
 
-    void Start()
-    {
-        InvokeRepeating("GetFPS", 1, 1);
-    }
+    private int frameCount = 0;
+    private float deltaTime = 0f;
+    private float fps = 0f;
+    private float lowestFPS = Mathf.Infinity;
+    private float totalFPS = 0f;
+    private int totalSeconds = 0;
 
-    void GetFPS()
+    void Update()
     {
-        fps = (int)(1f / Time.unscaledDeltaTime);
-        FPSCounterText.text = "FPS: " + fps.ToString();
+        frameCount++;
+        deltaTime += Time.unscaledDeltaTime;
+
+        if (deltaTime >= 1f)
+        {
+            fps = frameCount / deltaTime;
+            totalFPS += fps;
+            totalSeconds++;
+
+            if (fps < lowestFPS)
+            {
+                lowestFPS = fps;
+            }
+
+            float averageFPS = totalFPS / totalSeconds;
+
+            fpsText.text = $"FPS: {fps:F1}\nAverage: {averageFPS:F1}\nLowest: {lowestFPS:F1}";
+
+            frameCount = 0;
+            deltaTime = 0f;
+        }
     }
 }

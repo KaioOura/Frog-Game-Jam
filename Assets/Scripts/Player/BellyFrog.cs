@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using DG.Tweening;
+using UnityEngine.Profiling;
 
 public class BellyFrog : MonoBehaviour
 {
@@ -115,6 +116,7 @@ public class BellyFrog : MonoBehaviour
 
     IEnumerator ThrowUpIngredients()
     {
+        Profiler.BeginSample("Kaio Profiller: Throwing Up Ingredients");
         isThrowingUp = true;
         int numIngredients = belly.Count - 1;
 
@@ -165,6 +167,8 @@ public class BellyFrog : MonoBehaviour
 
             isThrowingUp = false;
         }
+        
+        Profiler.EndSample();
     }
 
 
@@ -242,6 +246,7 @@ public class BellyFrog : MonoBehaviour
     {
         if (belly.Count > 0 && GameManager.instance.gameStates == GameStates.game)
         {
+            Profiler.BeginSample("Kaio Profiller: CheckFoodInBelly");
             if (timeFoodInBelly != 0)
             {
                 Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
@@ -255,6 +260,7 @@ public class BellyFrog : MonoBehaviour
                 ThrowUpAllIngredients();
                 timeFoodInBelly = 0;
             }
+            Profiler.EndSample();
         }
         else
         {
@@ -262,8 +268,11 @@ public class BellyFrog : MonoBehaviour
             timeFoodInBelly = 0;
         }
 
+        Profiler.BeginSample("Kaio Profiller: CheckBellyUI");
         timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
         UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
+        Profiler.EndSample();
+
     }
 
     public void PlayHurtSound()
@@ -274,8 +283,13 @@ public class BellyFrog : MonoBehaviour
     {
         if (other.CompareTag("Pickable"))
         {
-            ingredient = other.GetComponent<IngredientScriptable>();
-            ingredient.istargeted = true;
+            if (other.TryGetComponent(out IngredientScriptable ingredientScriptable))
+            {
+                ingredient = ingredientScriptable;
+                ingredient.istargeted = true;
+                ingredient.UpdateTargetVFXGO(true);
+            }
+
         }
     }
 
@@ -283,8 +297,12 @@ public class BellyFrog : MonoBehaviour
     {
         if (other.CompareTag("Pickable"))
         {
-            ingredient = other.GetComponent<IngredientScriptable>();
-            ingredient.istargeted = false;
+            if (other.TryGetComponent(out IngredientScriptable ingredientScriptable))
+            {
+                ingredient = ingredientScriptable;
+                ingredient.istargeted = false;
+                ingredient.UpdateTargetVFXGO(false);
+            }
         }
     }
 }

@@ -26,13 +26,18 @@ public class IngredientScriptable : MonoBehaviour
 
     private void Update()
     {
-        if(istargeted && !targetVFXGO.activeInHierarchy){
-            targetVFXGO.SetActive(true);
-        }else if(!istargeted && targetVFXGO.activeInHierarchy){
-            targetVFXGO.SetActive(false);
-        }
+        // if(istargeted && !targetVFXGO.activeInHierarchy){
+        //     targetVFXGO.SetActive(true);
+        // }else if(!istargeted && targetVFXGO.activeInHierarchy){
+        //     targetVFXGO.SetActive(false);
+        // }
     }
 
+    public void UpdateTargetVFXGO(bool shouldActivate)
+    {
+        targetVFXGO.SetActive(shouldActivate);
+    }
+    
     public void OnCollected()
     {
         col.enabled = false;

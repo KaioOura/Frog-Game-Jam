@@ -44,16 +44,7 @@ public class AudioManager : MonoBehaviour
         sliderVolume.value = PlayerPrefs.GetFloat(PlayerPrefsSettings.audioSFXVolume, -10);
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (GameManager.instance.gameStates == GameManager.GameStates.game)
-        //{
-        //    PlayGameMusic();
-        //}
-    }
-
+    
     public void PlayMenuMusic()
     {
         ChangeMusic(menuGame);
