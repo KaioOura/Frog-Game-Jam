@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public LookPositions lookPositions;
-    public PlayerTongueAction playerTongue;
 
     public float angle;
 
@@ -19,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Joystick _joystick;
     private GameManager _gameManager;
+    private CharState _charState;
 
     private void OnEnable()
     {
@@ -32,10 +32,12 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(lookPositions.positions[lookIndex].position);
     }
 
-    public void Initialize(GameManager gameManager)
+    public void Initialize(GameManager gameManager, CharState charState)
     {
         _gameManager = gameManager;
         _joystick = gameManager.Joystick;
+        
+        _charState = charState;
     }
 
     // Update is called once per frame
@@ -47,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleInput()
     {
-        if (playerTongue.isUsingTongue)
+        if (_charState is CharState.UsingTongue)
             return;
 
         KeyboardTurn();

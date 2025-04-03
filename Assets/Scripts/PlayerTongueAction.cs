@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerTongueAction : MonoBehaviour
 {
+    public event Action<CharState> OnRequestStateChage; 
+    
     public GameObject tongue;
     public Tongue tongueScript;
     public BellyFrog bellyFrog;
@@ -13,10 +17,7 @@ public class PlayerTongueAction : MonoBehaviour
     public float tongueCooldown;
     float tongueTimer;
     public float timeTongueShowing = 0.3f;
-
-    public bool isUsingTongue;
-
-
+    
     [Header("Sounds")]
     public AudioSource audioSource;
     public AudioClip[] tongueClip;
@@ -26,7 +27,7 @@ public class PlayerTongueAction : MonoBehaviour
     {
 
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -54,7 +55,7 @@ public class PlayerTongueAction : MonoBehaviour
         audioSource.PlayOneShot(tongueClip[rand]);
         frog_animation_controller.am.SetTrigger("Attack");
         tongueTimer = 0;
-        isUsingTongue = true;
+        OnRequestStateChage?.Invoke(CharState.UsingTongue);
         StartCoroutine(TongueVisibleTimer());
 
     }
@@ -63,7 +64,7 @@ public class PlayerTongueAction : MonoBehaviour
     {
         yield return new WaitForSeconds(timeTongueShowing);
         //tongue.SetActive(false);
-        isUsingTongue = false;
+        OnRequestStateChage?.Invoke(CharState.Idle);
     }
 
 }

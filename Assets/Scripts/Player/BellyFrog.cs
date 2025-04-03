@@ -44,18 +44,12 @@ public class BellyFrog : MonoBehaviour
 
     public LayerMask IngredientLayer;
 
+    private IEnumerator bellyRoutine;
+    
     // Start is called before the first frame update
     void Start()
     {
         animationController = GetComponent<Animation_Controller>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameManager.instance.gameStates != GameStates.game)
-            return;
-        CheckFoodInBelly();
     }
 
     public void AddIngredient(IngredientScriptable ingredient)
@@ -86,6 +80,17 @@ public class BellyFrog : MonoBehaviour
         if (isThrowingUp || tongue.isTongueOccupied)
             return;
 
+        timeFoodInBelly = 0;
+
+        timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
+        UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
+        
+        if (bellyRoutine != null)
+        {
+            StopCoroutine(bellyRoutine);
+            bellyRoutine = null;
+        }
+        
         StartCoroutine(ThrowUpIngredients());
     }
 
@@ -195,6 +200,13 @@ public class BellyFrog : MonoBehaviour
 
         timeFoodInBelly -= reduceTimeInBelly;
 
+        if (bellyRoutine == null)
+        {
+            bellyRoutine = BellyCounter();
+            
+            StartCoroutine(bellyRoutine);
+        }
+
         if (belly.Count < 2)
         {
             Debug.Log("Not a meal");
@@ -242,37 +254,28 @@ public class BellyFrog : MonoBehaviour
 
     }
 
-    void CheckFoodInBelly()
+    IEnumerator BellyCounter()
     {
-        if (belly.Count > 0 && GameManager.instance.gameStates == GameStates.game)
+        if (belly.Count <= 0)
+            timeFoodInBelly = 0;
+        
+        while (belly.Count > 0)
         {
-            Profiler.BeginSample("Kaio Profiller: CheckFoodInBelly");
-            if (timeFoodInBelly != 0)
-            {
-                Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
-            }
-
             timeFoodInBelly += Time.deltaTime;
-
+            
+            Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
+            
             if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
             {
                 GameManager.instance.ChangeLife(-1);
                 ThrowUpAllIngredients();
-                timeFoodInBelly = 0;
             }
-            Profiler.EndSample();
+            
+            timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
+            UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
+            
+            yield return null;
         }
-        else
-        {
-            Sweat_VFX.emissionRate = 0;
-            timeFoodInBelly = 0;
-        }
-
-        Profiler.BeginSample("Kaio Profiller: CheckBellyUI");
-        timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
-        UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
-        Profiler.EndSample();
-
     }
 
     public void PlayHurtSound()

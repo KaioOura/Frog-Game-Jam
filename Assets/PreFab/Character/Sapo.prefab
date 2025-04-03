@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8989279138273209856}
+  playerTongueAction: {fileID: 8553704614545747055}
 --- !u!135 &2899257645510243418
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -147,7 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookPositions: {fileID: 0}
-  playerTongue: {fileID: 8553704614545747055}
   angle: 200
   lookIndex: 0
   newInput: 1
@@ -172,7 +172,6 @@ MonoBehaviour:
   frog_animation_controller: {fileID: 2555122337145733162}
   tongueCooldown: 0.4
   timeTongueShowing: 0.3
-  isUsingTongue: 0
   audioSource: {fileID: 4864270855603531161}
   tongueClip:
   - {fileID: 8300000, guid: b4c2d04e02ff0394dbaee6937f1cc278, type: 3}

@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
     }
 
     // Start is called before the first frame update
@@ -39,7 +41,7 @@ public class GameManager : MonoBehaviour
         ResetScore();
         ResetLife();
 
-        //Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60;
 
         character.InitializeComponents(this);
 
