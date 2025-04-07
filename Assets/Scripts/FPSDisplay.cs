@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +14,11 @@ public class FPSDisplay : MonoBehaviour
     private float lowestFPS = Mathf.Infinity;
     private float totalFPS = 0f;
     private int totalSeconds = 0;
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
 
     void Update()
     {
