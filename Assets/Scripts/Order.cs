@@ -17,6 +17,8 @@ public class Order : MonoBehaviour
     public Image timeCount;
 
     public bool isOnPriorityLine;
+
+    private IEnumerator countDownRoutine;
     
     public void InitializeOrder(Meal meal)
     {
@@ -31,8 +33,11 @@ public class Order : MonoBehaviour
             recipeIngredientsIMG[i].sprite = meal.recipeIngredients[i].ingredientScriptable.myImage;
         }
 
-        StartCoroutine(TimeCountDown());
+        if (countDownRoutine != null)
+            StopCoroutine(countDownRoutine);
 
+        countDownRoutine = TimeCountDown();
+        StartCoroutine(countDownRoutine);
     }
 
     IEnumerator TimeCountDown()

@@ -263,7 +263,7 @@ public class BellyFrog : MonoBehaviour
         {
             timeFoodInBelly += Time.deltaTime;
             
-            Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
+            //Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
             
             if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
             {

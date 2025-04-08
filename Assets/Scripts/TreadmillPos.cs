@@ -28,21 +28,21 @@ public class TreadmillPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ShakePlate();
-        if (Vector3.Distance(transform.position, treadmill.treadMillPoints[posIndex].position) < treadmill.speed * Time.deltaTime) //Checa se a posi��o do prato chegou no atual ponto da esteira
-        {
-            posIndex++;
-        }
-
-        if (posIndex > treadmill.treadMillPoints.Length - 1) //Chegou no fim da esteira ALSO se for prato pronto creditar pontos
-        {
-            posIndex = 0;
-            transform.position = spawnPoint.position;
-            DestroyIngredient();
-
-        }
-
-        transform.position = Vector3.MoveTowards(transform.position, treadmill.treadMillPoints[posIndex].position, treadmill.speed * Time.deltaTime); //Move os pratos
+        // ShakePlate();
+        // if (Vector3.Distance(transform.position, treadmill.treadMillPoints[posIndex].position) < treadmill.speed * Time.deltaTime) //Checa se a posi��o do prato chegou no atual ponto da esteira
+        // {
+        //     posIndex++;
+        // }
+        //
+        // if (posIndex > treadmill.treadMillPoints.Length - 1) //Chegou no fim da esteira ALSO se for prato pronto creditar pontos
+        // {
+        //     posIndex = 0;
+        //     transform.position = spawnPoint.position;
+        //     DestroyIngredient();
+        //
+        // }
+        //
+        // transform.position = Vector3.MoveTowards(transform.position, treadmill.treadMillPoints[posIndex].position, treadmill.speed * Time.deltaTime); //Move os pratos
     }
 
     public void AssignIngredient(GameObject ingredient)

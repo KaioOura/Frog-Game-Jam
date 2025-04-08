@@ -23,13 +23,13 @@ public class IngredientSpawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SpawnIngredient();
-        }
-    }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.P))
+    //     {
+    //         SpawnIngredient();
+    //     }
+    // }
 
     public void StartIngredientSpawn()
     {

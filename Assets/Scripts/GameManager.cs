@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,11 +16,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject deliverButton;
     [SerializeField] private Character character;
     [SerializeField] private IngredientSpawner ingredientSpawner;
+    [SerializeField] private RenderPipelineAsset[] qualityLevels;
+    [SerializeField] private GameObject cameraUI;
 
     public BellyFrog bellyFrog;
     public Animator an;
 
-    
+
     public GameStates gameStates;
 
     public int currentScore;
@@ -38,28 +41,36 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+#if UNITY_EDITOR
+        Debug.unityLogger.logEnabled = true;
+#else
+ Debug.unityLogger.logEnabled = false;
+#endif
+
         ResetScore();
         ResetLife();
 
         Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
 
         character.InitializeComponents(this);
 
-        joystick.gameObject.SetActive(isMobile);
-        deliverButton.SetActive(isMobile);
-        actionButton.SetActive(isMobile);
+        joystick.gameObject.SetActive(false);
+        deliverButton.SetActive(false);
+        actionButton.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeQuality(int value)
     {
-        
+        QualitySettings.SetQualityLevel(value);
+        QualitySettings.renderPipeline = qualityLevels[value];
     }
 
     public void StartGame()
     {
         gameStates = GameStates.game;
-        
+        cameraUI.SetActive(false);
+
         ResetScore();
         ResetLife();
         OrderManager.instance.ResetOrders();
@@ -69,7 +80,6 @@ public class GameManager : MonoBehaviour
         foreach (var item in ingredients)
         {
             Destroy(item.gameObject);
-
         }
 
         bellyFrog.ResetBellyFrog();
@@ -79,14 +89,22 @@ public class GameManager : MonoBehaviour
         an.SetTrigger("Game");
 
         ingredientSpawner.StartIngredientSpawn();
-        
+
         AudioManager.instance.PlayGameMusic();
+
+        if (isMobile)
+        {
+            joystick.gameObject.SetActive(true);
+            deliverButton.SetActive(true);
+            actionButton.SetActive(true);
+        }
     }
 
     public void LoseGame()
     {
+        cameraUI.SetActive(true);
         ingredientSpawner.StopIngredientSpawn();
-        var rotationVector = new Vector3(0,180,0);
+        var rotationVector = new Vector3(0, 180, 0);
         bellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;
         an.SetTrigger("Menu");
@@ -106,6 +124,10 @@ public class GameManager : MonoBehaviour
 
         UIManager.instance.UpdateCurrentFinalScore(currentScore);
         UIManager.instance.UpdateCurrentHighScore(highScore);
+
+        joystick.gameObject.SetActive(false);
+        deliverButton.SetActive(false);
+        actionButton.SetActive(false);
     }
 
     public void GoToMenu()
@@ -153,7 +175,12 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-
 }
 
-public enum GameStates { menu, pause, game, finish}
+public enum GameStates
+{
+    menu,
+    pause,
+    game,
+    finish
+}

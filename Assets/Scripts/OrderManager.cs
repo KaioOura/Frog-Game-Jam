@@ -63,10 +63,10 @@ public class OrderManager : MonoBehaviour
             timeSpawn = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SpawnOrder(0);
-        }
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     SpawnOrder(0);
+        // }
 
     }
 

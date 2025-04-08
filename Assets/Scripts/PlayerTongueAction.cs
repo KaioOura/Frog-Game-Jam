@@ -29,26 +29,26 @@ public class PlayerTongueAction : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
-    {
-        if (GameManager.instance.gameStates != GameStates.game)
-            return;
-
-        tongueTimer += Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
-        {
-            LaunchTongue();
-        }
-        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X))
-        {
-            bellyFrog.ThrowUpAllIngredients();
-        }
-    }
+    // void Update()
+    // {
+    //     if (GameManager.instance.gameStates != GameStates.game)
+    //         return;
+    //
+    //     tongueTimer += Time.deltaTime;
+    //
+    //     if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
+    //     {
+    //         LaunchTongue();
+    //     }
+    //     else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X))
+    //     {
+    //         bellyFrog.ThrowUpAllIngredients();
+    //     }
+    // }
 
     public void LaunchTongue()
     {
-        if (tongueTimer < tongueCooldown)
+        if (Time.time < tongueTimer)
             return;
         
         int rand = Random.Range(0, tongueClip.Length);
@@ -57,6 +57,8 @@ public class PlayerTongueAction : MonoBehaviour
         tongueTimer = 0;
         OnRequestStateChage?.Invoke(CharState.UsingTongue);
         StartCoroutine(TongueVisibleTimer());
+
+        tongueTimer = Time.time + tongueCooldown;
 
     }
 

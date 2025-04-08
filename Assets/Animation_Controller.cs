@@ -16,32 +16,32 @@ public class Animation_Controller : MonoBehaviour
     
 
     // Update is called once per frame
-    void Update()
-    {
-        
-        return;
-        WichSideLooking();
-        if(realayerWeight != layerWeight){
-
-            layerWeight += LayerUpdate_speed;
-            if(layerWeight > realayerWeight){
-                layerWeight = realayerWeight;
-            }
-        }
-        am.SetLayerWeight(1, layerWeight);
-        //UpdateRightOrLeft();
-        real_rotation = Input.GetAxis("Horizontal");
-        //Debug.Log(real_rotation);
-        if(real_rotation != rotation_value){
-
-            rotation_value += update_speed;
-            if(rotation_value > real_rotation){
-                rotation_value = real_rotation;
-            }
-        }
-        am.SetFloat("Rotation Value",rotation_value);
-
-    }
+    // void Update()
+    // {
+    //     
+    //     return;
+    //     WichSideLooking();
+    //     if(realayerWeight != layerWeight){
+    //
+    //         layerWeight += LayerUpdate_speed;
+    //         if(layerWeight > realayerWeight){
+    //             layerWeight = realayerWeight;
+    //         }
+    //     }
+    //     am.SetLayerWeight(1, layerWeight);
+    //     //UpdateRightOrLeft();
+    //     real_rotation = Input.GetAxis("Horizontal");
+    //     //Debug.Log(real_rotation);
+    //     if(real_rotation != rotation_value){
+    //
+    //         rotation_value += update_speed;
+    //         if(rotation_value > real_rotation){
+    //             rotation_value = real_rotation;
+    //         }
+    //     }
+    //     am.SetFloat("Rotation Value",rotation_value);
+    //
+    // }
 
     void UpdateRightOrLeft(){
         if(!Input.GetKeyDown(KeyCode.A) && !Input.GetKeyDown(KeyCode.D) && rotation_value!=0){
