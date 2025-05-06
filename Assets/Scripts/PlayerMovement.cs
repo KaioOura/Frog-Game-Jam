@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if (_charState is CharState.UsingTongue)
             return;
 
-        KeyboardTurn();
+        //KeyboardTurn();
         MobileTurn();
     }
 

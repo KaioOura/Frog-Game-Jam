@@ -160,6 +160,8 @@ Assets/Plugins/Android/FirebaseCrashlytics.androidlib/res/values/crashlytics_bui
 
 # Ignore playfab prefs
 Assets/PlayFabEditorExtensions/Editor/Resources/PlayFabEditorPrefsSO.asset
+Assets/Firebase/Plugins/**/*.bundle
+Assets/Firebase/Plugins/**/*.so
 
 # Ignore rider personal configs
 .idea/.idea.Petness/.idea/

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270658398299",
+    "project_id": "chefrog-86c0e",
+    "storage_bucket": "chefrog-86c0e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270658398299:android:5ede41de8630db55dab77e",
+        "android_client_info": {
+          "package_name": "com.carrycable.chefrog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_bPTQRfH3mnx4jXf55YpsBTGx1ztx6x0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

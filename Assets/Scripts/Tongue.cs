@@ -17,7 +17,6 @@ public class Tongue : MonoBehaviour
     
     public void OnTriggerEnter(Collider other)
     {
-        Profiler.BeginSample("Kaio Profiller: Picked Ingredient");
         if (other.CompareTag("Pickable") && !isTongueOccupied && !bellyFrog.IsBellyFull())
         {
             if (other.TryGetComponent(out IngredientScriptable ingredient))
@@ -27,7 +26,6 @@ public class Tongue : MonoBehaviour
             }
             
         }
-        Profiler.EndSample();
     }
 
     public void OnTongueHit(IngredientScriptable ingredient)

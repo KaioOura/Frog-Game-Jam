@@ -121,7 +121,6 @@ public class BellyFrog : MonoBehaviour
 
     IEnumerator ThrowUpIngredients()
     {
-        Profiler.BeginSample("Kaio Profiller: Throwing Up Ingredients");
         isThrowingUp = true;
         int numIngredients = belly.Count - 1;
 
@@ -172,8 +171,6 @@ public class BellyFrog : MonoBehaviour
 
             isThrowingUp = false;
         }
-        
-        Profiler.EndSample();
     }
 
 
