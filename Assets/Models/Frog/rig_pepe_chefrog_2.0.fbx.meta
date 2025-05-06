@@ -1,19 +1,29 @@
 fileFormatVersion: 2
 guid: 789fdeb649915d94d8d35ae192e4a990
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Boca
-    second: {fileID: 2100000, guid: ce3f69a3515292340a57f252a4ec72dd, type: 2}
+    second: {fileID: 2100000, guid: 8b0099b5f495ec5429c906f9d2740792, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Chapeu
     second: {fileID: 2100000, guid: dad4c7508ca5a9b4181d98f33c8cf1e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_ChefrogOriginal
+    second: {fileID: 2100000, guid: 8b0099b5f495ec5429c906f9d2740792, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_DefaultHat
+    second: {fileID: 2100000, guid: b95f815f926d21543ae71cd0082d37be, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -34,16 +44,15 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -59,10 +68,12 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -74,6 +85,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -84,6 +96,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -93,11 +106,186 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: rig_pepe_chefrog_2.0(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: rig_pepe_chefrog_2.0(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: root
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: leg.r
+      parentName: root
+      position: {x: 0.0053679333, y: 0.004272533, z: -0.0022915343}
+      rotation: {x: -0.05999512, y: -0.096266724, z: 0.99244267, w: 0.046806894}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999976}
+    - name: foot.r
+      parentName: leg.r
+      position: {x: 1.3411044e-10, y: 0.003781195, z: 0}
+      rotation: {x: 0.7705425, y: 0.0000001026549, z: 0.08842961, w: 0.6312246}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: arm.r
+      parentName: root
+      position: {x: 0.0033170008, y: 0.0031457865, z: 0.0021648116}
+      rotation: {x: -0.019961556, y: 0.02367752, z: 0.9889926, w: 0.14468819}
+      scale: {x: 1.0000023, y: 1, z: 1}
+    - name: hand.r
+      parentName: arm.r
+      position: {x: 1.192093e-10, y: 0.0027781497, z: 3.7252905e-12}
+      rotation: {x: 0.6484459, y: 0.05134103, z: 0.08102124, w: 0.7551937}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: arm.l
+      parentName: root
+      position: {x: -0.0033170008, y: 0.0031457865, z: 0.0021648116}
+      rotation: {x: 0.019961556, y: 0.02367752, z: 0.9889926, w: -0.14468819}
+      scale: {x: 1.0000023, y: 1, z: 1}
+    - name: hand.l
+      parentName: arm.l
+      position: {x: -1.192093e-10, y: 0.0027781497, z: 3.7252905e-12}
+      rotation: {x: 0.6484459, y: -0.05134103, z: -0.08102124, w: 0.7551937}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: leg.l
+      parentName: root
+      position: {x: -0.0053679333, y: 0.004272533, z: -0.0022915343}
+      rotation: {x: 0.05999512, y: -0.096266724, z: 0.99244267, w: -0.046806894}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999976}
+    - name: foot.l
+      parentName: leg.l
+      position: {x: -1.3411044e-10, y: 0.003781195, z: 0}
+      rotation: {x: 0.7705425, y: -0.0000001026549, z: -0.08842961, w: 0.6312246}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: body.x
+      parentName: root
+      position: {x: -0, y: 0.00034582565, z: 0}
+      rotation: {x: 0, y: -0.00000011920926, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hips.x
+      parentName: body.x
+      position: {x: -0, y: 0.0027375438, z: 0}
+      rotation: {x: -0.3663408, y: -2.8421713e-14, z: 0.000000087342436, w: 0.9304808}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jaw.x
+      parentName: hips.x
+      position: {x: 2.2397376e-10, y: 0.00035113908, z: 0.000939414}
+      rotation: {x: 0.74278075, y: -0.000005906601, z: -0.000006729867, w: 0.66953474}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lips_under.l.001
+      parentName: jaw.x
+      position: {x: -0.0020606606, y: 0.00495026, z: -0.0010686496}
+      rotation: {x: -0.74278075, y: 0.0000058222595, z: 0.0000066538405, w: 0.66953474}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+    - name: lips_under.r.001
+      parentName: jaw.x
+      position: {x: 0.0020606215, y: 0.00495026, z: -0.0010687236}
+      rotation: {x: -0.7427808, y: 0.000005981888, z: 0.0000064767482, w: 0.6695347}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: lips_under_x
+      parentName: jaw.x
+      position: {x: -0.000000022554712, y: 0.0055310247, z: -0.0012612855}
+      rotation: {x: -0.7427808, y: 0.0000059864155, z: 0.0000066413204, w: 0.6695347}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: eyelid.l
+      parentName: hips.x
+      position: {x: -0.0034569383, y: 0.0048405, z: 0.0037736937}
+      rotation: {x: 0.46563333, y: -0.061865326, z: 0.34201205, w: 0.813871}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: eye.l
+      parentName: hips.x
+      position: {x: -0.0034569383, y: 0.0048405, z: 0.0037736937}
+      rotation: {x: 0.46714818, y: -0.06548071, z: 0.33993953, w: 0.8135884}
+      scale: {x: 1, y: 1, z: 1}
+    - name: eyelid.r
+      parentName: hips.x
+      position: {x: 0.0034569402, y: 0.0048405, z: 0.003773692}
+      rotation: {x: 0.46563348, y: 0.06186536, z: -0.34201175, w: 0.8138711}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: eye.r
+      parentName: hips.x
+      position: {x: 0.0034569402, y: 0.0048405, z: 0.003773692}
+      rotation: {x: 0.46714792, y: 0.06548053, z: -0.33993983, w: 0.81358844}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lips_top.x
+      parentName: hips.x
+      position: {x: 0.0000000016087761, y: 0.0016332117, z: 0.006747696}
+      rotation: {x: 0, y: 0.00000011920928, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lips.r
+      parentName: hips.x
+      position: {x: 0.0047760676, y: 0.0016972416, z: 0.003975565}
+      rotation: {x: 0, y: 0.00000011920928, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lips.l
+      parentName: hips.x
+      position: {x: -0.0047760657, y: 0.0016972416, z: 0.0039755674}
+      rotation: {x: 0, y: 0.00000011920928, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lips_top.l.001
+      parentName: hips.x
+      position: {x: -0.0020574552, y: 0.0016317074, z: 0.006310144}
+      rotation: {x: 0, y: 0.00000011920928, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lips_top.r.001
+      parentName: hips.x
+      position: {x: 0.0020574578, y: 0.0016317074, z: 0.006310144}
+      rotation: {x: 0, y: 0.00000011920928, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: tongue_base.x
+      parentName: hips.x
+      position: {x: -4.7049364e-10, y: 0.00089378265, z: -0.0019733931}
+      rotation: {x: 0.56285816, y: -0.42800683, z: 0.42800802, w: 0.56285876}
+      scale: {x: 1, y: 1, z: 1}
+    - name: tongue_middle_01.x
+      parentName: tongue_base.x
+      position: {x: -1.2124866e-16, y: 0.0011821326, z: -1.8826657e-10}
+      rotation: {x: -0.00000026822087, y: -0.0000005215406, z: 0.09827112, w: 0.9951597}
+      scale: {x: 1, y: 1, z: 1}
+    - name: tongue_middle_02.x
+      parentName: tongue_middle_01.x
+      position: {x: -3.7499435e-18, y: 0.0012360298, z: -1.6186029e-10}
+      rotation: {x: 0.000000029883807, y: -9.727644e-21, z: 1.1637162e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: tongue_middle_03.x
+      parentName: tongue_middle_02.x
+      position: {x: 9.357152e-18, y: 0.0013398159, z: -3.49454e-11}
+      rotation: {x: -0.0000000034513052, y: -1.4210854e-14, z: -1.3439771e-15, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: tongue_tip.x
+      parentName: hips.x
+      position: {x: 0.0000000013231711, y: 0.0008937821, z: 0.005549782}
+      rotation: {x: 0.7071068, y: 0.0000002219725, z: 0.000000053385065, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hat.x
+      parentName: root
+      position: {x: 0.0021807817, y: 0.009249691, z: -0.0006943895}
+      rotation: {x: -0.056613762, y: 0.007237996, z: -0.13496375, w: 0.9892054}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: DefaultChefrog
+      parentName: rig_pepe_chefrog_2.0(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: DefaultHat
+      parentName: rig_pepe_chefrog_2.0(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: tongue_model
+      parentName: rig_pepe_chefrog_2.0(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -108,7 +296,7 @@ ModelImporter:
     globalScale: 0.4
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
@@ -116,6 +304,8 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
