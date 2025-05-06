@@ -8,12 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Boca
-    second: {fileID: 2100000, guid: ce3f69a3515292340a57f252a4ec72dd, type: 2}
+    second: {fileID: 2100000, guid: 8b0099b5f495ec5429c906f9d2740792, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Chapeu
     second: {fileID: 2100000, guid: dad4c7508ca5a9b4181d98f33c8cf1e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_ChefrogOriginal
+    second: {fileID: 2100000, guid: 8b0099b5f495ec5429c906f9d2740792, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_DefaultHat
+    second: {fileID: 2100000, guid: b95f815f926d21543ae71cd0082d37be, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
