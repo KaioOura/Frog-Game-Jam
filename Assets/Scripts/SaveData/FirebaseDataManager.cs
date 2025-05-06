@@ -29,12 +29,8 @@ public class FirebaseDataManager : MonoBehaviour
     IEnumerator Start()
     {
         yield return new WaitUntil(() => FirebaseAuthManager.FirebaseReady);
-        
-        FirebaseApp app = FirebaseApp.DefaultInstance;
-        
-        var db = FirebaseDatabase.GetInstance(app, "https://chefrog-86c0e-default-rtdb.firebaseio.com/");
 
-        dbRef = db.GetReference("players");
+        dbRef = FirebaseAuthManager.FirebaseDatabase.GetReference("players");
     }
 
     [ContextMenu("NextScene")]
@@ -67,6 +63,7 @@ public class FirebaseDataManager : MonoBehaviour
                 if (!string.IsNullOrEmpty(json))
                 {
                     PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+                    playerData = data;
                     Debug.Log("Score: " + data.score + ", Coins: " + data.coins);
                 }
                 else

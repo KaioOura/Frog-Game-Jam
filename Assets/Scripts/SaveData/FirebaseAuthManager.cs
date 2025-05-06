@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine;
 
@@ -11,21 +12,21 @@ namespace SaveData
     {
         
         public static bool FirebaseReady = false;
+        public static FirebaseDatabase FirebaseDatabase;
         
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
 
+            FirebaseApp app = FirebaseApp.DefaultInstance;
+            
+            FirebaseDatabase = FirebaseDatabase.GetInstance(app, "https://chefrog-86c0e-default-rtdb.firebaseio.com/");
+            
             FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
             {
                 var dependencyStatus = task.Result;
                 if (dependencyStatus == DependencyStatus.Available)
                 {
-                    FirebaseApp app = FirebaseApp.DefaultInstance;
-
-                    // Defina a DatabaseURL corretamente aqui
-                    app.Options.DatabaseUrl = new System.Uri("https://chefrog-86c0e-default-rtdb.firebaseio.com/");
-
                     FirebaseReady = true;
                     Debug.Log("Firebase inicializado com sucesso.");
                 }
