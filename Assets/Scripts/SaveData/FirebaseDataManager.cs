@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using Firebase.Auth;
-using Firebase.Firestore;
-using Firebase.Extensions;
 using System.Collections.Generic;
+using Firebase;
+using Firebase.Database;
+using SaveData;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class PlayerData
@@ -13,77 +16,95 @@ public class PlayerData
     public int coins;
     public List<string> items;
     public int level;
+
+    public string userID;
 }
 
 public class FirebaseDataManager : MonoBehaviour
 {
-    FirebaseFirestore db;
+    DatabaseReference dbRef;
 
     public PlayerData playerData;
 
-    void Start()
+    IEnumerator Start()
     {
-        db = FirebaseFirestore.DefaultInstance;
+        yield return new WaitUntil(() => FirebaseAuthManager.FirebaseReady);
+        
+        FirebaseApp app = FirebaseApp.DefaultInstance;
+        
+        var db = FirebaseDatabase.GetInstance(app, "https://chefrog-86c0e-default-rtdb.firebaseio.com/");
+
+        dbRef = db.GetReference("players");
     }
 
+    [ContextMenu("NextScene")]
+    public void NextScene()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 2);
+    }
+    
     [ContextMenu("Save")]
     public void SavePlayerData()
     {
         string uid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
         
-        db.Collection("players").Document(uid).SetAsync(playerData).ContinueWithOnMainThread(task =>
-        {
-            if (task.IsCompleted) Debug.Log("Data saved!");
-        });
+        string json = JsonUtility.ToJson(playerData);
+        dbRef.Child("players").Child(playerData.userID).SetRawJsonValueAsync(json);
     }
 
     [ContextMenu("Load")]
     public void LoadPlayerData()
     {
-        string uid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
-
-        db.Collection("players").Document(uid).GetSnapshotAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.IsCompleted)
+        dbRef.Child("players").Child(playerData.userID).GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
             {
-                DocumentSnapshot snapshot = task.Result;
-                if (snapshot.Exists)
+                Debug.LogError("Erro ao ler dados: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                string json = snapshot.GetRawJsonValue();
+                if (!string.IsNullOrEmpty(json))
                 {
-                    Dictionary<string, object> data = snapshot.ToDictionary();
-                    string nickname = data["nickname"].ToString();
-                    int score = int.Parse(data["score"].ToString());
-                    int coins = int.Parse(data["coins"].ToString());
-                    List<object> itemsList = (List<object>)data["items"];
-                    List<string> items = itemsList.ConvertAll(i => i.ToString());
-                    int level = int.Parse(data["level"].ToString());
-
-                    Debug.Log($"Loaded Player: {nickname} | Score: {score} | Coins: {coins} | Level: {level}");
+                    PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+                    Debug.Log("Score: " + data.score + ", Coins: " + data.coins);
                 }
                 else
                 {
-                    Debug.LogWarning("No data found for this user.");
+                    Debug.LogWarning("Nenhum dado encontrado para esse jogador.");
                 }
-            }
-            else
-            {
-                Debug.LogError("Failed to load player data: " + task.Exception);
             }
         });
     }
 
     public void GetLeaderboard()
     {
-        db.Collection("players").OrderByDescending("score").Limit(10).GetSnapshotAsync()
-            .ContinueWithOnMainThread(task =>
+        dbRef.Child("players").OrderByChild("Score").LimitToLast(10).GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
             {
-                if (task.IsCompleted)
+                Debug.LogError("Erro ao carregar leaderboard: " + task.Exception);
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+
+                List<PlayerData> leaderboard = new List<PlayerData>();
+
+                foreach (DataSnapshot child in snapshot.Children)
                 {
-                    foreach (var doc in task.Result.Documents)
-                    {
-                        var data = doc.ToDictionary();
-                        Debug.Log($"Player: {data["nickname"]} - Score: {data["score"]}");
-                    }
+                    string json = child.GetRawJsonValue();
+                    PlayerData player = JsonUtility.FromJson<PlayerData>(json);
+                    leaderboard.Add(player);
                 }
-            });
+
+                // Reverter para ordem decrescente (Firebase retorna do menor pro maior)
+                leaderboard.Reverse();
+
+                foreach (var p in leaderboard)
+                {
+                    Debug.Log($"{p.nickname}: {p.score}");
+                }
+            }
+        });
     }
 }
