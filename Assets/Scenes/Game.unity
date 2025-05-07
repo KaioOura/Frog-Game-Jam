@@ -5567,6 +5567,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMobile: 1
+  bellyFrog: {fileID: 567366231}
+  an: {fileID: 1918973768}
+  gameStates: 0
+  currentScore: 0
+  lastScore: 0
+  highScore: 0
+  lives: 6
   joystick: {fileID: 1336299724499912509}
   actionButton: {fileID: 7233475431439485787}
   deliverButton: {fileID: 3821314139212924105}
@@ -5577,13 +5584,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d847b876476d3d6468f5dfcd34266f96, type: 2}
   - {fileID: 11400000, guid: 19ba41d7c0026c3459d37c2fe90c55a0, type: 2}
   cameraUI: {fileID: 396690142}
-  bellyFrog: {fileID: 567366231}
-  an: {fileID: 1918973768}
-  gameStates: 0
-  currentScore: 0
-  lastScore: 0
-  highScore: 0
-  lives: 6
+  displayUserInfoUI: {fileID: 8034141845938540519}
 --- !u!4 &1863697137
 Transform:
   m_ObjectHideFlags: 0
@@ -7371,7 +7372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7387823436481758636, guid: 6c241067cb18dbe4e9813f86e8b2e6d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 7719276676421426330, guid: 6c241067cb18dbe4e9813f86e8b2e6d5, type: 3}
       propertyPath: m_Pivot.x
@@ -9716,6 +9717,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+--- !u!114 &8034141845938540519 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7648072694382521540, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+  m_PrefabInstance: {fileID: 8034141845938540518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a544779f7a1a2468205aac793bd2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &8049664210541666951
 MeshRenderer:
   m_ObjectHideFlags: 0

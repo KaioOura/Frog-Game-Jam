@@ -11,14 +11,6 @@ public class GameManager : MonoBehaviour
     public Joystick Joystick => joystick;
 
     public bool isMobile; //TODO: remover isso quando criar um meio de alternar build mobile e web
-    [SerializeField] private Joystick joystick;
-    [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
-    [SerializeField] private GameObject deliverButton;
-    [SerializeField] private Character character;
-    [SerializeField] private IngredientSpawner ingredientSpawner;
-    [SerializeField] private RenderPipelineAsset[] qualityLevels;
-    [SerializeField] private GameObject cameraUI;
-
     public BellyFrog bellyFrog;
     public Animator an;
 
@@ -30,17 +22,34 @@ public class GameManager : MonoBehaviour
     public int highScore;
 
     public int lives;
+    
+    [SerializeField] private Joystick joystick;
+    [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
+    [SerializeField] private GameObject deliverButton;
+    [SerializeField] private Character character;
+    [SerializeField] private IngredientSpawner ingredientSpawner;
+    [SerializeField] private RenderPipelineAsset[] qualityLevels;
+    [SerializeField] private GameObject cameraUI;
+    [SerializeField] private DisplayUserInfoUI displayUserInfoUI;
+    
+    
+    private FirebaseDataManager _firebaseDataManager;
+
 
     private void Awake()
     {
         instance = this;
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
+
+        _firebaseDataManager = FirebaseDataManager.Instance;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        displayUserInfoUI.Initialize(_firebaseDataManager);
+        
 #if UNITY_EDITOR
         Debug.unityLogger.logEnabled = true;
 #else

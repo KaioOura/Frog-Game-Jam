@@ -10,36 +10,16 @@ namespace SaveData
 {
     public class FirebaseAuthManager : MonoBehaviour
     {
+        public static bool LoggedIn = false;
         
-        public static bool FirebaseReady = false;
-        public static FirebaseDatabase FirebaseDatabase;
-        
-        private void Awake()
+        public void Start()
         {
-            DontDestroyOnLoad(gameObject);
-
-            FirebaseApp app = FirebaseApp.DefaultInstance;
-            
-            FirebaseDatabase = FirebaseDatabase.GetInstance(app, "https://chefrog-86c0e-default-rtdb.firebaseio.com/");
-            
-            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-            {
-                var dependencyStatus = task.Result;
-                if (dependencyStatus == DependencyStatus.Available)
-                {
-                    FirebaseReady = true;
-                    Debug.Log("Firebase inicializado com sucesso.");
-                }
-                else
-                {
-                    Debug.LogError($"Erro ao inicializar Firebase: {dependencyStatus}");
-                }
-            });
+            StartCoroutine(AnonymouslyRoutine());
         }
-
-        IEnumerator Start()
+        
+        IEnumerator AnonymouslyRoutine()
         {
-            yield return new WaitUntil(()=> FirebaseReady == true);
+            yield return new WaitUntil(()=> FireBaseInitializer.FirebaseReady);
             
             try
             {
@@ -53,6 +33,7 @@ namespace SaveData
                             if (authTask.IsCompleted && !authTask.IsCanceled && !authTask.IsFaulted)
                             {
                                 Debug.Log("User signed in: " + auth.CurrentUser.UserId);
+                                LoggedIn = true;
                             }
                             else
                             {
