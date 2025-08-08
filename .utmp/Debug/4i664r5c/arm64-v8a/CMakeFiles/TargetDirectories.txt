@@ -1,0 +1,5 @@
+C:/UnityProjects/Chefrog/Frog-Game-Jam/.utmp/Debug/4i664r5c/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/UnityProjects/Chefrog/Frog-Game-Jam/.utmp/Debug/4i664r5c/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/UnityProjects/Chefrog/Frog-Game-Jam/.utmp/Debug/4i664r5c/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/UnityProjects/Chefrog/Frog-Game-Jam/.utmp/Debug/4i664r5c/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/UnityProjects/Chefrog/Frog-Game-Jam/.utmp/Debug/4i664r5c/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
