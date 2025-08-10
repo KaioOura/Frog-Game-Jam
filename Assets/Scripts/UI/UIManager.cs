@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,9 +13,13 @@ public class UIManager : MonoBehaviour
 
     public Image bellyFrogImage;
 
-    public TextMeshProUGUI currentScoreTMP, finalScoreTMP, highScoreTMP;
+    public TextMeshProUGUI currentScoreTMP, finalScoreTMP;
+    public TextMeshProUGUI finalHighScoreTMP;
+    [SerializeField] private TextMeshProUGUI secondChanceScoreTMP;
+    [SerializeField] private TextMeshProUGUI secondChanceHighScoreTMP;
 
-    public GameObject menu, game,postGame;
+
+    public GameObject menu, game,postGame, secondChance;
 
     private void Awake()
     {
@@ -29,38 +34,26 @@ public class UIManager : MonoBehaviour
     public void UpdateCurrentFinalScore(int scoreToUpdate)
     {
         finalScoreTMP.text = scoreToUpdate.ToString();
+        secondChanceScoreTMP.text = scoreToUpdate.ToString();
     }
 
     public void UpdateCurrentHighScore(int scoreToUpdate)
     {
-        highScoreTMP.text = scoreToUpdate.ToString();
+        finalHighScoreTMP.text = scoreToUpdate.ToString();
+        secondChanceHighScoreTMP.text = scoreToUpdate.ToString();
     }
 
     public void UpdateLives(int life)
     {
         int lifeImagesActive = 0;
-
-        foreach (var item in lifeImages)
+        
+        for (var index = 0; index < lifeImages.Length; index++)
         {
-            if (item.gameObject.activeSelf)
-            {
-                lifeImagesActive++;
-            }
-        }
+            var item = lifeImages[index];
 
-        if (lifeImagesActive > life)
-        {
-            foreach (var item in lifeImages)
-            {
-                item.gameObject.SetActive(false);
-            }
+            item.gameObject.SetActive(index < life);
+            
         }
-
-        for (int i = 0; i < life; i++)
-        {
-            lifeImages[i].gameObject.SetActive(true);
-        }
-
     }
 
     public void ShowHideMenu(bool shouldShow)
@@ -87,6 +80,18 @@ public class UIManager : MonoBehaviour
         else
         {
             postGame.SetActive(false);
+        }
+    }
+    
+    public void ShowSecondChance(bool shouldShow)
+    {
+        if (shouldShow)
+        {
+            secondChance.SetActive(true);
+        }
+        else
+        {
+            secondChance.SetActive(false);
         }
     }
 

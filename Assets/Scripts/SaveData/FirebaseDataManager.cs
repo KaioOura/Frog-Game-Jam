@@ -28,7 +28,7 @@ public class PlayerData
         Username = string.Empty;
         Coins = 0;
         Level = 0;
-        Coins = 0;
+        Highschore = 0;
         Items = new List<string> { "sword", "potion", "shield" };
         //Upgrades = new Dictionary<PowerUpEnum, int>();
         Level = 0;

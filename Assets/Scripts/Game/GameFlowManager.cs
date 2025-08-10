@@ -26,18 +26,19 @@ public class GameFlowManager : MonoBehaviour
 
     public void PauseGame(bool pause)
     {
-        isPause = !isPause;
+        isPause = pause;
+        
         if (pause)
         {
             GameManager.instance.gameStates = GameStates.pause;
-            pausePage.SetActive(true);
+            //pausePage.SetActive(true);
             Time.timeScale = 0;
         }
         else
         {
             Time.timeScale = 1;
             GameManager.instance.gameStates = GameStates.game;
-            pausePage.SetActive(false);
+            //pausePage.SetActive(false);
         }
     }
 

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public int highScore;
 
     public int lives;
-    
+
     [SerializeField] private Joystick joystick;
     [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
     [SerializeField] private GameObject deliverButton;
@@ -34,9 +34,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DisplayUserInfoUI displayUserInfoUI;
     [SerializeField] private PowerUpManager powerUpManager;
     [SerializeField] private PlayerDataHandler playerDataHandler;
-    
-    
+    [SerializeField] private GameFlowManager gameFlowManager;
+
+
     private FirebaseDataManager _firebaseDataManager;
+    private AdManager _adManager;
 
 
     private void Awake()
@@ -46,14 +48,14 @@ public class GameManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;
 
         _firebaseDataManager = FindAnyObjectByType<FirebaseDataManager>();
+        _adManager = FindAnyObjectByType<AdManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
         InitializeComponents();
-        
+
 #if UNITY_EDITOR
         Debug.unityLogger.logEnabled = true;
 #else
@@ -79,11 +81,11 @@ public class GameManager : MonoBehaviour
             playerDataHandler.Initialize(_firebaseDataManager.PlayerData);
         else
             playerDataHandler.InitializeNotLoggedIn();
-        
+
         displayUserInfoUI.Initialize(playerDataHandler);
         powerUpManager.Initialize(playerDataHandler);
     }
-    
+
     public void ChangeQuality(int value)
     {
         QualitySettings.SetQualityLevel(value);
@@ -137,12 +139,15 @@ public class GameManager : MonoBehaviour
         if (currentScore > highScore)
         {
             highScore = currentScore;
+            playerDataHandler.Progress.SetHighScore(highScore);
             PlayerPrefs.SetFloat(PlayerPrefsSettings.highScore, highScore);
         }
         else
         {
             highScore = (int)PlayerPrefs.GetFloat(PlayerPrefsSettings.highScore, 0);
         }
+
+        _firebaseDataManager.SavePlayerData();
 
         OrderManager.instance.ResetOrders();
 
@@ -183,16 +188,42 @@ public class GameManager : MonoBehaviour
 
         if (lives <= 0 && gameStates == GameStates.game)
         {
-            LoseGame();
-
+            UIManager.instance.UpdateCurrentFinalScore(currentScore);
+            UIManager.instance.UpdateCurrentHighScore(playerDataHandler.Progress.GetHighScore());
+            UIManager.instance.ShowSecondChance(true);
+            gameFlowManager.PauseGame(true);
             //Trigar tela de derrota, mostrar score, highscore, etc
         }
     }
 
+    [ContextMenu("Kill Char")]
+    public void KillCharDebug()
+    {
+        ChangeLife(-10);
+    }
+    
     public void ResetLife()
     {
-        lives = 6;
+        lives = 0;
+        GainLife(6);
+        
+    }
+
+    public void GainLife(int gainAmount)
+    {
+        lives += gainAmount;
         UIManager.instance.UpdateLives(lives);
+    }
+
+    public void RewardAd()
+    {
+        _adManager.ShowRewardedAd(() =>
+            {
+                lives = 0;
+                GainLife(2);
+                gameFlowManager.PauseGame(false);
+            }
+        );
     }
 
     public void QuitGame()
