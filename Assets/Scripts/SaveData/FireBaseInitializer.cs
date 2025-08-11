@@ -1,3 +1,4 @@
+using System.Collections;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
@@ -40,9 +41,17 @@ public class FireBaseInitializer : MonoBehaviour
                 databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
                 debugText.text = "DatabaseReference Success";
                 FirebaseReady = true;
-                sceneLoader.LoadScene();
+                StartCoroutine(AwaitInitialization());
             });
     }
 
-   
+
+    private IEnumerator AwaitInitialization()
+    {
+        yield return new WaitUntil(() => FirebaseReady);
+        yield return new WaitUntil(() => AdManager.IsReady);
+        yield return new WaitForSeconds(1);
+        
+        sceneLoader.LoadScene();
+    }
 }

@@ -10,7 +10,13 @@ public class LoginResultUI : MonoBehaviour
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private SceneLoader sceneLoader;
     private FirebaseDataManager _firebaseDataManager;
-    private IEnumerator Start()
+
+    private void Awake()
+    {
+        StartCoroutine(SubscribeEvents());
+    }
+
+    private IEnumerator SubscribeEvents()
     {
         while (_firebaseDataManager == null)
         {
@@ -45,7 +51,7 @@ public class LoginResultUI : MonoBehaviour
             UserID = _firebaseDataManager.UserID,
             Username = inputField.text,
             Coins = 0,
-            Highschore = 0,
+            Highschore = 999,
             Items = new List<string> { "sword", "potion", "shield" },
             Level = 0,
         };

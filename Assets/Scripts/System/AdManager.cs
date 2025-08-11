@@ -1,51 +1,55 @@
 using System;
 using UnityEngine;
-using GoogleMobileAds;
 using GoogleMobileAds.Api;
+
 public class AdManager : MonoBehaviour
 {
     public static AdManager Instance;
+    public static bool IsReady;
 
-    
     private RewardedAd _rewardedAd;
+    private Action _pendingRewardCallback;
 
     private string rewardAdEndGameID;
-    
+    public bool IsBuildTest;
+
+
+    private DisplayUserInfoUI displayUserInfoUI;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
+            return;
         }
-        
-        DontDestroyOnLoad(gameObject);
-        
+
+        Debug.Log("Initializing Mobile Ads");
         MobileAds.Initialize((InitializationStatus initStatus) =>
         {
+            InitializeRewardAd();
             Debug.Log("Mobile Ads initialized");
-            // This callback is called once the MobileAds SDK is initialized.
+            IsReady = true;
         });
-    }
-
-    private void Start()
-    {
-        InitializeRewardAd();
     }
 
     private void InitializeRewardAd()
     {
 #if UNITY_ANDROID
-        rewardAdEndGameID = "ca-app-pub-8669076221541258/2345647997";
+        rewardAdEndGameID = IsBuildTest 
+            ? "ca-app-pub-3940256099942544/5224354917" // Test ID
+            : "ca-app-pub-8669076221541258/2345647997";
 #elif UNITY_IPHONE
+        // Coloque o ID iOS aqui
 #endif
-        
         LoadRewardAd();
     }
-    
+
     private void LoadRewardAd()
     {
         if (_rewardedAd != null)
@@ -53,49 +57,68 @@ public class AdManager : MonoBehaviour
             _rewardedAd.Destroy();
             _rewardedAd = null;
         }
-        
-        Debug.Log("Loading reward ad");
-        
-        var adRequest = new AdRequest();
 
+        Debug.Log("Loading reward ad");
+
+        var adRequest = new AdRequest();
         RewardedAd.Load(rewardAdEndGameID, adRequest, (RewardedAd ad, LoadAdError error) =>
         {
             if (error != null)
             {
-                Debug.Log("Reward Ads failed initialing");
+                Debug.LogError("Failed to load rewarded ad: " + error);
                 return;
             }
 
             _rewardedAd = ad;
-            Debug.Log("Reward Ads loaded");
+            Debug.Log("Rewarded ad loaded");
+
+            // Eventos do ciclo de vida do anúncio
         });
     }
 
     [ContextMenu("Show reward ad")]
     public void ShowRewardAdDebug()
     {
-        ShowRewardedAd(null);
+        //ShowRewardedAd(() => Debug.Log("Reward from debug ad"));
     }
-    
+
     public void ShowRewardedAd(Action rewardToGive)
     {
-        if (!_rewardedAd.CanShowAd())
-        {
-            Debug.Log("Show Reward Ad failed");
-            return;
-        }
+        displayUserInfoUI = FindAnyObjectByType<DisplayUserInfoUI>();
         
-        _rewardedAd.Show((Reward reward) =>
+        if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
-            rewardToGive?.Invoke();
-            ReloadAd(_rewardedAd);
-        });
+            displayUserInfoUI.ShowRewardLogs("RewardedAdn exists an can show ad");
+            Debug.LogError($"RewardedAdn exists an can show ad");
+            _pendingRewardCallback = rewardToGive;
+            _rewardedAd.Show((Reward reward) =>
+            {
+                displayUserInfoUI.ShowRewardLogs($"User earned reward: {reward.Amount} {reward.Type}");
+                Debug.LogError($"User earned reward: {reward.Amount} {reward.Type}");
+                _pendingRewardCallback?.Invoke();
+                _pendingRewardCallback = null;
+                
+                Debug.Log(String.Format("Reward pls", reward.Type, reward.Amount));
+            });
+            
+            // _rewardedAd.OnAdFullScreenContentClosed += () =>
+            // {
+            //     displayUserInfoUI.ShowRewardLogs($"Ad closed, reloading...");
+            //     Debug.Log("Ad closed, reloading...");
+            //     LoadRewardAd();
+            // };
+            //
+            // _rewardedAd.OnAdFullScreenContentFailed += (AdError adError) =>
+            // {
+            //     displayUserInfoUI.ShowRewardLogs($"Ad failed to show");
+            //     Debug.LogError("Ad failed to show: " + adError);
+            //     LoadRewardAd();
+            // };
+        }
+        else
+        {
+            displayUserInfoUI.ShowRewardLogs($"Rewarded ad is not ready yet.");
+            Debug.LogWarning("Rewarded ad is not ready yet.");
+        }
     }
-    
-    void ReloadAd(RewardedAd rewardedAd)
-    {
-        rewardedAd.OnAdFullScreenContentClosed += LoadRewardAd;
-        rewardedAd.OnAdFullScreenContentFailed += (AdError adError) => LoadRewardAd();
-    }
-    
 }

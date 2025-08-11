@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.UpdateCurrentFinalScore(currentScore);
             UIManager.instance.UpdateCurrentHighScore(playerDataHandler.Progress.GetHighScore());
             UIManager.instance.ShowSecondChance(true);
-            gameFlowManager.PauseGame(true);
+            ///gameFlowManager.PauseGame(true);
             //Trigar tela de derrota, mostrar score, highscore, etc
         }
     }
@@ -217,11 +217,13 @@ public class GameManager : MonoBehaviour
 
     public void RewardAd()
     {
+        Debug.Log("Showing Reward Ad");
         _adManager.ShowRewardedAd(() =>
             {
+                Debug.Log("Giving Reward");
                 lives = 0;
                 GainLife(2);
-                gameFlowManager.PauseGame(false);
+                //gameFlowManager.PauseGame(false);
             }
         );
     }

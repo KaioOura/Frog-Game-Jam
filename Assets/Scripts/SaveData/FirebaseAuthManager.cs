@@ -14,7 +14,7 @@ namespace SaveData
         
         public void Start()
         {
-            StartCoroutine(AnonymouslyRoutine());
+            //StartCoroutine(AnonymouslyRoutine());
         }
         
         IEnumerator AnonymouslyRoutine()
