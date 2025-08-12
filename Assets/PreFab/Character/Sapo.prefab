@@ -2668,7 +2668,7 @@ PrefabInstance:
     - target: {fileID: -1738681963163911098, guid: 789fdeb649915d94d8d35ae192e4a990, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1cf3b15b9095e48428bfbb95b3e91f5d, type: 2}
+      objectReference: {fileID: 2100000, guid: 4b73dfd0594b77149ac6ce95e858d961, type: 2}
     - target: {fileID: -1529836508931830855, guid: 789fdeb649915d94d8d35ae192e4a990, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -2.8434796
@@ -3301,6 +3301,10 @@ PrefabInstance:
     - target: {fileID: 4558823385771391118, guid: c28b797b36c49dd44bb3f53beff8e5e2, type: 3}
       propertyPath: m_Name
       value: Sweat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558823385771391118, guid: c28b797b36c49dd44bb3f53beff8e5e2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
