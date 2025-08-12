@@ -9,6 +9,8 @@ public class AdManager : MonoBehaviour
 
     private RewardedAd _rewardedAd;
     private Action _pendingRewardCallback;
+    private bool _pendingReward;
+    private Reward _lastReward;
 
     private string rewardAdEndGameID;
     public bool IsBuildTest;
@@ -36,6 +38,16 @@ public class AdManager : MonoBehaviour
             Debug.Log("Mobile Ads initialized");
             IsReady = true;
         });
+    }
+
+    private void Update()
+    {
+        if (_pendingReward)
+        {
+            _pendingReward = false;
+            _pendingRewardCallback?.Invoke();
+            Debug.LogError($"User earned reward: {_lastReward.Amount} {_lastReward.Type}");
+        }
     }
 
     private void InitializeRewardAd()
@@ -82,43 +94,46 @@ public class AdManager : MonoBehaviour
         //ShowRewardedAd(() => Debug.Log("Reward from debug ad"));
     }
 
-    public void ShowRewardedAd(Action rewardToGive)
+    public void ShowRewardedAd(Action rewardCallback)
     {
-        displayUserInfoUI = FindAnyObjectByType<DisplayUserInfoUI>();
+        //displayUserInfoUI = _displayUserInfoUI;
         
+         _pendingRewardCallback = rewardCallback;
+         
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
-            displayUserInfoUI.ShowRewardLogs("RewardedAdn exists an can show ad");
-            Debug.LogError($"RewardedAdn exists an can show ad");
-            _pendingRewardCallback = rewardToGive;
+            //displayUserInfoUI.ShowRewardLogs("RewardedAdn exists an can show ad");
+            Debug.Log($"RewardedAdn exists an can show ad");
             _rewardedAd.Show((Reward reward) =>
             {
-                displayUserInfoUI.ShowRewardLogs($"User earned reward: {reward.Amount} {reward.Type}");
-                Debug.LogError($"User earned reward: {reward.Amount} {reward.Type}");
-                _pendingRewardCallback?.Invoke();
-                _pendingRewardCallback = null;
+                _lastReward = reward;
+                _pendingReward = true;
+                //displayUserInfoUI.ShowRewardLogs($"User earned reward: {reward.Amount} {reward.Type}");
+                Debug.Log($"User earned reward: {reward.Amount} {reward.Type}");
+                //_pendingRewardCallback?.Invoke();
+                //_pendingRewardCallback = null;
                 
                 Debug.Log(String.Format("Reward pls", reward.Type, reward.Amount));
             });
             
-            // _rewardedAd.OnAdFullScreenContentClosed += () =>
-            // {
-            //     displayUserInfoUI.ShowRewardLogs($"Ad closed, reloading...");
-            //     Debug.Log("Ad closed, reloading...");
-            //     LoadRewardAd();
-            // };
-            //
-            // _rewardedAd.OnAdFullScreenContentFailed += (AdError adError) =>
-            // {
-            //     displayUserInfoUI.ShowRewardLogs($"Ad failed to show");
-            //     Debug.LogError("Ad failed to show: " + adError);
-            //     LoadRewardAd();
-            // };
+            _rewardedAd.OnAdFullScreenContentClosed += () =>
+            {
+                //displayUserInfoUI.ShowRewardLogs($"Ad closed, reloading...");
+                Debug.Log("Ad closed, reloading...");
+                LoadRewardAd();
+            };
+            
+            _rewardedAd.OnAdFullScreenContentFailed += (AdError adError) =>
+            {
+                //displayUserInfoUI.ShowRewardLogs($"Ad failed to show");
+                Debug.Log("Ad failed to show: " + adError);
+                LoadRewardAd();
+            };
         }
         else
         {
             displayUserInfoUI.ShowRewardLogs($"Rewarded ad is not ready yet.");
-            Debug.LogWarning("Rewarded ad is not ready yet.");
+            Debug.Log("Rewarded ad is not ready yet.");
         }
     }
 }

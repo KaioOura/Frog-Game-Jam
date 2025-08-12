@@ -51,7 +51,7 @@ public class LoginResultUI : MonoBehaviour
             UserID = _firebaseDataManager.UserID,
             Username = inputField.text,
             Coins = 0,
-            Highschore = 999,
+            Highschore = 0,
             Items = new List<string> { "sword", "potion", "shield" },
             Level = 0,
         };

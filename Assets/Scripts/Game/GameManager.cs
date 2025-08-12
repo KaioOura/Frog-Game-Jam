@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
         _firebaseDataManager = FindAnyObjectByType<FirebaseDataManager>();
         _adManager = FindAnyObjectByType<AdManager>();
+        _displayUserInfoUI = FindAnyObjectByType<DisplayUserInfoUI>();
     }
 
     // Start is called before the first frame update
@@ -218,14 +219,16 @@ public class GameManager : MonoBehaviour
     public void RewardAd()
     {
         Debug.Log("Showing Reward Ad");
-        _adManager.ShowRewardedAd(() =>
-            {
-                Debug.Log("Giving Reward");
-                lives = 0;
-                GainLife(2);
-                //gameFlowManager.PauseGame(false);
-            }
-        );
+        _adManager.ShowRewardedAd(Reward);
+    }
+
+    private DisplayUserInfoUI _displayUserInfoUI;
+    public void Reward()
+    {
+        Debug.Log("Giving Reward");
+        lives = 0;
+        GainLife(2);
+        _displayUserInfoUI.ShowRewardLogs("Lives: " + lives);
     }
 
     public void QuitGame()
