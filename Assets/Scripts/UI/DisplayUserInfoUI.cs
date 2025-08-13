@@ -5,7 +5,6 @@ using UnityEngine;
 public class DisplayUserInfoUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI infos;
-    [SerializeField] private TextMeshProUGUI logInfos;
     private PlayerDataHandler _playerDataHandler;
 
 
@@ -21,10 +20,5 @@ public class DisplayUserInfoUI : MonoBehaviour
                       $"Coins: {_playerDataHandler.Currency.GetCoins()} | HighScore: {_playerDataHandler.Progress.GetHighScore()}";
 
         infos.text = info;
-    }
-
-    public void ShowRewardLogs(string log)
-    {
-        logInfos.text += $"\n {log}";
     }
 }

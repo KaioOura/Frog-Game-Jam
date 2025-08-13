@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
 
         _firebaseDataManager = FindAnyObjectByType<FirebaseDataManager>();
         _adManager = FindAnyObjectByType<AdManager>();
-        _displayUserInfoUI = FindAnyObjectByType<DisplayUserInfoUI>();
     }
 
     // Start is called before the first frame update
@@ -192,8 +191,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.UpdateCurrentFinalScore(currentScore);
             UIManager.instance.UpdateCurrentHighScore(playerDataHandler.Progress.GetHighScore());
             UIManager.instance.ShowSecondChance(true);
-            ///gameFlowManager.PauseGame(true);
-            //Trigar tela de derrota, mostrar score, highscore, etc
+            gameFlowManager.PauseGame(true);
         }
     }
 
@@ -221,14 +219,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Showing Reward Ad");
         _adManager.ShowRewardedAd(Reward);
     }
-
-    private DisplayUserInfoUI _displayUserInfoUI;
+    
     public void Reward()
     {
         Debug.Log("Giving Reward");
         lives = 0;
         GainLife(2);
-        _displayUserInfoUI.ShowRewardLogs("Lives: " + lives);
+        gameFlowManager.PauseGame(true);
     }
 
     public void QuitGame()
