@@ -911,7 +911,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1042569667}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &166867540 stripped
 GameObject:
@@ -1416,7 +1415,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 754872434}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!114 &393834252 stripped
 MonoBehaviour:
@@ -1815,7 +1813,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 2026909263}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!114 &511293643 stripped
 MonoBehaviour:
@@ -3042,7 +3039,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1309715975}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &813659365
 GameObject:
@@ -3343,7 +3339,7 @@ MonoBehaviour:
   - {fileID: 1568781658}
   - {fileID: 1805059356}
   - {fileID: 73492795}
-  positions:
+  spots:
   - {fileID: 485073211}
   - {fileID: 991998787}
   - {fileID: 1804457889}
@@ -3357,7 +3353,7 @@ MonoBehaviour:
   - {fileID: 812640139}
   - {fileID: 2074913774}
   - {fileID: 1741938857}
-  speed: 2
+  speed: 1.5
 --- !u!1 &877099159
 GameObject:
   m_ObjectHideFlags: 0
@@ -3711,7 +3707,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1880639704}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &993900914
 GameObject:
@@ -5152,7 +5147,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 358434755}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &1367868206
 GameObject:
@@ -5203,7 +5197,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1953074964}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &1391792592
 GameObject:
@@ -5707,7 +5700,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 229348829}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &1528190015
 GameObject:
@@ -6021,21 +6013,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7b0bdf7bb808f4990290c81fcfc574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientsPrefab:
-  - {fileID: 3262960681151990053, guid: b1785276f89e9734d950e5e9dbe68a42, type: 3}
-  - {fileID: 2056439711196111434, guid: 69d6e9e3161bced4b88b283dc27c7120, type: 3}
-  - {fileID: 7506698955028145617, guid: 2c8887f39992ffb40ad441fc6d793d9d, type: 3}
-  - {fileID: 7837796086130080073, guid: 9e08ac8da51f7ab448fed38ba99a1e76, type: 3}
-  - {fileID: 6307512029431296222, guid: f53c25dced7eed44aa0379ca69e77b4e, type: 3}
-  - {fileID: 1535672556865304132, guid: 253c696eb42051644912f7b5ed672db6, type: 3}
-  - {fileID: 4623350457961759635, guid: 1f6473731794ec44e926e3943fcf01e7, type: 3}
-  - {fileID: 867407597217187018, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}
-  - {fileID: 633277087768994844, guid: 582ce909987244241b200ea7b570be70, type: 3}
-  priorityIngredients: []
+  urgentBaseWeight: 10
+  urgentMaxWeight: 15
   closeExpireIngredients: []
   treadmill: {fileID: 854019282}
-  rottenIngredient: {fileID: 3217405095770213633, guid: 20cab9f034063fb4c96a8c014b9bb756, type: 3}
-  chanceToSpawnRotten: 0
+  rottenIngredient: {fileID: 11400000, guid: a0121899779882d49a7b46540125b8b4, type: 2}
   timeSpawn: 0.5
 --- !u!1 &1568781657
 GameObject:
@@ -6117,7 +6099,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 944987010}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &1608279394
 GameObject:
@@ -6523,12 +6504,12 @@ MonoBehaviour:
   maxOrders: 5
   difficultyBreakdown: 280000005000000078000000
   timeToSpawn:
-  - 5
-  - 6
-  - 8
+  - 7
+  - 10
+  - 12
   difficultyIndex: 0
   orderGO: {fileID: 2942519020468061393, guid: 58d62fd1dc490174c8dfebc3289bd8b8, type: 3}
-  lastOrderMeal: {fileID: 0}
+  lastOrderMealSo: {fileID: 0}
   ordersPos: {fileID: 8390776859581140455}
 --- !u!4 &1697820085
 Transform:
@@ -6706,7 +6687,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1008052530}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1001 &1781853448
 PrefabInstance:
@@ -6897,7 +6877,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 2093606643}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &1805059355
 GameObject:
@@ -7289,6 +7268,7 @@ MonoBehaviour:
   actionButton: {fileID: 1918534384}
   deliverButton: {fileID: 2068497090}
   character: {fileID: 567366234}
+  orderManager: {fileID: 1697820084}
   ingredientSpawner: {fileID: 1567434735}
   qualityLevels:
   - {fileID: 11400000, guid: a31e9f9f9c9d4b9429ed0d1234e22103, type: 2}
@@ -7299,6 +7279,7 @@ MonoBehaviour:
   powerUpManager: {fileID: 619970466}
   playerDataHandler: {fileID: 1863697138}
   gameFlowManager: {fileID: 2967074}
+  IsGodMode: 1
 --- !u!4 &1863697137
 Transform:
   m_ObjectHideFlags: 0
@@ -7375,7 +7356,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 1037224165}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &1880639703
 GameObject:
@@ -7705,7 +7685,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 327280581}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!1 &1939824557
 GameObject:
@@ -8321,7 +8300,6 @@ MonoBehaviour:
   posIndex: 0
   spawnPoint: {fileID: 257200523}
   foodOnPlatePos: {fileID: 424875652}
-  plateGO: {fileID: 0}
   plateAnimator: {fileID: 0}
 --- !u!114 &2076626850 stripped
 MonoBehaviour:

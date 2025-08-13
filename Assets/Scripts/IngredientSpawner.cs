@@ -1,32 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
-    public IngredientScriptable[] ingredientsPrefab;
-    public List<IngredientScriptable> priorityIngredients;
-    public List<IngredientScriptable> closeExpireIngredients;
+    public float urgentBaseWeight = 7f;  // peso do ingrediente urgente quando o tempo está cheio
+    public float urgentMaxWeight = 10f; // peso do ingrediente urgente quando o tempo está no final
+    public List<IngredientSo> closeExpireIngredients;
     public Treadmill treadmill;
-    public IngredientScriptable rottenIngredient;
+    public IngredientSo rottenIngredient;
+    public float timeSpawn = 0.5f;
+    
+    private OrderManager _orderManager;
     private Order orderCloseToExpire;
     private IEnumerator spawnRoutine;
-
-    public int chanceToSpawnRotten;
-
-    public float timeSpawn = 0.5f;
     float timeTrack;
+
+    public void Initialize(OrderManager orderManager)
+    {
+        _orderManager = orderManager;
+        _orderManager.OnRemoveOrder += OnRemoveIngredientsFromUrgent;
+    }
     
-
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.P))
-    //     {
-    //         SpawnIngredient();
-    //     }
-    // }
-
     public void StartIngredientSpawn()
     {
         spawnRoutine = SpawnIngredientRoutine();
@@ -41,7 +37,7 @@ public class IngredientSpawner : MonoBehaviour
 
     IEnumerator SpawnIngredientRoutine()
     {
-        yield return new WaitUntil(() => OrderManager.instance.activeOrders.Count > 0);
+        yield return new WaitUntil(() => _orderManager.activeOrders.Count > 0);
 
         while (true)
         {
@@ -50,77 +46,112 @@ public class IngredientSpawner : MonoBehaviour
         }
     }
 
-    void SpawnIngredient()
+    private void SpawnIngredient()
     {
-        for (int i = 0; i < treadmill.positions.Count; i++)
+        TreadmillSpot spot = GetFirstFreeSpot();
+        if (spot == null) return;
+
+        orderCloseToExpire = FindOrderCloseToExpire();
+
+        IngredientSo ingredientToSpawn = SelectIngredientToSpawn();
+
+        Ingredient instance = Instantiate(ingredientToSpawn.ingredientPrefab, spot.foodOnPlatePos.position, Quaternion.identity);
+        spot.AssignIngredient(instance.gameObject);
+    }
+    
+    private TreadmillSpot GetFirstFreeSpot()
+    {
+        foreach (var spot in treadmill.spots)
         {
-            //Checa se existe um prato que ainda n�o ativo e se n�o est� ocupado
-            if (treadmill.positions[i].posIndex != 0 || treadmill.positions[i].IsOccupied()) continue;
-            
-            List<IngredientScriptable> ingredientsAvailable = new List<IngredientScriptable>();
-
-            foreach (var item in OrderManager.instance.activeOrders)
-            {
-                if (item.timeCount.fillAmount <= 0.9f && orderCloseToExpire == null)
-                {
-                    orderCloseToExpire = item;
-                    closeExpireIngredients.Clear();
-                }
-                else
-                {
-                    foreach (var item2 in item.myMeal.recipeIngredients)
-                        ingredientsAvailable.Add(item2.ingredientScriptable);
-                }
-            }
-
-            int randRot = Random.Range(0, 10);
-            if (randRot >= 2)
-                ingredientsAvailable.Add(rottenIngredient);
-
-            IngredientScriptable go;
-
-            int randExpireOrderSpawn = Random.Range(0, 10);
-
-            if (randExpireOrderSpawn >= 4 && orderCloseToExpire != null)
-            {
-                go = Instantiate(ForceIngredientOrderExpire(), treadmill.positions[i].foodOnPlatePos.position,
-                    Quaternion.identity);
-            }
-            else
-            {
-                int rand = Random.Range(0, ingredientsAvailable.Count);
-                go = Instantiate(ingredientsAvailable[rand], treadmill.positions[i].foodOnPlatePos.position,
-                    Quaternion.identity);
-            }
-
-            treadmill.positions[i].AssignIngredient(go.gameObject);
-            break;
+            if (spot.posIndex == 0 && !spot.IsOccupied())
+                return spot;
         }
+        return null;
+    }
+    
+    private Order FindOrderCloseToExpire()
+    {
+        return _orderManager.activeOrders
+            .Where(o => o.IsCloseToExpire())
+            .OrderBy(o => o.GetTimeRemainingNormalized())
+            .FirstOrDefault();
+    }
+    
+    private IngredientSo SelectIngredientToSpawn()
+    {
+       Dictionary<IngredientSo, int> weightedIngredients = new Dictionary<IngredientSo, int>();
+
+        // Ingrediente urgente com peso adaptativo
+        if (orderCloseToExpire != null)
+        {
+            float timeRemaining = orderCloseToExpire.GetTimeRemainingNormalized();
+            int urgentWeight = (int)Mathf.Lerp(urgentMaxWeight, urgentBaseWeight, timeRemaining);
+            
+            weightedIngredients.Add(GetUrgentIngredient(), urgentWeight);
+        }
+
+        // Ingredientes normais
+        foreach (var order in _orderManager.activeOrders)
+        {
+            if (order.IsCloseToExpire()) continue;
+
+            foreach (IngredientSo ingredientSo in order.myMealSo.recipeIngredientsSo)
+            {
+                if (!weightedIngredients.ContainsKey(ingredientSo))
+                    weightedIngredients.Add(ingredientSo, ingredientSo.baseWeight);
+            }
+           
+        }
+        weightedIngredients.Add(rottenIngredient, rottenIngredient.baseWeight);
+        
+        return ChooseWeightedRandom(weightedIngredients);
     }
 
-    IngredientScriptable ForceIngredientOrderExpire()
+    private IngredientSo ChooseWeightedRandom(Dictionary<IngredientSo, int> weightedList)
     {
-        int randIngridient;
-        IngredientScriptable ingredientScriptable = null;
+        float totalWeight = 0f;
+        foreach (var item in weightedList)
+            totalWeight += item.Value;
 
-        for (int i = 0; i < orderCloseToExpire.myMeal.recipeIngredients.Length; i++)
+        float randomValue = Random.Range(0f, totalWeight);
+        float currentSum = 0f;
+
+        foreach (var item in weightedList)
         {
-            if (!closeExpireIngredients.Contains(orderCloseToExpire.myMeal.recipeIngredients[i].ingredientScriptable))
-            {
-                ingredientScriptable = orderCloseToExpire.myMeal.recipeIngredients[i].ingredientScriptable;
-                closeExpireIngredients.Add(ingredientScriptable);
-                break;
-            }
+            currentSum += item.Value;
+            if (randomValue <= currentSum)
+                return item.Key;
         }
 
-        if (ingredientScriptable == null)
+        return weightedList.Keys.Last();
+    }
+    
+    private IngredientSo GetUrgentIngredient()
+    {
+        // Lista de ingredientes do pedido
+        var recipeIngredients = orderCloseToExpire.myMealSo.recipeIngredientsSo
+            .Select(r => r)
+            .ToList();
+
+        // Procura o primeiro ingrediente que ainda não foi spawnado
+        var nextIngredient = recipeIngredients
+            .FirstOrDefault(ing => !closeExpireIngredients.Contains(ing));
+
+        // Se todos já foram spawnados, reinicia o ciclo pegando o primeiro
+        if (nextIngredient == null)
         {
             closeExpireIngredients.Clear();
-            ingredientScriptable = orderCloseToExpire.myMeal.recipeIngredients[0].ingredientScriptable;
-
-            closeExpireIngredients.Add(ingredientScriptable);
+            nextIngredient = recipeIngredients.First();
         }
 
-        return ingredientScriptable;
+        // Marca que este ingrediente já foi escolhido
+        closeExpireIngredients.Add(nextIngredient);
+
+        return nextIngredient;
+    }
+
+    private void OnRemoveIngredientsFromUrgent(IngredientSo[] ingredients)
+    {
+        closeExpireIngredients.RemoveAll(ingredients.Contains);
     }
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85b69281b62f9a54abbfcfa45fa47ad1, type: 3}
-  m_Name: Macarrao_Almondegas
+  m_Name: Macarrao_Almondegas_Config
   m_EditorClassIdentifier: 
   mealName: "Macarr\xE3o Almondegas"
   score: 75
@@ -19,13 +19,7 @@ MonoBehaviour:
   mealGO: {fileID: 8455296564966409583, guid: e541ea9b7de78f64399d1a2ce920132b, type: 3}
   myMeal: 5
   difficulty: 1
-  recipeIngredients:
-  - ingredientEnum: 1
-    difficulty: 0
-    ingredientScriptable: {fileID: 6307512029431296222, guid: f53c25dced7eed44aa0379ca69e77b4e, type: 3}
-  - ingredientEnum: 5
-    difficulty: 0
-    ingredientScriptable: {fileID: 7506698955028145617, guid: 2c8887f39992ffb40ad441fc6d793d9d, type: 3}
-  - ingredientEnum: 0
-    difficulty: 0
-    ingredientScriptable: {fileID: 633277087768994844, guid: 582ce909987244241b200ea7b570be70, type: 3}
+  recipeIngredientsSo:
+  - {fileID: 11400000, guid: a68e27e90b0bce543beff267ede9ba7d, type: 2}
+  - {fileID: 11400000, guid: d099b02eab2fc3645a62ee12d5ff1ee0, type: 2}
+  - {fileID: 11400000, guid: cffadbe4709218a4281545449f9fe7cb, type: 2}

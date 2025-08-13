@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85b69281b62f9a54abbfcfa45fa47ad1, type: 3}
-  m_Name: Esfiha
+  m_Name: Esfiha_Config
   m_EditorClassIdentifier: 
   mealName: Esfiha
   score: 50
   image: {fileID: 21300000, guid: a29c9840d8655e14f862e113d5880721, type: 3}
   timeSecondsToPrepare: 30
+  expirePercentage: 0.5
   mealGO: {fileID: 8455296564966409583, guid: cfa638d3f29334846b4deddebb167bdd, type: 3}
-  myMeal: 1
   difficulty: 0
-  recipeIngredients:
-  - ingredientEnum: 8
-    difficulty: 0
-    ingredientScriptable: {fileID: 7837796086130080073, guid: 9e08ac8da51f7ab448fed38ba99a1e76, type: 3}
-  - ingredientEnum: 5
-    difficulty: 0
-    ingredientScriptable: {fileID: 7506698955028145617, guid: 2c8887f39992ffb40ad441fc6d793d9d, type: 3}
+  recipeIngredientsSo:
+  - {fileID: 11400000, guid: cffadbe4709218a4281545449f9fe7cb, type: 2}
+  - {fileID: 11400000, guid: 650cf4719aadd5548abb1f4d8f6c6b38, type: 2}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class TreadmillPos : MonoBehaviour
+public class TreadmillSpot : MonoBehaviour
 {
     public Treadmill treadmill;
     public int posIndex;
@@ -11,7 +11,6 @@ public class TreadmillPos : MonoBehaviour
     public Transform foodOnPlatePos;
 
     private bool Shaken;
-    public GameObject plateGO;
 
     [SerializeField]
     private Animator plateAnimator;
@@ -22,7 +21,6 @@ public class TreadmillPos : MonoBehaviour
     void Start()
     {
         plateAnimator = GetComponentInChildren<Animator>();
-        plateGO = plateAnimator.gameObject;
     }
 
     // Update is called once per frame

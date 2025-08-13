@@ -71,18 +71,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 770593056653101868}
   istargeted: 0
-  myName: Carne
-  baseScore: 0
-  myImage: {fileID: 21300000, guid: 4e86152743b224243967af9c4d3142a1, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 3536747347775145570}
   col: {fileID: 208388525035540083}
-  isRottenFood: 0
   isSpawned: 0
-  ingredient:
-    ingredientEnum: 5
-    difficulty: 0
-    ingredientScriptable: {fileID: 7506698955028145617}
+  IngredientSo: {fileID: 11400000, guid: cffadbe4709218a4281545449f9fe7cb, type: 2}
 --- !u!54 &3536747347775145570
 Rigidbody:
   m_ObjectHideFlags: 0

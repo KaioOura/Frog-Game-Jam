@@ -13,9 +13,9 @@ public class BellyDisplay : MonoBehaviour
 
     public Image ballon;
     
-    public void UpdateMealUI(Meal meal = null)
+    public void UpdateMealUI(MealSo mealSo = null)
     {
-        if (meal == null)
+        if (mealSo == null)
         {
             mealBG.SetActive(false);
             return;
@@ -23,7 +23,7 @@ public class BellyDisplay : MonoBehaviour
 
         mealBG.SetActive(true);
 
-        mealImage.sprite = meal.image;
+        mealImage.sprite = mealSo.image;
     }
 
     public void UpdateUI()
@@ -44,7 +44,7 @@ public class BellyDisplay : MonoBehaviour
         for (int i = 0; i < bellyFrog.belly.Count; i++)
         {
             bellySlot[i].gameObject.SetActive(true);
-            bellySlot[i].sprite = bellyFrog.belly[i].myImage;
+            bellySlot[i].sprite = bellyFrog.belly[i].IngredientSo.myImage;
         }
     }
 }

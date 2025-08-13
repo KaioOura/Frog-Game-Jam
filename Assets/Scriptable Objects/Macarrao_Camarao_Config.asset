@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85b69281b62f9a54abbfcfa45fa47ad1, type: 3}
-  m_Name: Macarrao_Camarao
+  m_Name: Macarrao_Camarao_Config
   m_EditorClassIdentifier: 
   mealName: "Macarr\xE3o Camar\xE3o"
   score: 100
@@ -19,16 +19,7 @@ MonoBehaviour:
   mealGO: {fileID: 8455296564966409583, guid: b273a2ff336b18642aa24b8918f79a89, type: 3}
   myMeal: 2
   difficulty: 2
-  recipeIngredients:
-  - ingredientEnum: 1
-    difficulty: 0
-    ingredientScriptable: {fileID: 6307512029431296222, guid: f53c25dced7eed44aa0379ca69e77b4e, type: 3}
-  - ingredientEnum: 0
-    difficulty: 0
-    ingredientScriptable: {fileID: 633277087768994844, guid: 582ce909987244241b200ea7b570be70, type: 3}
-  - ingredientEnum: 3
-    difficulty: 0
-    ingredientScriptable: {fileID: 2056439711196111434, guid: 69d6e9e3161bced4b88b283dc27c7120, type: 3}
-  - ingredientEnum: 7
-    difficulty: 0
-    ingredientScriptable: {fileID: 3262960681151990053, guid: b1785276f89e9734d950e5e9dbe68a42, type: 3}
+  recipeIngredientsSo:
+  - {fileID: 11400000, guid: a68e27e90b0bce543beff267ede9ba7d, type: 2}
+  - {fileID: 11400000, guid: 08f8b41cb3fdcce468543a65e789b0e4, type: 2}
+  - {fileID: 11400000, guid: 1ea901b1ca72b4448bae4bf7e62c538a, type: 2}

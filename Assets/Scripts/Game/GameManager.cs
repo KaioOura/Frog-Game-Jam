@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
     [SerializeField] private GameObject deliverButton;
     [SerializeField] private Character character;
+    [SerializeField] private OrderManager orderManager;
     [SerializeField] private IngredientSpawner ingredientSpawner;
     [SerializeField] private RenderPipelineAsset[] qualityLevels;
     [SerializeField] private GameObject cameraUI;
@@ -35,8 +36,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PowerUpManager powerUpManager;
     [SerializeField] private PlayerDataHandler playerDataHandler;
     [SerializeField] private GameFlowManager gameFlowManager;
-
-
+    
+    public bool IsGodMode;
+    
     private FirebaseDataManager _firebaseDataManager;
     private AdManager _adManager;
 
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
         //QualitySettings.vSyncCount = 0;
 
         character.InitializeComponents(this);
+        ingredientSpawner.Initialize(orderManager);
 
         joystick.gameObject.SetActive(false);
         deliverButton.SetActive(false);
@@ -101,7 +104,7 @@ public class GameManager : MonoBehaviour
         ResetLife();
         OrderManager.instance.ResetOrders();
 
-        IngredientScriptable[] ingredients = FindObjectsOfType<IngredientScriptable>();
+        Ingredient[] ingredients = FindObjectsOfType<Ingredient>();
 
         foreach (var item in ingredients)
         {
@@ -180,6 +183,9 @@ public class GameManager : MonoBehaviour
         if (changeAmount < 0)
         {
             //Tocar som de dano!
+            if (IsGodMode)
+                changeAmount = 0;
+            
             bellyFrog.PlayHurtSound();
         }
 

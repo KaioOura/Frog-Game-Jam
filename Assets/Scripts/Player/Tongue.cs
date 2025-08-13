@@ -10,7 +10,7 @@ public class Tongue : MonoBehaviour
     public Animator an;
     public Transform ingredientPos;
     public bool isTongueOccupied;
-    public IngredientScriptable ingredientCollected;
+    public Ingredient ingredientCollected;
 
     public AudioSource audioSource;
     public AudioClip[] swallow;
@@ -19,7 +19,7 @@ public class Tongue : MonoBehaviour
     {
         if (other.CompareTag("Pickable") && !isTongueOccupied && !bellyFrog.IsBellyFull())
         {
-            if (other.TryGetComponent(out IngredientScriptable ingredient))
+            if (other.TryGetComponent(out Ingredient ingredient))
             {
                 OnTongueHit(ingredient);
                 Debug.Log("Licked: " + other.gameObject);
@@ -28,7 +28,7 @@ public class Tongue : MonoBehaviour
         }
     }
 
-    public void OnTongueHit(IngredientScriptable ingredient)
+    public void OnTongueHit(Ingredient ingredient)
     {
         isTongueOccupied = true;
         ingredientCollected = ingredient;

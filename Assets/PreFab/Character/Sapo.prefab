@@ -490,7 +490,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b6486c586e1067948bb79cdef778f5c2, type: 2}
   - {fileID: 11400000, guid: d70680ae4bf7f3046bd77b449c3ba3d1, type: 2}
   - {fileID: 11400000, guid: f22c0e56f4aa68a40a32eb49abd6b2b5, type: 2}
-  activeMeal: {fileID: 0}
+  activeMealSo: {fileID: 0}
+  rottenFood: {fileID: 11400000, guid: a0121899779882d49a7b46540125b8b4, type: 2}
   maxTimeInBelly: 5
   timeFoodInBelly: 0
   reduceTimeInBelly: 2

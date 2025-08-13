@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MealGO : MonoBehaviour
 {
@@ -10,13 +11,13 @@ public class MealGO : MonoBehaviour
     public Rigidbody rb;
     public Collider col;
 
-    public Meal meal;
+    [FormerlySerializedAs("meal")] public MealSo mealSo;
 
     private void Start()
     {
-        myName = meal.mealName;
-        baseScore = meal.score;
-        myImage = meal.image;
+        myName = mealSo.mealName;
+        baseScore = mealSo.score;
+        myImage = mealSo.image;
     }
 
     public void LaunchItSelf(Vector3 dir)

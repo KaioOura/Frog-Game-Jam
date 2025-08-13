@@ -2,22 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Serialization;
 
-public class IngredientScriptable : MonoBehaviour
+public class Ingredient : MonoBehaviour
 {
     public GameObject targetVFXGO;
     public bool istargeted;
-    public string myName;
-    public int baseScore;
-    public Sprite myImage;
+   
+
     public GameObject foodGO;
     public Rigidbody rb;
     public Collider col;
-    public bool isRottenFood = false;
-
     public bool isSpawned = false;
 
-    public IngredientBase ingredient;
+    [FormerlySerializedAs("infIngredientSo")] public IngredientSo IngredientSo;
 
     private void Start()
     {
@@ -55,10 +53,9 @@ public class IngredientScriptable : MonoBehaviour
 [Serializable]
 public class IngredientBase
 {
-    public enum Ingredients { tomate, macarrao, queijo, camarao, pao_Hamburguer, carne, cogumelo, alho, farinha, pepperoni , rotten};
-    public Ingredients ingredientEnum;
-    public enum Difficulty { easy, normal, hard }
-    public Difficulty difficulty;
+   
+  
+ 
 
-    public IngredientScriptable ingredientScriptable;
+   
 }

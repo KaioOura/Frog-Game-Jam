@@ -71,18 +71,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 8694404215016048578}
   istargeted: 0
-  myName: NonTransgenicTomato
-  baseScore: 0
-  myImage: {fileID: 21300000, guid: 54c9ca6692d06e04a9dbb82ee55235be, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: -3318607344491591761}
   col: {fileID: 7061825123847770046}
-  isRottenFood: 0
   isSpawned: 0
-  ingredient:
-    ingredientEnum: 0
-    difficulty: 1
-    ingredientScriptable: {fileID: 633277087768994844}
+  IngredientSo: {fileID: 11400000, guid: d099b02eab2fc3645a62ee12d5ff1ee0, type: 2}
 --- !u!54 &-3318607344491591761
 Rigidbody:
   m_ObjectHideFlags: 0

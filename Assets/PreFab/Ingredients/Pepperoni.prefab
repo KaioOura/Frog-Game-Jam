@@ -71,18 +71,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 3435672003795429807}
   istargeted: 0
-  myName: Pepperoni
-  baseScore: 0
-  myImage: {fileID: 21300000, guid: c53df7ad8ce92794d9299087af6c8e11, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 1806324615782178848}
   col: {fileID: 3089484814694098993}
-  isRottenFood: 0
   isSpawned: 0
-  ingredient:
-    ingredientEnum: 9
-    difficulty: 2
-    ingredientScriptable: {fileID: 4623350457961759635}
+  IngredientSo: {fileID: 11400000, guid: 650f2b1ac2dc46547a1e9567c8999139, type: 2}
 --- !u!54 &1806324615782178848
 Rigidbody:
   m_ObjectHideFlags: 0

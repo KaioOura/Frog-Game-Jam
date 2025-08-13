@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Serialization;
 
 public class Order : MonoBehaviour
 {
-    public Meal myMeal;
+    [FormerlySerializedAs("myMeal")] public MealSo myMealSo;
 
     public Image mealImage;
     public Image[] recipeIngredientsIMG;
@@ -15,22 +16,20 @@ public class Order : MonoBehaviour
     int orignalMealTime;
 
     public Image timeCount;
-
-    public bool isOnPriorityLine;
-
+    
     private IEnumerator countDownRoutine;
     
-    public void InitializeOrder(Meal meal)
+    public void InitializeOrder(MealSo mealSo)
     {
-        myMeal = meal;
-        mealImage.sprite = myMeal.image;
-        mealTime = meal.timeSecondsToPrepare;
-        orignalMealTime = meal.timeSecondsToPrepare;
+        myMealSo = mealSo;
+        mealImage.sprite = myMealSo.image;
+        mealTime = mealSo.timeSecondsToPrepare;
+        orignalMealTime = mealSo.timeSecondsToPrepare;
 
-        for (int i = 0; i < meal.recipeIngredients.Length; i++)
+        for (int i = 0; i < mealSo.recipeIngredientsSo.Length; i++)
         {
             recipeIngredientsIMG[i].gameObject.SetActive(true);
-            recipeIngredientsIMG[i].sprite = meal.recipeIngredients[i].ingredientScriptable.myImage;
+            recipeIngredientsIMG[i].sprite = mealSo.recipeIngredientsSo[i].myImage;
         }
 
         if (countDownRoutine != null)
@@ -52,7 +51,7 @@ public class Order : MonoBehaviour
             yield return new WaitForSeconds(1);
 
             mealTime -= 1;
-            timeCount.fillAmount = (float)mealTime / (float)orignalMealTime;
+            timeCount.fillAmount = GetTimeRemainingNormalized();
             //Debug.Log(timeCount);
         }
 
@@ -60,6 +59,16 @@ public class Order : MonoBehaviour
         RemoveOrder();
     }
 
+    public float GetTimeRemainingNormalized()
+    {
+        return mealTime / (float)orignalMealTime;
+    }
+
+    public bool IsCloseToExpire()
+    {
+        return GetTimeRemainingNormalized() <= myMealSo.expirePercentage;
+    }
+    
     public void RemoveOrder()
     {
         OrderManager.instance.RemoveOrderFromList(this);

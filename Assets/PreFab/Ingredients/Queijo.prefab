@@ -71,18 +71,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 7904067846612761814}
   istargeted: 0
-  myName: Queijo
-  baseScore: 0
-  myImage: {fileID: 21300000, guid: 79e8c325e60cd1d4bae43ca0745b3d98, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 6138842287890098041}
   col: {fileID: 7404155497389387624}
-  isRottenFood: 0
   isSpawned: 0
-  ingredient:
-    ingredientEnum: 2
-    difficulty: 0
-    ingredientScriptable: {fileID: 867407597217187018}
+  IngredientSo: {fileID: 11400000, guid: 08f8b41cb3fdcce468543a65e789b0e4, type: 2}
 --- !u!54 &6138842287890098041
 Rigidbody:
   m_ObjectHideFlags: 0

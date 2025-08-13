@@ -71,18 +71,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 6395113595711194914}
   istargeted: 0
-  myName: Farinha
-  baseScore: 0
-  myImage: {fileID: 21300000, guid: 3269044eae8ea5c4e9514f55a7f24f78, type: 3}
   foodGO: {fileID: 0}
   rb: {fileID: 3890362511239944954}
   col: {fileID: 435737199230030571}
-  isRottenFood: 0
   isSpawned: 0
-  ingredient:
-    ingredientEnum: 8
-    difficulty: 0
-    ingredientScriptable: {fileID: 7837796086130080073}
+  IngredientSo: {fileID: 11400000, guid: 650cf4719aadd5548abb1f4d8f6c6b38, type: 2}
 --- !u!54 &3890362511239944954
 Rigidbody:
   m_ObjectHideFlags: 0

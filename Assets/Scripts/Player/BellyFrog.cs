@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using DG.Tweening;
 using UnityEngine.Profiling;
+using UnityEngine.Serialization;
 
 public class BellyFrog : MonoBehaviour
 {
@@ -11,20 +12,21 @@ public class BellyFrog : MonoBehaviour
     public ParticleSystem Sweat_VFX;
 
     public bool targeting;
-    private IngredientScriptable ingredient;
+    private Ingredient ingredient;
 
     public Animation_Controller animationController;
     public Animator CartAnimator;
     public Animator frogController;
     public BellyDisplay bellyDisplay;
-    public List<IngredientScriptable> belly;
+    public List<Ingredient> belly;
     public int maxIngredients;
     public Transform bellyPos, JawPos;
     public Tongue tongue;
-    public List<Meal> meals;
+    public List<MealSo> meals;
 
-    public Meal activeMeal;
+    [FormerlySerializedAs("activeMeal")] public MealSo activeMealSo;
     GameObject mealGO;
+    [SerializeField] private IngredientSo rottenFood;
 
     public float maxTimeInBelly;
     public float timeFoodInBelly;
@@ -52,7 +54,7 @@ public class BellyFrog : MonoBehaviour
         animationController = GetComponent<Animation_Controller>();
     }
 
-    public void AddIngredient(IngredientScriptable ingredient)
+    public void AddIngredient(Ingredient ingredient)
     {
         if (belly.Count - 1 >= maxIngredients)
             return;
@@ -63,7 +65,7 @@ public class BellyFrog : MonoBehaviour
         ingredient.transform.SetParent(bellyPos.transform);
         ingredient.transform.localPosition = Vector3.zero;
 
-        if (ingredient.isRottenFood)
+        if (ingredient.IngredientSo == rottenFood)
         {
             //Perder vida, cuspir tudo
             GameManager.instance.ChangeLife(-1);
@@ -99,16 +101,16 @@ public class BellyFrog : MonoBehaviour
         int rand = UnityEngine.Random.Range(0, swallowClip.Length);
         audioSource.PlayOneShot(swallowClip[rand]);
         Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
-        OrderManager.instance.CheckMeal(activeMeal, true, () => audioSource.PlayOneShot(succesMeal));
+        OrderManager.instance.CheckMeal(activeMealSo, true, () => audioSource.PlayOneShot(succesMeal));
         mealGO.SetActive(true);
         mealGO.gameObject.transform.position = JawPos.position + PosOffset;
         mealGO.transform.DOMove(cartPos.position, 0.1f).OnComplete(() =>
         {
-            OrderManager.instance.CheckMeal(activeMeal);
+            OrderManager.instance.CheckMeal(activeMealSo);
             CartAnimator.SetTrigger("Cart Out");
             mealGO.transform.SetParent(cartPos);
             Destroy(mealGO, 0.2f);
-            activeMeal = null;
+            activeMealSo = null;
             mealGO = null;
             frogController.SetBool("Has recipe", false);
             belly.Clear();
@@ -127,7 +129,7 @@ public class BellyFrog : MonoBehaviour
         while (tongue.isTongueOccupied)
             yield return null;
 
-        if (activeMeal != null)
+        if (activeMealSo != null)
         {
             frogController.SetBool("Has recipe", true);
             foreach (var item in belly)
@@ -137,7 +139,7 @@ public class BellyFrog : MonoBehaviour
 
             //Spawnar e lancar meal
 
-            MealGO _mealGO = Instantiate(activeMeal.mealGO);
+            MealGO _mealGO = Instantiate(activeMealSo.mealGO);
             mealGO = _mealGO.gameObject;
             mealGO.SetActive(false);
             _mealGO.transform.position = bellyPos.transform.position;
@@ -175,7 +177,7 @@ public class BellyFrog : MonoBehaviour
 
 
 
-    void LaunchIngredient(IngredientScriptable ingredient)
+    void LaunchIngredient(Ingredient ingredient)
     {
         ingredient.gameObject.SetActive(true);
         ingredient.transform.SetParent(null);
@@ -210,13 +212,13 @@ public class BellyFrog : MonoBehaviour
             return;
         }
 
-        activeMeal = GetMeal();
+        activeMealSo = GetMeal();
 
-        bellyDisplay.UpdateMealUI(activeMeal);
+        bellyDisplay.UpdateMealUI(activeMealSo);
 
-        if (activeMeal != null)
+        if (activeMealSo != null)
         {
-            Debug.Log(activeMeal.name);
+            Debug.Log(activeMealSo.name);
         }
         else
         {
@@ -225,20 +227,20 @@ public class BellyFrog : MonoBehaviour
 
     }
 
-    Meal GetMeal()
+    MealSo GetMeal()
     {
-        Meal meal = null;
+        MealSo mealSo = null;
 
         foreach (var item in meals)
         {
             if (item.Match(belly))
             {
-                meal = item;
+                mealSo = item;
                 break;
             }
         }
 
-        return meal;
+        return mealSo;
     }
 
     public void ResetBellyFrog()
@@ -283,7 +285,7 @@ public class BellyFrog : MonoBehaviour
     {
         if (other.CompareTag("Pickable"))
         {
-            if (other.TryGetComponent(out IngredientScriptable ingredientScriptable))
+            if (other.TryGetComponent(out Ingredient ingredientScriptable))
             {
                 ingredient = ingredientScriptable;
                 ingredient.istargeted = true;
@@ -297,7 +299,7 @@ public class BellyFrog : MonoBehaviour
     {
         if (other.CompareTag("Pickable"))
         {
-            if (other.TryGetComponent(out IngredientScriptable ingredientScriptable))
+            if (other.TryGetComponent(out Ingredient ingredientScriptable))
             {
                 ingredient = ingredientScriptable;
                 ingredient.istargeted = false;
