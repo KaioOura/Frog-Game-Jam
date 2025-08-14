@@ -3819,7 +3819,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 247
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -11115,9 +11115,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 54678648302453723, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: m_Radius
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 759815190310601565, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
       propertyPath: m_Name
       value: Sapo
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625907852806123965, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872418763073544342, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: interactionDistance
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3086948749938156394, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
       propertyPath: m_LocalPosition.x

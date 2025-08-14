@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5152438879107474055}
   - component: {fileID: 3262960681151990053}
   - component: {fileID: 8390337392647563926}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Alho
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -70,11 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 4276719605252738712}
-  istargeted: 0
-  foodGO: {fileID: 0}
   rb: {fileID: 8390337392647563926}
   col: {fileID: 5152438879107474055}
-  isSpawned: 0
   IngredientSo: {fileID: 11400000, guid: 6b1a4e9ef3774c34a891910e4aab1dd7, type: 2}
 --- !u!54 &8390337392647563926
 Rigidbody:
@@ -175,6 +172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlhoFBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d17608062c55fd14eb2a9f8ff805ae93, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -193,6 +194,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2232817482015458928}
     m_Modifications:
+    - target: {fileID: 1084032849758860524, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2968185870454923326, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -233,9 +238,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6792066417565162276, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_Name
       value: TargetGo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045654017401864251, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912260249281764619, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -4,37 +4,13 @@ using UnityEngine;
 using System;
 using UnityEngine.Serialization;
 
-public class Ingredient : MonoBehaviour
+public class Ingredient : MonoBehaviour, IInteractable
 {
     public GameObject targetVFXGO;
-    public bool istargeted;
-   
-
-    public GameObject foodGO;
     public Rigidbody rb;
     public Collider col;
-    public bool isSpawned = false;
 
     [FormerlySerializedAs("infIngredientSo")] public IngredientSo IngredientSo;
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        // if(istargeted && !targetVFXGO.activeInHierarchy){
-        //     targetVFXGO.SetActive(true);
-        // }else if(!istargeted && targetVFXGO.activeInHierarchy){
-        //     targetVFXGO.SetActive(false);
-        // }
-    }
-
-    public void UpdateTargetVFXGO(bool shouldActivate)
-    {
-        targetVFXGO.SetActive(shouldActivate);
-    }
     
     public void OnCollected()
     {
@@ -48,6 +24,25 @@ public class Ingredient : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
+    public void OnInteract()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnSelected()
+    {
+        targetVFXGO.SetActive(true);
+    }
+
+    public void OnDeselected()
+    {
+        targetVFXGO.SetActive(false);
+    }
+
+    public void OnInteractEnded()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 [Serializable]

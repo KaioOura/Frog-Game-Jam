@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7404155497389387624}
   - component: {fileID: 867407597217187018}
   - component: {fileID: 6138842287890098041}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Queijo
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -70,11 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 7904067846612761814}
-  istargeted: 0
-  foodGO: {fileID: 0}
   rb: {fileID: 6138842287890098041}
   col: {fileID: 7404155497389387624}
-  isSpawned: 0
   IngredientSo: {fileID: 11400000, guid: 08f8b41cb3fdcce468543a65e789b0e4, type: 2}
 --- !u!54 &6138842287890098041
 Rigidbody:
@@ -111,6 +108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4592955038051781535}
     m_Modifications:
+    - target: {fileID: 1084032849758860524, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2968185870454923326, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -151,9 +152,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6792066417565162276, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_Name
       value: TargetGo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045654017401864251, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912260249281764619, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -241,6 +258,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d06b12180de7d0147bf0e37713cedceb, type: 3}
       propertyPath: m_Name
       value: QueijoFBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d06b12180de7d0147bf0e37713cedceb, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

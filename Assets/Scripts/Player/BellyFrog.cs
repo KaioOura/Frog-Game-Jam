@@ -295,30 +295,28 @@ public class BellyFrog : MonoBehaviour
     {
         audioSource.PlayOneShot(hurtClip);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Pickable"))
-        {
-            if (other.TryGetComponent(out Ingredient ingredientScriptable))
-            {
-                ingredient = ingredientScriptable;
-                ingredient.istargeted = true;
-                ingredient.UpdateTargetVFXGO(true);
-            }
-
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Pickable"))
-        {
-            if (other.TryGetComponent(out Ingredient ingredientScriptable))
-            {
-                ingredient = ingredientScriptable;
-                ingredient.istargeted = false;
-                ingredient.UpdateTargetVFXGO(false);
-            }
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Pickable"))
+    //     {
+    //         if (other.TryGetComponent(out Ingredient ingredientScriptable))
+    //         {
+    //             ingredient = ingredientScriptable;
+    //             ingredient.UpdateTargetVFXGO(true);
+    //         }
+    //
+    //     }
+    // }
+    //
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.CompareTag("Pickable"))
+    //     {
+    //         if (other.TryGetComponent(out Ingredient ingredientScriptable))
+    //         {
+    //             ingredient = ingredientScriptable;
+    //             ingredient.UpdateTargetVFXGO(false);
+    //         }
+    //     }
+    // }
 }

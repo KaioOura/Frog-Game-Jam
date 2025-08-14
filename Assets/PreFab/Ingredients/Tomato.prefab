@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7061825123847770046}
   - component: {fileID: 633277087768994844}
   - component: {fileID: -3318607344491591761}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Tomato
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -70,11 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 8694404215016048578}
-  istargeted: 0
-  foodGO: {fileID: 0}
   rb: {fileID: -3318607344491591761}
   col: {fileID: 7061825123847770046}
-  isSpawned: 0
   IngredientSo: {fileID: 11400000, guid: d099b02eab2fc3645a62ee12d5ff1ee0, type: 2}
 --- !u!54 &-3318607344491591761
 Rigidbody:
@@ -111,6 +108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4286592312025066313}
     m_Modifications:
+    - target: {fileID: 1084032849758860524, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2159493832840763041, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_SizeDelta.x
       value: 108.2395
@@ -159,13 +160,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6792066417565162276, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_Name
       value: TargetGo (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045654017401864251, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912260249281764619, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -241,6 +258,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
       propertyPath: m_Name
       value: TomateFBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5bd85492a1c08774c8c391c5b5b4f92d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

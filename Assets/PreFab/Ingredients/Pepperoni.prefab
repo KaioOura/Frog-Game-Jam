@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3089484814694098993}
   - component: {fileID: 4623350457961759635}
   - component: {fileID: 1806324615782178848}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Pepperoni
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -70,11 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 3435672003795429807}
-  istargeted: 0
-  foodGO: {fileID: 0}
   rb: {fileID: 1806324615782178848}
   col: {fileID: 3089484814694098993}
-  isSpawned: 0
   IngredientSo: {fileID: 11400000, guid: 650f2b1ac2dc46547a1e9567c8999139, type: 2}
 --- !u!54 &1806324615782178848
 Rigidbody:
@@ -111,6 +108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8330993445028138182}
     m_Modifications:
+    - target: {fileID: 1084032849758860524, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2968185870454923326, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -151,9 +152,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6792066417565162276, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_Name
       value: TargetGo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045654017401864251, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912260249281764619, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -229,6 +246,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 28e9380c41927b845aeac453f9a6f357, type: 3}
       propertyPath: m_Name
       value: PepperoniFBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 28e9380c41927b845aeac453f9a6f357, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

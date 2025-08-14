@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8520968457840527848}
   - component: {fileID: 2056439711196111434}
   - component: {fileID: 5022035927998333433}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Camarao
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -70,11 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 1434171029568627188}
-  istargeted: 0
-  foodGO: {fileID: 0}
   rb: {fileID: 5022035927998333433}
   col: {fileID: 8520968457840527848}
-  isSpawned: 0
   IngredientSo: {fileID: 11400000, guid: 1ea901b1ca72b4448bae4bf7e62c538a, type: 2}
 --- !u!54 &5022035927998333433
 Rigidbody:
@@ -175,6 +172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CamaraoFBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b0161a5a849815a40bf75acb58c1f234, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -193,6 +194,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3403916327405497631}
     m_Modifications:
+    - target: {fileID: 1084032849758860524, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2968185870454923326, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -233,9 +238,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6792066417565162276, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_Name
       value: TargetGo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045654017401864251, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912260249281764619, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

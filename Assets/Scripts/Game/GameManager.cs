@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         ingredientSpawner.Initialize(OrderManager);
         ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
-        //OrderManager.Initialize(ScoreManager);
+        OrderManager.Initialize(ScoreManager);
 
         joystick.gameObject.SetActive(false);
         deliverButton.SetActive(false);

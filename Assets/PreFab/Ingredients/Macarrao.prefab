@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4414009679051234172}
   - component: {fileID: 6307512029431296222}
   - component: {fileID: 1058595302603199341}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Macarrao
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -70,11 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetVFXGO: {fileID: 8988081407240419761}
-  istargeted: 0
-  foodGO: {fileID: 0}
   rb: {fileID: 1058595302603199341}
   col: {fileID: 4414009679051234172}
-  isSpawned: 0
   IngredientSo: {fileID: 11400000, guid: a68e27e90b0bce543beff267ede9ba7d, type: 2}
 --- !u!54 &1058595302603199341
 Rigidbody:
@@ -111,6 +108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7222676615479738251}
     m_Modifications:
+    - target: {fileID: 1084032849758860524, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2968185870454923326, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -151,13 +152,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6792066417565162276, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_Name
       value: TargetGo (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588119635613239835, guid: 35affe91dec17c44581f400df3560240, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045654017401864251, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912260249281764619, guid: 35affe91dec17c44581f400df3560240, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -233,6 +250,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 25e6640c2dbbe8041b20270df6da8ed0, type: 3}
       propertyPath: m_Name
       value: MacarraoFBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 25e6640c2dbbe8041b20270df6da8ed0, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
