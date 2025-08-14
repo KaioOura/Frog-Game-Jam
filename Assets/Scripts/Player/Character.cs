@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerTongueAction playerTongueAction;
+    [SerializeField] private BellyFrog bellyFrog;
     
     private CharState charState;
 
@@ -24,6 +25,7 @@ public class Character : MonoBehaviour
     public void InitializeComponents(GameManager gameManager)
     {
         playerMovement.Initialize(gameManager, charState);
+       bellyFrog.Initialize(gameManager);
     }
 
     public void ChangeState(CharState newState)

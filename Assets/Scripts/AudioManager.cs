@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioMixer audioMixer;
 
     public AudioSource audioSource;
+    public AudioSource audioSourceOneShot;
     public AudioClip[] gameMusics;
     public AudioClip menuGame;
 
@@ -43,6 +44,11 @@ public class AudioManager : MonoBehaviour
         sliderMusic.value = PlayerPrefs.GetFloat(PlayerPrefsSettings.audioMusicVolume, -10);
         sliderVolume.value = PlayerPrefs.GetFloat(PlayerPrefsSettings.audioSFXVolume, -10);
 
+    }
+
+    public void PlayAudioOneShot(AudioClip audioClip)
+    {
+        audioSourceOneShot.PlayOneShot(audioClip);
     }
     
     public void PlayMenuMusic()

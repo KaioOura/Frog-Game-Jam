@@ -8,6 +8,9 @@ using UnityEngine.Serialization;
 
 public class BellyFrog : MonoBehaviour
 {
+    public Action<MealSo> OnCheckMeal;
+    public Action<MealSo> OnMealDelivered;
+    
     public GameObject saliva_VFX, Jaw_Pos;
     public ParticleSystem Sweat_VFX;
 
@@ -52,6 +55,12 @@ public class BellyFrog : MonoBehaviour
     void Start()
     {
         animationController = GetComponent<Animation_Controller>();
+    }
+
+    public void Initialize(GameManager gameManager)
+    {
+        OnMealDelivered += gameManager.OrderManager.OnMealDelivered;
+        OnCheckMeal += gameManager.OrderManager.CheckMatchMeal;
     }
 
     public void AddIngredient(Ingredient ingredient)
@@ -101,12 +110,14 @@ public class BellyFrog : MonoBehaviour
         int rand = UnityEngine.Random.Range(0, swallowClip.Length);
         audioSource.PlayOneShot(swallowClip[rand]);
         Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
-        OrderManager.instance.CheckMeal(activeMealSo, true, () => audioSource.PlayOneShot(succesMeal));
+        OnCheckMeal?.Invoke(activeMealSo);
         mealGO.SetActive(true);
         mealGO.gameObject.transform.position = JawPos.position + PosOffset;
+        
         mealGO.transform.DOMove(cartPos.position, 0.1f).OnComplete(() =>
         {
-            OrderManager.instance.CheckMeal(activeMealSo);
+            OnMealDelivered?.Invoke(activeMealSo);
+            
             CartAnimator.SetTrigger("Cart Out");
             mealGO.transform.SetParent(cartPos);
             Destroy(mealGO, 0.2f);

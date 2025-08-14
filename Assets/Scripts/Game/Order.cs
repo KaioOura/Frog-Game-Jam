@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 
 public class Order : MonoBehaviour
 {
+    public Action<Order> OnOrderExpired;
     [FormerlySerializedAs("myMeal")] public MealSo myMealSo;
 
     public Image mealImage;
@@ -19,12 +20,15 @@ public class Order : MonoBehaviour
     
     private IEnumerator countDownRoutine;
     
-    public void InitializeOrder(MealSo mealSo)
+    public void InitializeOrder(MealSo mealSo, OrderManager orderManager)
     {
         myMealSo = mealSo;
         mealImage.sprite = myMealSo.image;
         mealTime = mealSo.timeSecondsToPrepare;
         orignalMealTime = mealSo.timeSecondsToPrepare;
+        
+        OnOrderExpired = null;
+        OnOrderExpired += orderManager.RemoveOrderFromList;
 
         for (int i = 0; i < mealSo.recipeIngredientsSo.Length; i++)
         {
@@ -56,6 +60,7 @@ public class Order : MonoBehaviour
         }
 
         GameManager.instance.ChangeLife(-2);
+
         RemoveOrder();
     }
 
@@ -71,7 +76,7 @@ public class Order : MonoBehaviour
     
     public void RemoveOrder()
     {
-        OrderManager.instance.RemoveOrderFromList(this);
+        OnOrderExpired?.Invoke(this);
         StopAllCoroutines();
         Destroy(gameObject);
     }

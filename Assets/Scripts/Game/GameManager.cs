@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using GoogleMobileAds.Api;
 using SaveData;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +30,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
     [SerializeField] private GameObject deliverButton;
     [SerializeField] private Character character;
-    [SerializeField] private OrderManager orderManager;
+    [field: SerializeField] public OrderManager OrderManager { get; private set; }
+    [field: SerializeField] public RewardManager RewardManager { get; private set; }
     [SerializeField] private IngredientSpawner ingredientSpawner;
     [SerializeField] private RenderPipelineAsset[] qualityLevels;
     [SerializeField] private GameObject cameraUI;
@@ -40,7 +43,6 @@ public class GameManager : MonoBehaviour
     public bool IsGodMode;
     
     private FirebaseDataManager _firebaseDataManager;
-    private AdManager _adManager;
 
 
     private void Awake()
@@ -50,7 +52,6 @@ public class GameManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;
 
         _firebaseDataManager = FindAnyObjectByType<FirebaseDataManager>();
-        _adManager = FindAnyObjectByType<AdManager>();
     }
 
     // Start is called before the first frame update
@@ -71,7 +72,9 @@ public class GameManager : MonoBehaviour
         //QualitySettings.vSyncCount = 0;
 
         character.InitializeComponents(this);
-        ingredientSpawner.Initialize(orderManager);
+        ingredientSpawner.Initialize(OrderManager);
+        OrderManager.OnScore += AddScore;
+        RewardManager.OnReceivedReward += OnReceivedReward;
 
         joystick.gameObject.SetActive(false);
         deliverButton.SetActive(false);
@@ -102,7 +105,7 @@ public class GameManager : MonoBehaviour
 
         ResetScore();
         ResetLife();
-        OrderManager.instance.ResetOrders();
+        OrderManager.ResetOrders();
 
         Ingredient[] ingredients = FindObjectsOfType<Ingredient>();
 
@@ -152,7 +155,7 @@ public class GameManager : MonoBehaviour
 
         _firebaseDataManager.SavePlayerData();
 
-        OrderManager.instance.ResetOrders();
+        OrderManager.ResetOrders();
 
         UIManager.instance.UpdateCurrentFinalScore(currentScore);
         UIManager.instance.UpdateCurrentHighScore(highScore);
@@ -220,15 +223,8 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateLives(lives);
     }
 
-    public void RewardAd()
+    public void OnReceivedReward()
     {
-        Debug.Log("Showing Reward Ad");
-        _adManager.ShowRewardedAd(Reward);
-    }
-    
-    public void Reward()
-    {
-        Debug.Log("Giving Reward");
         lives = 0;
         GainLife(2);
         gameFlowManager.PauseGame(true);

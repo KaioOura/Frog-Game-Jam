@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using UnityEngine.Serialization;
 
 public class OrderManager : MonoBehaviour
 {
     public Action<IngredientSo[]> OnRemoveOrder;
-    
+    public Action<int> OnScore;
+
     public GameObject sapo;
     public GameObject StarVFX_GO;
     public Animator layoutanim, boomboxanim;
-    public static OrderManager instance;
+    [SerializeField] private AudioClip successOrder;
+
 
     public MealSo[] meals;
     public List<Order> activeOrders;
@@ -27,26 +30,24 @@ public class OrderManager : MonoBehaviour
     public static float timeTracker;
 
     public Order orderGO;
-    [FormerlySerializedAs("lastOrderMeal")] public MealSo lastOrderMealSo;
+
+    [FormerlySerializedAs("lastOrderMeal")]
+    public MealSo lastOrderMealSo;
 
 
     public Transform ordersPos;
-    
-    
+
+    private MealSo _currentMatchedMeal;
+    private Order _currentDeliveredOrder;
     private Dictionary<Difficulty, List<MealSo>> _mealsByDifficulty = new Dictionary<Difficulty, List<MealSo>>();
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
+    
     // Start is called before the first frame update
     void Start()
     {
         _mealsByDifficulty.Add(Difficulty.easy, new List<MealSo>());
         _mealsByDifficulty.Add(Difficulty.normal, new List<MealSo>());
         _mealsByDifficulty.Add(Difficulty.hard, new List<MealSo>());
-        
+
         foreach (var meal in meals)
         {
             if (_mealsByDifficulty.ContainsKey(meal.difficulty))
@@ -59,7 +60,6 @@ public class OrderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (GameManager.instance.gameStates != GameStates.game)
             return;
 
@@ -82,13 +82,12 @@ public class OrderManager : MonoBehaviour
         // {
         //     SpawnOrder(0);
         // }
-
     }
-    
+
     private void SpawnOrder(int difficulty)
     {
         List<MealSo> mealsAvailable = _mealsByDifficulty[(Difficulty)difficulty];
-        
+
         int randMeal = UnityEngine.Random.Range(0, mealsAvailable.Count);
 
         //Debug.Log($"Meal {mealsAvailable.Count}");
@@ -102,74 +101,47 @@ public class OrderManager : MonoBehaviour
         Order order = Instantiate(orderGO, ordersPos);
         order.transform.localPosition = new Vector2(order.transform.localPosition.x, 71);
 
-        order.InitializeOrder(mealsAvailable[randMeal]);
+        order.InitializeOrder(mealsAvailable[randMeal], this);
 
         lastOrderMealSo = mealsAvailable[randMeal];
 
         activeOrders.Add(order);
-
     }
 
-    public void CheckMeal(MealSo mealSo)
+    private void OnSuccessMealDelivered(MealSo mealSo)
     {
-        if (IsMealMatch(mealSo))
+        layoutanim.SetTrigger("Success");
+        boomboxanim.SetTrigger("Pulo");
+        Instantiate(StarVFX_GO, sapo.transform.position, Quaternion.identity);
+        OnScore?.Invoke(mealSo.score);
+        Debug.Log("Pontua��o!");
+    }
+
+    public void OnMealDelivered(MealSo mealSo)
+    {
+        if (_currentMatchedMeal == mealSo)
         {
-            //Creditar pontos, feedbck de acerto, sumir com pedido
-            layoutanim.SetTrigger("Success");
-            boomboxanim.SetTrigger("Pulo");
-            Instantiate(StarVFX_GO, sapo.transform.position,Quaternion.identity);
-            GameManager.instance.AddScore(mealSo.score);
-            Debug.Log("Pontua��o!");
+            OnSuccessMealDelivered(mealSo);
+        }
+        
+        activeOrders.Remove(_currentDeliveredOrder);
+        _currentDeliveredOrder.RemoveOrder();
+    }
+
+    public void CheckMatchMeal(MealSo mealSo)
+    {
+        foreach (var item in activeOrders.Where(item => item.myMealSo == mealSo))
+        {
+            item.StopAllCoroutines();
+            _currentMatchedMeal = mealSo;
+            _currentDeliveredOrder = item;
+            AudioManager.instance.PlayAudioOneShot(successOrder);
+            break;
         }
     }
-
-    public void CheckMeal(MealSo mealSo, bool stopTimer, Action action = null)
-    {
-        if (IsMealMatch(mealSo, true))
-        {
-            action?.Invoke();
-            Debug.Log("Pontua��o!");
-        }
-    }
-
-    public bool IsMealMatch(MealSo mealSo)
-    {
-        bool isMatch = false;
-
-        foreach (var item in activeOrders)
-        {
-            if (item.myMealSo == mealSo)
-            {
-                isMatch = true;
-                activeOrders.Remove(item);
-                item.RemoveOrder();
-                break;
-            }
-        }
-
-        return isMatch;
-    }
-
-    bool IsMealMatch(MealSo mealSo, bool stopTimer)
-    {
-        bool isMatch = false;
-
-        foreach (var item in activeOrders)
-        {
-            if (item.myMealSo == mealSo)
-            {
-                isMatch = true;
-                item.StopAllCoroutines();
-                break;
-            }
-        }
-
-        return isMatch;
-    }
-
+    
     public void ResetOrders()
     {
-
         timeTracker = 0;
         timeSpawn = 0;
         difficultyIndex = 0;
@@ -190,5 +162,4 @@ public class OrderManager : MonoBehaviour
             activeOrders.Remove(order);
         }
     }
-
 }
