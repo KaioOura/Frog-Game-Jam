@@ -4,18 +4,18 @@ using UnityEngine;
 using System;
 using System.Linq;
 using UnityEngine.Serialization;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class OrderManager : MonoBehaviour
 {
     public Action<IngredientSo[]> OnRemoveOrder;
-    public Action<int> OnScore;
+    public Action<int> OnOrderExpired;
 
     public GameObject sapo;
     public GameObject StarVFX_GO;
     public Animator layoutanim, boomboxanim;
     [SerializeField] private AudioClip successOrder;
-
-
+    
     public MealSo[] meals;
     public List<Order> activeOrders;
 
@@ -37,6 +37,7 @@ public class OrderManager : MonoBehaviour
 
     public Transform ordersPos;
 
+    private ScoreManager _scoreManager;
     private MealSo _currentMatchedMeal;
     private Order _currentDeliveredOrder;
     private Dictionary<Difficulty, List<MealSo>> _mealsByDifficulty = new Dictionary<Difficulty, List<MealSo>>();
@@ -57,6 +58,11 @@ public class OrderManager : MonoBehaviour
         }
     }
 
+    public void Initialize(ScoreManager scoreManager)
+    {
+        _scoreManager = scoreManager;
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -113,7 +119,7 @@ public class OrderManager : MonoBehaviour
         layoutanim.SetTrigger("Success");
         boomboxanim.SetTrigger("Pulo");
         Instantiate(StarVFX_GO, sapo.transform.position, Quaternion.identity);
-        OnScore?.Invoke(mealSo.score);
+        _scoreManager.AddScore(mealSo.score);
         Debug.Log("Pontua��o!");
     }
 
@@ -125,7 +131,7 @@ public class OrderManager : MonoBehaviour
         }
         
         activeOrders.Remove(_currentDeliveredOrder);
-        _currentDeliveredOrder.RemoveOrder();
+        RemoveOrderFromList(_currentDeliveredOrder);
     }
 
     public void CheckMatchMeal(MealSo mealSo)
@@ -154,12 +160,19 @@ public class OrderManager : MonoBehaviour
         activeOrders.Clear();
     }
 
+    public void ReceiveOrderExpired(Order order)
+    {
+        OnOrderExpired?.Invoke(-2);
+        RemoveOrderFromList(order);
+    }
+    
     public void RemoveOrderFromList(Order order)
     {
         if (activeOrders.Contains(order))
         {
             OnRemoveOrder?.Invoke(order.myMealSo.recipeIngredientsSo);
             activeOrders.Remove(order);
+            order.DeleteOrder();
         }
     }
 }

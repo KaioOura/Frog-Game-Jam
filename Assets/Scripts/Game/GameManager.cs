@@ -10,28 +10,22 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    [field: SerializeField] public OrderManager OrderManager { get; private set; }
+    [field: SerializeField] public RewardManager RewardManager { get; private set; }
+    [field: SerializeField] public ScoreManager ScoreManager { get; private set; }
+    [field: SerializeField] public UIManager UIManager { get; private set; }
 
     public Joystick Joystick => joystick;
 
     public bool isMobile; //TODO: remover isso quando criar um meio de alternar build mobile e web
     public BellyFrog bellyFrog;
     public Animator an;
-
-
     public GameStates gameStates;
-
-    public int currentScore;
-    public int lastScore;
-    public int highScore;
-
-    public int lives;
 
     [SerializeField] private Joystick joystick;
     [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
     [SerializeField] private GameObject deliverButton;
     [SerializeField] private Character character;
-    [field: SerializeField] public OrderManager OrderManager { get; private set; }
-    [field: SerializeField] public RewardManager RewardManager { get; private set; }
     [SerializeField] private IngredientSpawner ingredientSpawner;
     [SerializeField] private RenderPipelineAsset[] qualityLevels;
     [SerializeField] private GameObject cameraUI;
@@ -65,16 +59,15 @@ public class GameManager : MonoBehaviour
  Debug.unityLogger.logEnabled = false;
 #endif
 
-        ResetScore();
-        ResetLife();
-
+        ScoreManager.ResetScore();
         //Application.targetFrameRate = 60;
         //QualitySettings.vSyncCount = 0;
 
         character.InitializeComponents(this);
         ingredientSpawner.Initialize(OrderManager);
-        OrderManager.OnScore += AddScore;
+        ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
+        //OrderManager.Initialize(ScoreManager);
 
         joystick.gameObject.SetActive(false);
         deliverButton.SetActive(false);
@@ -103,8 +96,8 @@ public class GameManager : MonoBehaviour
         gameStates = GameStates.game;
         cameraUI.SetActive(false);
 
-        ResetScore();
-        ResetLife();
+        ScoreManager.ResetScore();
+        character.Health.ResetLife();
         OrderManager.ResetOrders();
 
         Ingredient[] ingredients = FindObjectsOfType<Ingredient>();
@@ -115,8 +108,7 @@ public class GameManager : MonoBehaviour
         }
 
         bellyFrog.ResetBellyFrog();
-
-        UIManager.instance.ShowHideMenu(shouldShow: false);
+        UIManager.ShowMenu(false);
 
         an.SetTrigger("Game");
 
@@ -124,14 +116,14 @@ public class GameManager : MonoBehaviour
 
         AudioManager.instance.PlayGameMusic();
 
-        if (isMobile)
+        if (isMobile) //Mover para UIManager?
         {
             joystick.gameObject.SetActive(true);
             deliverButton.SetActive(true);
             actionButton.SetActive(true);
         }
     }
-
+    
     public void LoseGame()
     {
         cameraUI.SetActive(true);
@@ -140,25 +132,12 @@ public class GameManager : MonoBehaviour
         bellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;
         an.SetTrigger("Menu");
-        UIManager.instance.ShowHidePostGame(shouldShow: true);
-
-        if (currentScore > highScore)
-        {
-            highScore = currentScore;
-            playerDataHandler.Progress.SetHighScore(highScore);
-            PlayerPrefs.SetFloat(PlayerPrefsSettings.highScore, highScore);
-        }
-        else
-        {
-            highScore = (int)PlayerPrefs.GetFloat(PlayerPrefsSettings.highScore, 0);
-        }
-
+        UIManager.ShowHidePostGame(shouldShow: true);
+        
+        ScoreManager.CalculateFinalScore();
         _firebaseDataManager.SavePlayerData();
 
         OrderManager.ResetOrders();
-
-        UIManager.instance.UpdateCurrentFinalScore(currentScore);
-        UIManager.instance.UpdateCurrentHighScore(highScore);
 
         joystick.gameObject.SetActive(false);
         deliverButton.SetActive(false);
@@ -170,63 +149,18 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void AddScore(int scoreToAdd)
+    public void OnDie()
     {
-        currentScore += scoreToAdd;
-        UIManager.instance.UpdateCurrentScore(currentScore);
-    }
-
-    public void ResetScore()
-    {
-        AddScore(-currentScore);
-    }
-
-    public void ChangeLife(int changeAmount)
-    {
-        if (changeAmount < 0)
-        {
-            //Tocar som de dano!
-            if (IsGodMode)
-                changeAmount = 0;
-            
-            bellyFrog.PlayHurtSound();
-        }
-
-        lives += changeAmount;
-        UIManager.instance.UpdateLives(lives);
-
-        if (lives <= 0 && gameStates == GameStates.game)
-        {
-            UIManager.instance.UpdateCurrentFinalScore(currentScore);
-            UIManager.instance.UpdateCurrentHighScore(playerDataHandler.Progress.GetHighScore());
-            UIManager.instance.ShowSecondChance(true);
-            gameFlowManager.PauseGame(true);
-        }
-    }
-
-    [ContextMenu("Kill Char")]
-    public void KillCharDebug()
-    {
-        ChangeLife(-10);
+        if (gameStates is not GameStates.game) return;
+        
+        ScoreManager.UpdateScore();
+        UIManager.ShowSecondChance(true);
+        gameFlowManager.PauseGame(true);
     }
     
-    public void ResetLife()
+    private void OnReceivedReward()
     {
-        lives = 0;
-        GainLife(6);
-        
-    }
-
-    public void GainLife(int gainAmount)
-    {
-        lives += gainAmount;
-        UIManager.instance.UpdateLives(lives);
-    }
-
-    public void OnReceivedReward()
-    {
-        lives = 0;
-        GainLife(2);
+        character.Health.Heal(2);
         gameFlowManager.PauseGame(true);
     }
 

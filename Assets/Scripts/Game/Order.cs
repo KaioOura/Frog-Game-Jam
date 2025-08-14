@@ -28,7 +28,7 @@ public class Order : MonoBehaviour
         orignalMealTime = mealSo.timeSecondsToPrepare;
         
         OnOrderExpired = null;
-        OnOrderExpired += orderManager.RemoveOrderFromList;
+        OnOrderExpired += orderManager.ReceiveOrderExpired;
 
         for (int i = 0; i < mealSo.recipeIngredientsSo.Length; i++)
         {
@@ -58,10 +58,8 @@ public class Order : MonoBehaviour
             timeCount.fillAmount = GetTimeRemainingNormalized();
             //Debug.Log(timeCount);
         }
-
-        GameManager.instance.ChangeLife(-2);
-
-        RemoveOrder();
+        
+        OnOrderExpired?.Invoke(this);
     }
 
     public float GetTimeRemainingNormalized()
@@ -74,9 +72,8 @@ public class Order : MonoBehaviour
         return GetTimeRemainingNormalized() <= myMealSo.expirePercentage;
     }
     
-    public void RemoveOrder()
+    public void DeleteOrder()
     {
-        OnOrderExpired?.Invoke(this);
         StopAllCoroutines();
         Destroy(gameObject);
     }

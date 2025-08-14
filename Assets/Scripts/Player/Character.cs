@@ -4,7 +4,9 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public CharState CharState => charState;
-    
+    public Health Health => health;
+
+    [SerializeField] private Health health;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerTongueAction playerTongueAction;
     [SerializeField] private BellyFrog bellyFrog;
@@ -25,7 +27,9 @@ public class Character : MonoBehaviour
     public void InitializeComponents(GameManager gameManager)
     {
         playerMovement.Initialize(gameManager, charState);
-       bellyFrog.Initialize(gameManager);
+        bellyFrog.Initialize(gameManager, health);
+        health.OnDeath += gameManager.OnDie;
+        gameManager.OrderManager.OnOrderExpired += health.TakeDamage;
     }
 
     public void ChangeState(CharState newState)

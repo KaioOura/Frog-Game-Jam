@@ -4262,6 +4262,7 @@ Transform:
   - {fileID: 1918973770}
   - {fileID: 619970465}
   - {fileID: 448575346}
+  - {fileID: 1673192202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1037224164
@@ -6506,6 +6507,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1673192201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1673192202}
+  - component: {fileID: 1673192203}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1673192202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673192201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1035946114}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1673192203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673192201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c23cbb053053e94794bc164fad1d9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentScore: 0
+  lastScore: 0
 --- !u!1 &1697820083
 GameObject:
   m_ObjectHideFlags: 0
@@ -7304,20 +7351,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178e2248178c0a448897d24cdcadd976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <OrderManager>k__BackingField: {fileID: 1697820084}
+  <RewardManager>k__BackingField: {fileID: 448575347}
+  <ScoreManager>k__BackingField: {fileID: 1673192203}
+  <UIManager>k__BackingField: {fileID: 685739975}
   isMobile: 1
   bellyFrog: {fileID: 567366231}
   an: {fileID: 1918973768}
   gameStates: 0
-  currentScore: 0
-  lastScore: 0
-  highScore: 0
-  lives: 6
   joystick: {fileID: 1834641817}
   actionButton: {fileID: 1918534384}
   deliverButton: {fileID: 2068497090}
   character: {fileID: 567366234}
-  <OrderManager>k__BackingField: {fileID: 1697820084}
-  <RewardManager>k__BackingField: {fileID: 448575347}
   ingredientSpawner: {fileID: 1567434735}
   qualityLevels:
   - {fileID: 11400000, guid: a31e9f9f9c9d4b9429ed0d1234e22103, type: 2}
@@ -11114,10 +11159,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8423423938426781002, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
-      propertyPath: bellyFrog
-      value: 
-      objectReference: {fileID: 567366231}
     - target: {fileID: 8758846576510494481, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
       propertyPath: cartPos
       value: 

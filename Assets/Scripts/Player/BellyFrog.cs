@@ -49,6 +49,7 @@ public class BellyFrog : MonoBehaviour
 
     public LayerMask IngredientLayer;
 
+    private Health _health;
     private IEnumerator bellyRoutine;
     
     // Start is called before the first frame update
@@ -57,10 +58,11 @@ public class BellyFrog : MonoBehaviour
         animationController = GetComponent<Animation_Controller>();
     }
 
-    public void Initialize(GameManager gameManager)
+    public void Initialize(GameManager gameManager, Health health)
     {
         OnMealDelivered += gameManager.OrderManager.OnMealDelivered;
         OnCheckMeal += gameManager.OrderManager.CheckMatchMeal;
+        _health = health;
     }
 
     public void AddIngredient(Ingredient ingredient)
@@ -77,7 +79,8 @@ public class BellyFrog : MonoBehaviour
         if (ingredient.IngredientSo == rottenFood)
         {
             //Perder vida, cuspir tudo
-            GameManager.instance.ChangeLife(-1);
+            _health.TakeDamage(-1);
+            PlayHurtSound();
             ThrowUpAllIngredients();
             return;
         }
@@ -277,7 +280,7 @@ public class BellyFrog : MonoBehaviour
             
             if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
             {
-                GameManager.instance.ChangeLife(-1);
+                _health.TakeDamage(-1);
                 ThrowUpAllIngredients();
             }
             

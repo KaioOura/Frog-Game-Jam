@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 3086948749938156394}
   - component: {fileID: 1009830007388175292}
   - component: {fileID: 828425128578578293}
+  - component: {fileID: 6174424992608141081}
   - component: {fileID: 8423423938426781002}
   - component: {fileID: 2899257645510243418}
   - component: {fileID: 8989279138273209856}
@@ -382,6 +383,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6174424992608141081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759815190310601565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aaff95818e5347449b687c4f327469b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsGodMode: 0
+  maxHealth: 6
+  health: 0
 --- !u!114 &8423423938426781002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,8 +410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de2eb590472c52429ac4f159936941e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 6174424992608141081}
   playerMovement: {fileID: 8989279138273209856}
   playerTongueAction: {fileID: 8553704614545747055}
+  bellyFrog: {fileID: 8758846576510494481}
 --- !u!135 &2899257645510243418
 SphereCollider:
   m_ObjectHideFlags: 0

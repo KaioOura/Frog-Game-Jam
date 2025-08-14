@@ -26,18 +26,14 @@ public class UIManager : MonoBehaviour
         instance = this;
     }
 
-    public void UpdateCurrentScore(int scoreToUpdate)
+    public void UpdateScore(int scoreToUpdate)
     {
         currentScoreTMP.text = scoreToUpdate.ToString();
-    }
-
-    public void UpdateCurrentFinalScore(int scoreToUpdate)
-    {
         finalScoreTMP.text = scoreToUpdate.ToString();
         secondChanceScoreTMP.text = scoreToUpdate.ToString();
     }
-
-    public void UpdateCurrentHighScore(int scoreToUpdate)
+    
+    public void UpdateHighScore(int scoreToUpdate)
     {
         finalHighScoreTMP.text = scoreToUpdate.ToString();
         secondChanceHighScoreTMP.text = scoreToUpdate.ToString();
@@ -56,7 +52,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowHideMenu(bool shouldShow)
+    public void ShowMenu(bool shouldShow)
     {
         if (shouldShow)
         {
