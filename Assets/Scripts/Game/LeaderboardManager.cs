@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Firebase.Database;
@@ -6,11 +7,20 @@ using UnityEngine;
 
 public class LeaderboardManager
 {
+    public Action<List<LeaderboardEntry>> OnLeaderboardUpdated;
+    
     public void SaveToLeaderboard(string userId, PlayerData playerData)
     {
         LeaderboardEntry leaderboardEntry = new LeaderboardEntry();
         leaderboardEntry.name = playerData.Username;
         leaderboardEntry.score = playerData.Highschore;
+        
+        long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        long invertedScore = long.MaxValue - playerData.Highschore;
+        
+        string sortKey = $"{invertedScore:D20}_{timestamp:D20}";
+
+        leaderboardEntry.sortKey = sortKey;
         
         DatabaseReference dbRefLeaderboard = FireBaseInitializer.databaseReference.Child("Leaderboard");
 
@@ -31,33 +41,29 @@ public class LeaderboardManager
     }
 
 
-    public void LoadTop10Leaderboard()
+    public void GetEntries()
     {
         DatabaseReference dbRefLeaderboard = FireBaseInitializer.databaseReference.Child("Leaderboard");
+        List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
         dbRefLeaderboard
-            .OrderByChild("score")
+            .OrderByChild("sortKey")
             .LimitToLast(10) // <- Pega os 10 maiores scores
             .GetValueAsync().ContinueWithOnMainThread(task =>
             {
                 if (task.IsCompletedSuccessfully)
                 {
                     DataSnapshot snapshot = task.Result;
-
-                    List<LeaderboardEntry> leaderboard = new List<LeaderboardEntry>();
-
+                    
                     foreach (DataSnapshot child in snapshot.Children)
                     {
                         string json = child.GetRawJsonValue();
                         LeaderboardEntry entry = JsonUtility.FromJson<LeaderboardEntry>(json);
-                        leaderboard.Add(entry);
+                        leaderboardEntries.Add(entry);
                     }
-                    
-                    leaderboard = leaderboard.OrderByDescending(entry => entry.score).ToList();
 
-                    foreach (var entry in leaderboard)
-                    {
-                        Debug.Log($"{entry.name}: {entry.score}");
-                    }
+                    leaderboardEntries = leaderboardEntries.OrderByDescending(entry => entry.score).ToList();
+                    OnLeaderboardUpdated?.Invoke(leaderboardEntries);
+                    //return ;
                 }
                 else
                 {
@@ -72,4 +78,5 @@ public class LeaderboardEntry
 {
     public string name;
     public int score;
+    public string sortKey;
 }

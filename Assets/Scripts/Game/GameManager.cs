@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
         ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
         OrderManager.Initialize(ScoreManager);
+        UIManager.LeaderboardUI.InitializeLeaderboard(_firebaseDataManager.LeaderboardManager);
 
         joystick.gameObject.SetActive(false);
         deliverButton.SetActive(false);

@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    [field: SerializeField] public LeaderboardUI LeaderboardUI { get; private set; }
+    
     public Image[] lifeImages;
 
     public Image bellyFrogImage;

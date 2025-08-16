@@ -40,7 +40,7 @@ public class FirebaseDataManager : MonoBehaviour
     public event Action OnFailDataLoad;
     public event Action OnSuccessfulDataLoad;
 
-
+    public LeaderboardManager LeaderboardManager => _leaderboardManager;
     public PlayerData PlayerData => _playerData;
     public string UserID => _userID;
 
@@ -202,10 +202,5 @@ public class FirebaseDataManager : MonoBehaviour
         });
     }
 
-
-    [ContextMenu("LoadLeaderboard")]
-    public void GetLeaderboard()
-    {
-        _leaderboardManager.LoadTop10Leaderboard();
-    }
+    
 }
