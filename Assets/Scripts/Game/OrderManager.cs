@@ -130,7 +130,6 @@ public class OrderManager : MonoBehaviour
             OnSuccessMealDelivered(mealSo);
         }
         
-        activeOrders.Remove(_currentDeliveredOrder);
         RemoveOrderFromList(_currentDeliveredOrder);
     }
 
@@ -154,7 +153,7 @@ public class OrderManager : MonoBehaviour
 
         foreach (var item in activeOrders)
         {
-            Destroy(item.gameObject);
+            item.DeleteOrder();
         }
 
         activeOrders.Clear();
