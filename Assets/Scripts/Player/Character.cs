@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
         playerMovement.Initialize(gameManager, charState);
         bellyFrog.Initialize(gameManager, health);
         health.OnDeath += gameManager.OnDie;
+        health.OnUpdateHealth += gameManager.UIManager.UpdateLives;
         gameManager.OrderManager.OnOrderExpired += health.TakeDamage;
     }
 

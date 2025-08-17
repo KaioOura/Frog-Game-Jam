@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public OrderManager OrderManager { get; private set; }
     [field: SerializeField] public RewardManager RewardManager { get; private set; }
     [field: SerializeField] public ScoreManager ScoreManager { get; private set; }
+    [field: SerializeField] public ObjectPoolManager ObjectPoolManager { get; private set; }
     [field: SerializeField] public UIManager UIManager { get; private set; }
 
     public Joystick Joystick => joystick;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PowerUpManager powerUpManager;
     [SerializeField] private PlayerDataHandler playerDataHandler;
     [SerializeField] private GameFlowManager gameFlowManager;
+    [SerializeField] private FakePlayerHolderSo fakePlayerHolderSo;
     
     public bool IsGodMode;
     
@@ -64,7 +66,7 @@ public class GameManager : MonoBehaviour
         //QualitySettings.vSyncCount = 0;
 
         character.InitializeComponents(this);
-        ingredientSpawner.Initialize(OrderManager);
+        ingredientSpawner.Initialize(OrderManager, ObjectPoolManager);
         ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
         OrderManager.Initialize(ScoreManager);
@@ -135,7 +137,6 @@ public class GameManager : MonoBehaviour
         an.SetTrigger("Menu");
         UIManager.ShowHidePostGame(shouldShow: true);
         
-        ScoreManager.CalculateFinalScore();
         _firebaseDataManager.SavePlayerData();
 
         OrderManager.ResetOrders();
@@ -154,6 +155,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameStates is not GameStates.game) return;
         
+        ScoreManager.CalculateFinalScore();
         ScoreManager.UpdateScore();
         UIManager.ShowSecondChance(true);
         gameFlowManager.PauseGame(true);
@@ -162,7 +164,7 @@ public class GameManager : MonoBehaviour
     private void OnReceivedReward()
     {
         character.Health.Heal(2);
-        gameFlowManager.PauseGame(true);
+        gameFlowManager.PauseGame(false);
     }
 
     public void QuitGame()

@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
         for (var index = 0; index < lifeImages.Length; index++)
         {
             var item = lifeImages[index];
-
+            
             item.gameObject.SetActive(index < life);
             
         }

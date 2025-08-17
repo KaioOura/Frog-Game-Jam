@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67757db436dd3554c997d7c9f7624513, type: 3}
+  m_Name: FakePlayerHolderSo
+  m_EditorClassIdentifier: 
+  fakePlayers:
+  - {fileID: 11400000, guid: e16d60da223b68947b7c8f636b7d6818, type: 2}
+  - {fileID: 11400000, guid: 192918ccde7e15245938b47031c8bd31, type: 2}
+  - {fileID: 11400000, guid: 099c4bf2d6e7570429e8fc82fcd6d5e3, type: 2}
+  - {fileID: 11400000, guid: 149b9b25da59739429675810412fb41b, type: 2}
+  - {fileID: 11400000, guid: e6f9bf65f653e3240851019d4c81c0fd, type: 2}
+  - {fileID: 11400000, guid: 81dc674372087da4f9f8b3da9eafe4c8, type: 2}
+  - {fileID: 11400000, guid: 78e3b90e1743acf4db00f1f92b4d9d2f, type: 2}
+  - {fileID: 11400000, guid: f19974ebac901df4488595f71fbf3e27, type: 2}
+  - {fileID: 11400000, guid: e9c0c68d73ea9c84f94b44e98694f79d, type: 2}
+  - {fileID: 11400000, guid: e9a5c9f6b6084034fb3648f99552fbbc, type: 2}

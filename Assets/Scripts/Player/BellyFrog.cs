@@ -79,7 +79,7 @@ public class BellyFrog : MonoBehaviour
         if (ingredient.IngredientSo == rottenFood)
         {
             //Perder vida, cuspir tudo
-            _health.TakeDamage(-1);
+            _health.TakeDamage(1);
             PlayHurtSound();
             ThrowUpAllIngredients();
             return;
@@ -148,7 +148,8 @@ public class BellyFrog : MonoBehaviour
             frogController.SetBool("Has recipe", true);
             foreach (var item in belly)
             {
-                Destroy(item.gameObject);
+                item.ReleaseToPool();
+                //Destroy(item.gameObject);
             }
 
             //Spawnar e lancar meal
@@ -280,7 +281,7 @@ public class BellyFrog : MonoBehaviour
             
             if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
             {
-                _health.TakeDamage(-1);
+                _health.TakeDamage(1);
                 ThrowUpAllIngredients();
             }
             

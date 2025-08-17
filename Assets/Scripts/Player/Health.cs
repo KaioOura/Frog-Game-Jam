@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public Action OnUpdateHealth;
+    public Action<int> OnUpdateHealth;
     public Action OnTakeDamage;
     
     public Action OnDeath;
@@ -15,13 +15,13 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        ResetLife();
+        //ResetLife();
     }
 
     public void Heal(int amount)
     {
         health += amount;
-        OnUpdateHealth?.Invoke();
+        OnUpdateHealth?.Invoke(health);
     }
     
     public void TakeDamage(int damage)
@@ -33,7 +33,8 @@ public class Health : MonoBehaviour
             health = 0;
         
         OnTakeDamage?.Invoke();
-
+        OnUpdateHealth?.Invoke(health);
+        
         if (health <= 0)
         {
             OnDeath?.Invoke();

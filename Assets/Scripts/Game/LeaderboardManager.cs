@@ -5,28 +5,43 @@ using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine;
 
-public class LeaderboardManager
+public class LeaderboardManager : MonoBehaviour
 {
     public Action<List<LeaderboardEntry>> OnLeaderboardUpdated;
+    [SerializeField] private FakePlayerHolderSo fakePlayerHolderSo;
     
+    private List<LeaderboardEntry> _fakeEntries = new List<LeaderboardEntry>();
+    private DatabaseReference _dbRefLeaderboard;
+
+    public void Initialize()
+    {
+        _dbRefLeaderboard = FireBaseInitializer.databaseReference.Child("Leaderboard");
+        
+        DateTimeOffset fixedDate = new DateTimeOffset(2023, 5, 10, 14, 30, 0, TimeSpan.Zero);
+        long timestamp = fixedDate.ToUnixTimeMilliseconds();
+        
+        foreach (var fakePlayerSo in fakePlayerHolderSo.fakePlayers)
+        {
+            LeaderboardEntry leaderboardEntry = new LeaderboardEntry();
+            leaderboardEntry.name = fakePlayerSo.playerName;
+            leaderboardEntry.score = fakePlayerSo.highScore;
+            //leaderboardEntry.sortKey = sortKey;
+            leaderboardEntry.timeStamp = timestamp;
+            
+            _fakeEntries.Add(leaderboardEntry);
+        }
+    }
+
     public void SaveToLeaderboard(string userId, PlayerData playerData)
     {
         LeaderboardEntry leaderboardEntry = new LeaderboardEntry();
         leaderboardEntry.name = playerData.Username;
         leaderboardEntry.score = playerData.Highschore;
+        leaderboardEntry.timeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
         
-        long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        long invertedScore = long.MaxValue - playerData.Highschore;
-        
-        string sortKey = $"{invertedScore:D20}_{timestamp:D20}";
-
-        leaderboardEntry.sortKey = sortKey;
-        
-        DatabaseReference dbRefLeaderboard = FireBaseInitializer.databaseReference.Child("Leaderboard");
-
         string json = JsonUtility.ToJson(leaderboardEntry);
 
-        dbRefLeaderboard.Child(userId).SetRawJsonValueAsync(json).ContinueWithOnMainThread(task =>
+        _dbRefLeaderboard.Child(userId).SetRawJsonValueAsync(json).ContinueWithOnMainThread(task =>
         {
             if (task.IsCompletedSuccessfully)
             {
@@ -40,14 +55,14 @@ public class LeaderboardManager
         });
     }
 
-
     public void GetEntries()
     {
-        DatabaseReference dbRefLeaderboard = FireBaseInitializer.databaseReference.Child("Leaderboard");
         List<LeaderboardEntry> leaderboardEntries = new List<LeaderboardEntry>();
-        dbRefLeaderboard
-            .OrderByChild("sortKey")
-            .LimitToLast(10) // <- Pega os 10 maiores scores
+       
+        
+        _dbRefLeaderboard
+            //.OrderByChild("sortKey")
+            //.LimitToLast(10) // <- Pega os 10 maiores scores
             .GetValueAsync().ContinueWithOnMainThread(task =>
             {
                 if (task.IsCompletedSuccessfully)
@@ -61,7 +76,15 @@ public class LeaderboardManager
                         leaderboardEntries.Add(entry);
                     }
 
-                    leaderboardEntries = leaderboardEntries.OrderByDescending(entry => entry.score).ToList();
+                    leaderboardEntries.AddRange(_fakeEntries);
+                    
+                    leaderboardEntries = leaderboardEntries
+                        .OrderByDescending(e => e.score)
+                        .ThenBy(e => e.timeStamp)
+                        .Take(10)
+                        .ToList();
+                    
+                    //leaderboardEntries = leaderboardEntries.OrderByDescending(entry => entry.score).ToList();
                     OnLeaderboardUpdated?.Invoke(leaderboardEntries);
                     //return ;
                 }
@@ -78,5 +101,5 @@ public class LeaderboardEntry
 {
     public string name;
     public int score;
-    public string sortKey;
+    public long timeStamp;
 }

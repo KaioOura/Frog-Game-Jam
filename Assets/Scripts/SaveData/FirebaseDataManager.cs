@@ -40,15 +40,16 @@ public class FirebaseDataManager : MonoBehaviour
     public event Action OnFailDataLoad;
     public event Action OnSuccessfulDataLoad;
 
-    public LeaderboardManager LeaderboardManager => _leaderboardManager;
+    public LeaderboardManager LeaderboardManager => leaderboardManager;
     public PlayerData PlayerData => _playerData;
     public string UserID => _userID;
 
+    [SerializeField] private LeaderboardManager leaderboardManager;
+    
     private PlayerData _playerData;
     private DatabaseReference dbRef;
     private string _userID; //It's used to access user's database on FireBase to retrieve and send data
 
-    private LeaderboardManager _leaderboardManager;
 
     private void Awake()
     {
@@ -109,10 +110,9 @@ public class FirebaseDataManager : MonoBehaviour
 //#endif
 
         print("FirebaseDatabaseReference found successfully.");
-
-        _leaderboardManager = new LeaderboardManager();
-
+        
         LoadPlayerData();
+        leaderboardManager.Initialize();
     }
 
     [ContextMenu("NextScene")]
@@ -154,7 +154,7 @@ public class FirebaseDataManager : MonoBehaviour
             }
         });
 
-        _leaderboardManager.SaveToLeaderboard(_userID, playerData);
+        leaderboardManager.SaveToLeaderboard(_userID, playerData);
     }
 
     [ContextMenu("Load")]

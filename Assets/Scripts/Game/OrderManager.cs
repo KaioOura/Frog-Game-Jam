@@ -161,7 +161,7 @@ public class OrderManager : MonoBehaviour
 
     public void ReceiveOrderExpired(Order order)
     {
-        OnOrderExpired?.Invoke(-2);
+        OnOrderExpired?.Invoke(2);
         RemoveOrderFromList(order);
     }
     
