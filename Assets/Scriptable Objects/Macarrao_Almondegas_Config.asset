@@ -16,8 +16,8 @@ MonoBehaviour:
   score: 75
   image: {fileID: 21300000, guid: 62344bccd91bf97408c892b8c6a405c9, type: 3}
   timeSecondsToPrepare: 60
+  expirePercentage: 0.5
   mealGO: {fileID: 8455296564966409583, guid: e541ea9b7de78f64399d1a2ce920132b, type: 3}
-  myMeal: 5
   difficulty: 1
   recipeIngredientsSo:
   - {fileID: 11400000, guid: a68e27e90b0bce543beff267ede9ba7d, type: 2}
