@@ -13,13 +13,13 @@ public class RewardManager : MonoBehaviour
 
     public void RewardAd()
     {
-        Debug.Log("Showing Reward Ad");
+        //Debug.Log("Showing Reward Ad");
         _adManager.ShowRewardedAd(Reward);
     }
     
     private void Reward()
     {
-        Debug.Log("Giving Reward");
+        //Debug.Log("Giving Reward");
         OnReceivedReward?.Invoke();
     }
 }

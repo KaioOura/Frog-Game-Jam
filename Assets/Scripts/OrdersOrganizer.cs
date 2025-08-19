@@ -1,75 +1,70 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
 public class OrdersOrganizer : MonoBehaviour
 {
-    [SerializeField]
-    float spacing = 0;
+    public enum Alignment
+    {
+        Horizontal,
+        Vertical
+    }
 
-    [SerializeField]
-    [Range(0, 50)]
-    int breakPoint = 5;
+    [Header("Layout Settings")]
+    [SerializeField] private Alignment alignment = Alignment.Horizontal;
 
-    [SerializeField]
-    float animationSpeed = 10;
+    [SerializeField] private float spacing = 10f;
 
+    [SerializeField, Range(1, 50)] private int breakPoint = 5;
 
-    [ExecuteInEditMode]
-    private void FixedUpdate()
+    [SerializeField] private float animationSpeed = 10f;
+
+    [Header("Start Position")]
+    [SerializeField] private Vector2 firstRowStart = new Vector2(0, 0);
+    [SerializeField] private Vector2 secondRowStart = new Vector2(0, -50f);
+
+    private void Update()
     {
         int max = transform.childCount;
+        if (max <= 0) return;
 
-        if (max > 0)
+        // pega o tamanho do child no eixo do alinhamento
+        float childSize = (alignment == Alignment.Horizontal)
+            ? transform.GetChild(0).localScale.x
+            : transform.GetChild(0).localScale.y;
+
+        int i = 0, j = 0;
+        foreach (Transform child in transform)
         {
-            float childSize = transform.GetChild(0).localScale.x;
+            child.localEulerAngles = Vector3.zero;
 
-            float totalSizeUp, middleUp;
-            float totalSizeDown, middleDown;
-
-            if (max > breakPoint * 2)
+            if (i < breakPoint)
             {
-                var t = (max - 1) * (childSize + spacing) - spacing;
-                totalSizeUp = t / 2;
-                totalSizeDown = t / 2;
-
-                breakPoint = (int)Mathf.Ceil(max / 2f);
-            }
-            else if (max > breakPoint)
-            {
-                totalSizeUp = (breakPoint - 1) * (childSize + spacing) - spacing;
-                totalSizeDown = (max - breakPoint - 1) * (childSize + spacing) - spacing;
+                child.localPosition = Vector2.Lerp(
+                    child.localPosition,
+                    GetAlignedPosition(i, firstRowStart, childSize),
+                    animationSpeed * Time.deltaTime
+                );
+                i++;
             }
             else
             {
-                totalSizeUp = (max - 1) * (childSize + spacing) - spacing;
-                totalSizeDown = 0;
-            }
-
-            middleUp = totalSizeUp / 2;
-            middleDown = totalSizeDown / 2;
-
-            int i = 0, j = 0;
-            foreach (Transform child in transform)
-            {
-                child.localEulerAngles = new Vector3(0, 0, 0);
-
-                if (i < breakPoint)
-                {
-                    child.localPosition = Vector2.Lerp(child.localPosition, new Vector2(i * (childSize + spacing), -57), animationSpeed * Time.deltaTime);
-                    i++;
-                }
-                else
-                {
-                    child.localPosition = Vector2.Lerp(
-                        child.localPosition,
-                        new Vector2(j * (childSize + spacing) - middleDown, -1.5f + 0),
-                        animationSpeed * Time.deltaTime
-                        );
-                    j++;
-                }
+                child.localPosition = Vector2.Lerp(
+                    child.localPosition,
+                    GetAlignedPosition(j, secondRowStart, childSize),
+                    animationSpeed * Time.deltaTime
+                );
+                j++;
             }
         }
+    }
+
+    private Vector2 GetAlignedPosition(int index, Vector2 start, float childSize)
+    {
+        float offset = index * (childSize + spacing);
+
+        if (alignment == Alignment.Horizontal)
+            return new Vector2(start.x + offset, start.y);
+        else
+            return new Vector2(start.x, start.y - offset); // -offset pra "descer"
     }
 }

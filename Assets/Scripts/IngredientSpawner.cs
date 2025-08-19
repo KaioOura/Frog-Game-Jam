@@ -57,7 +57,7 @@ public class IngredientSpawner : MonoBehaviour
         orderCloseToExpire = FindOrderCloseToExpire();
 
         IngredientSo ingredientToSpawn = SelectIngredientToSpawn();
-        Ingredient ingredient = _objectPoolManager.IngredientPool[ingredientToSpawn].Get();
+        Ingredient ingredient = _objectPoolManager.IngredientPoolManager.Pool[ingredientToSpawn].Get();
 
         //Ingredient instance = Instantiate(ingredientToSpawn.ingredientPrefab, spot.foodOnPlatePos.position, Quaternion.identity);
         spot.AssignIngredient(ingredient);

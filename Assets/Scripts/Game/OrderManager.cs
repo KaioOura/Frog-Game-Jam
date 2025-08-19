@@ -37,6 +37,7 @@ public class OrderManager : MonoBehaviour
 
     public Transform ordersPos;
 
+    private ObjectPoolManager _objectPoolManager;
     private ScoreManager _scoreManager;
     private MealSo _currentMatchedMeal;
     private Order _currentDeliveredOrder;
@@ -58,9 +59,10 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    public void Initialize(ScoreManager scoreManager)
+    public void Initialize(ScoreManager scoreManager, ObjectPoolManager objectPoolManager)
     {
         _scoreManager = scoreManager;
+        _objectPoolManager = objectPoolManager;
     }
     
     // Update is called once per frame
@@ -103,9 +105,10 @@ public class OrderManager : MonoBehaviour
             SpawnOrder(difficultyIndex);
             return;
         }
-
-        Order order = Instantiate(orderGO, ordersPos);
-        order.transform.localPosition = new Vector2(order.transform.localPosition.x, 71);
+        
+        Order order = _objectPoolManager.OrderPool.Pool.Get();
+        order.transform.SetParent(ordersPos);
+        order.transform.localScale = Vector3.one;
 
         order.InitializeOrder(mealsAvailable[randMeal], this);
 
@@ -120,7 +123,7 @@ public class OrderManager : MonoBehaviour
         boomboxanim.SetTrigger("Pulo");
         Instantiate(StarVFX_GO, sapo.transform.position, Quaternion.identity);
         _scoreManager.AddScore(mealSo.score);
-        Debug.Log("Pontua��o!");
+        //Debug.Log("Pontua��o!");
     }
 
     public void OnMealDelivered(MealSo mealSo)

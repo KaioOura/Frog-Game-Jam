@@ -4,21 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 using UnityEngine.Serialization;
 
 public class Order : MonoBehaviour
 {
     public Action<Order> OnOrderExpired;
-    [FormerlySerializedAs("myMeal")] public MealSo myMealSo;
+    public Action<Order> OnReleaseToPool;
 
-    public Image mealImage;
-    public Image[] recipeIngredientsIMG;
-    public int mealTime;
-    int orignalMealTime;
-
-    public Image timeCount;
+    public Image[] RecipeIngredientsIMG => recipeIngredientsIMG;
+    public MealSo MyMealSo => myMealSo;
     
+    [FormerlySerializedAs("myMeal")] public MealSo myMealSo;
+    [SerializeField] private Image mealImage;
+    [SerializeField] private Image[] recipeIngredientsIMG;
+    [SerializeField] private int mealTime;
+    [SerializeField] private int orignalMealTime;
+    [SerializeField] private Image timeCount;
+    [SerializeField] private Image ingredientGrid;
+
     private IEnumerator countDownRoutine;
+    private OrderHighlighter _orderHighlighter;
+
+    public void SetOrderHighlighter(OrderHighlighter orderHighlighter)
+    {
+        _orderHighlighter = orderHighlighter;
+    }
     
     public void InitializeOrder(MealSo mealSo, OrderManager orderManager)
     {
@@ -26,7 +37,9 @@ public class Order : MonoBehaviour
         mealImage.sprite = myMealSo.image;
         mealTime = mealSo.timeSecondsToPrepare;
         orignalMealTime = mealSo.timeSecondsToPrepare;
-        
+
+        timeCount.fillAmount = GetTimeRemainingNormalized();
+
         OnOrderExpired = null;
         OnOrderExpired += orderManager.ReceiveOrderExpired;
 
@@ -36,6 +49,8 @@ public class Order : MonoBehaviour
             recipeIngredientsIMG[i].sprite = mealSo.recipeIngredientsSo[i].myImage;
         }
 
+        _orderHighlighter.UpdateOrderIngredients();
+        
         if (countDownRoutine != null)
             StopCoroutine(countDownRoutine);
 
@@ -45,7 +60,11 @@ public class Order : MonoBehaviour
 
     IEnumerator TimeCountDown()
     {
-        while(mealTime >= 0)
+        yield return new WaitForEndOfFrame();
+        timeCount.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
+            ingredientGrid.rectTransform.sizeDelta.x);
+
+        while (mealTime >= 0)
         {
             if (GameManager.instance.gameStates == GameStates.finish)
             {
@@ -58,9 +77,10 @@ public class Order : MonoBehaviour
             timeCount.fillAmount = GetTimeRemainingNormalized();
             //Debug.Log(timeCount);
         }
-        
+
         OnOrderExpired?.Invoke(this);
     }
+    
 
     public float GetTimeRemainingNormalized()
     {
@@ -71,10 +91,15 @@ public class Order : MonoBehaviour
     {
         return GetTimeRemainingNormalized() <= myMealSo.expirePercentage;
     }
-    
+
     public void DeleteOrder()
     {
+        foreach (var t in recipeIngredientsIMG)
+        {
+            t.gameObject.SetActive(false);
+        }
+        
         StopAllCoroutines();
-        Destroy(gameObject);
+        OnReleaseToPool?.Invoke(this);
     }
 }

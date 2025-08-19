@@ -22,7 +22,7 @@ public class Tongue : MonoBehaviour
             if (other.TryGetComponent(out Ingredient ingredient))
             {
                 OnTongueHit(ingredient);
-                Debug.Log("Licked: " + other.gameObject);
+                //Debug.Log("Licked: " + other.gameObject);
             }
             
         }

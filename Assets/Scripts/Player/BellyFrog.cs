@@ -8,6 +8,8 @@ using UnityEngine.Serialization;
 
 public class BellyFrog : MonoBehaviour
 {
+    public Action<IngredientSo> OnIngredientAdded;
+    public Action OnThrowUp;
     public Action<MealSo> OnCheckMeal;
     public Action<MealSo> OnMealDelivered;
     
@@ -22,6 +24,7 @@ public class BellyFrog : MonoBehaviour
     public Animator frogController;
     public BellyDisplay bellyDisplay;
     public List<Ingredient> belly;
+    public List<IngredientSo> bellySo;
     public int maxIngredients;
     public Transform bellyPos, JawPos;
     public Tongue tongue;
@@ -35,7 +38,6 @@ public class BellyFrog : MonoBehaviour
     public float timeFoodInBelly;
     public float reduceTimeInBelly;
 
-    public Action OnIngredientAdded;
 
     bool isThrowingUp;
 
@@ -65,12 +67,30 @@ public class BellyFrog : MonoBehaviour
         _health = health;
     }
 
+    private void AddToBelly(Ingredient ingredient)
+    {
+        belly.Add(ingredient);
+        bellySo.Add(ingredient.IngredientSo);
+    }
+
+    private void RemoveFromBelly(Ingredient ingredient)
+    {
+        belly.Remove(ingredient);
+        bellySo.Remove(ingredient.IngredientSo);
+    }
+
+    private void ClearBelly()
+    {
+        belly.Clear();
+        bellySo.Clear();
+    }
+    
     public void AddIngredient(Ingredient ingredient)
     {
         if (belly.Count - 1 >= maxIngredients)
             return;
 
-        belly.Add(ingredient);
+        AddToBelly(ingredient);
         animationController.realayerWeight += 0.25f;
         ingredient.gameObject.SetActive(false);
         ingredient.transform.SetParent(bellyPos.transform);
@@ -86,7 +106,7 @@ public class BellyFrog : MonoBehaviour
         }
 
         bellyDisplay.UpdateUI();
-        OnIngredientAdd();
+        OnIngredientAdd(ingredient);
     }
 
     public void ThrowUpAllIngredients()
@@ -127,7 +147,7 @@ public class BellyFrog : MonoBehaviour
             activeMealSo = null;
             mealGO = null;
             frogController.SetBool("Has recipe", false);
-            belly.Clear();
+            ClearBelly();
             bellyDisplay.UpdateUI();
             bellyDisplay.UpdateMealUI(null);
 
@@ -182,12 +202,14 @@ public class BellyFrog : MonoBehaviour
                 yield return new WaitForSeconds(0.17f);
             }
 
-            belly.Clear();
+            ClearBelly();
             bellyDisplay.UpdateUI();
             bellyDisplay.UpdateMealUI(null);
 
             isThrowingUp = false;
         }
+        
+        OnThrowUp?.Invoke();
     }
 
 
@@ -209,7 +231,7 @@ public class BellyFrog : MonoBehaviour
         return belly.Count - 1 == maxIngredients;
     }
 
-    void OnIngredientAdd()
+    void OnIngredientAdd(Ingredient ingredient)
     {
 
         timeFoodInBelly -= reduceTimeInBelly;
@@ -221,25 +243,20 @@ public class BellyFrog : MonoBehaviour
             StartCoroutine(bellyRoutine);
         }
 
+        OnIngredientAdded?.Invoke(ingredient.IngredientSo);
+        
         if (belly.Count < 2)
         {
-            Debug.Log("Not a meal");
+            //Debug.Log("Not a meal");
             return;
         }
 
         activeMealSo = GetMeal();
 
         bellyDisplay.UpdateMealUI(activeMealSo);
-
-        if (activeMealSo != null)
-        {
-            Debug.Log(activeMealSo.name);
-        }
-        else
-        {
-            Debug.Log("Not a meal");
-        }
-
+        
+        
+        //Debug.Log(activeMealSo != null ? activeMealSo.name : "Not a meal");
     }
 
     MealSo GetMeal()
@@ -260,7 +277,7 @@ public class BellyFrog : MonoBehaviour
 
     public void ResetBellyFrog()
     {
-        belly.Clear();
+        ClearBelly();
         bellyDisplay.UpdateUI();
         bellyDisplay.UpdateMealUI(null);
         animationController.realayerWeight = 0;

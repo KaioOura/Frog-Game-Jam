@@ -66,12 +66,25 @@ public class GameManager : MonoBehaviour
         //QualitySettings.vSyncCount = 0;
 
         character.InitializeComponents(this);
+        ObjectPoolManager.Initialize();
         ingredientSpawner.Initialize(OrderManager, ObjectPoolManager);
         ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
-        OrderManager.Initialize(ScoreManager);
-        UIManager.LeaderboardUI.InitializeLeaderboard(_firebaseDataManager.LeaderboardManager);
+        OrderManager.Initialize(ScoreManager, ObjectPoolManager);
+        
+        if (_firebaseDataManager) //This is for playing game directly from Game scene
+            UIManager.LeaderboardUI.InitializeLeaderboard(_firebaseDataManager?.LeaderboardManager);
 
+        foreach (var order in ObjectPoolManager.OrderPool.Orders)
+        {
+            OrderHighlighter orderHighlighter = order.gameObject.AddComponent<OrderHighlighter>();
+            orderHighlighter.Initialize(order, character.BellyFrog);
+            order.SetOrderHighlighter(orderHighlighter);
+            
+            character.BellyFrog.OnIngredientAdded += orderHighlighter.HighLightIngredients;
+            character.BellyFrog.OnThrowUp += orderHighlighter.ResetIngredientsColor;
+        }
+        
         joystick.gameObject.SetActive(false);
         deliverButton.SetActive(false);
         actionButton.SetActive(false);

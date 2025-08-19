@@ -5,6 +5,7 @@ public class Character : MonoBehaviour
 {
     public CharState CharState => charState;
     public Health Health => health;
+    public BellyFrog BellyFrog => bellyFrog;
 
     [SerializeField] private Health health;
     [SerializeField] private PlayerMovement playerMovement;

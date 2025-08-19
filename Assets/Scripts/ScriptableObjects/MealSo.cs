@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Meal", menuName = "Meal", order = 1)]
@@ -23,13 +24,13 @@ public class MealSo : ScriptableObject
     {
         if (ingredients.Count <= 1)
         {
-            Debug.Log("NOT MATCH: Meal need more than " + ingredients.Count+" ingredients");
+            //Debug.Log("NOT MATCH: Meal need more than " + ingredients.Count+" ingredients");
             return false;
         }
 
         if (recipeIngredientsSo.Length != ingredients.Count)
         {
-            Debug.Log("NOT MATCH: Meal ingeredients count not matching");
+            //Debug.Log("NOT MATCH: Meal ingeredients count not matching");
             return false;
         }
 
@@ -42,15 +43,10 @@ public class MealSo : ScriptableObject
 
         for (int i = 0; i < recipeIngredientsSo.Length; i++)
         {
-            for (int y = 0; y < ingredients.Count; y++)
+            if (ingredients.Any(t => recipeIngredientsSo[i] == t.IngredientSo))
             {
-                if (recipeIngredientsSo[i] == ingredients[y].IngredientSo)
-                {
-                    isMatch[i] = true;
-                    break;
-                }
+                isMatch[i] = true;
             }
-
         }
 
         return isMatch.TrueForAll(IsMatch);
