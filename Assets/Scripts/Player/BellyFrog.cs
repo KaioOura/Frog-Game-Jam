@@ -13,8 +13,10 @@ public class BellyFrog : MonoBehaviour
     public Action<MealSo> OnCheckMeal;
     public Action<MealSo> OnMealDelivered;
     
-    public GameObject saliva_VFX, Jaw_Pos;
-    public ParticleSystem Sweat_VFX;
+    [SerializeField] private ParticleSystem saliva_VFX;
+    [SerializeField] private ParticleSystem Sweat_VFX;
+    [SerializeField] private ParticleSystem StarVFX_GO;
+    public GameObject Jaw_Pos;
 
     public bool targeting;
     private Ingredient ingredient;
@@ -37,8 +39,7 @@ public class BellyFrog : MonoBehaviour
     public float maxTimeInBelly;
     public float timeFoodInBelly;
     public float reduceTimeInBelly;
-
-
+    
     bool isThrowingUp;
 
     public Transform cartPos;
@@ -47,10 +48,7 @@ public class BellyFrog : MonoBehaviour
     public AudioClip[] swallowClip;
     public AudioClip succesMeal;
     public AudioClip hurtClip;
-
-
-    public LayerMask IngredientLayer;
-
+    
     private Health _health;
     private IEnumerator bellyRoutine;
     
@@ -64,6 +62,7 @@ public class BellyFrog : MonoBehaviour
     {
         OnMealDelivered += gameManager.OrderManager.OnMealDelivered;
         OnCheckMeal += gameManager.OrderManager.CheckMatchMeal;
+        gameManager.OrderManager.OnMealDeliveredSuccessfully += OnMealSuccessfully;
         _health = health;
     }
 
@@ -132,7 +131,8 @@ public class BellyFrog : MonoBehaviour
     {
         int rand = UnityEngine.Random.Range(0, swallowClip.Length);
         audioSource.PlayOneShot(swallowClip[rand]);
-        Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
+        PlaySalivaVfx();
+
         OnCheckMeal?.Invoke(activeMealSo);
         mealGO.SetActive(true);
         mealGO.gameObject.transform.position = JawPos.position + PosOffset;
@@ -162,6 +162,8 @@ public class BellyFrog : MonoBehaviour
 
         while (tongue.isTongueOccupied)
             yield return null;
+        
+        Sweat_VFX.Stop();
 
         if (activeMealSo != null)
         {
@@ -194,7 +196,7 @@ public class BellyFrog : MonoBehaviour
 
                 int rand = UnityEngine.Random.Range(0, swallowClip.Length);
                 audioSource.PlayOneShot(swallowClip[rand]);
-                Instantiate(saliva_VFX, Jaw_Pos.transform.position, gameObject.transform.rotation);
+                PlaySalivaVfx();
                 animationController.realayerWeight -= 0.25f;
                 frogController.SetTrigger("Food Out");
                 LaunchIngredient(belly[numIngredients]);
@@ -221,9 +223,10 @@ public class BellyFrog : MonoBehaviour
         ingredient.LaunchItSelf(transform.forward);
     }
 
-    void LaunchMealGO(MealGO mealGo)
+    private void OnMealSuccessfully()
     {
-        mealGo.LaunchItSelf(transform.forward);
+        StarVFX_GO.Stop();
+        StarVFX_GO.Play();
     }
 
     public bool IsBellyFull()
@@ -290,11 +293,13 @@ public class BellyFrog : MonoBehaviour
         if (belly.Count <= 0)
             timeFoodInBelly = 0;
         
+        Sweat_VFX.Play();
+        
         while (belly.Count > 0)
         {
             timeFoodInBelly += Time.deltaTime;
             
-            //Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
+            Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
             
             if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
             {
@@ -307,8 +312,19 @@ public class BellyFrog : MonoBehaviour
             
             yield return null;
         }
+        
+        Sweat_VFX.Stop();
     }
 
+    private void PlaySalivaVfx()
+    {
+        saliva_VFX.transform.position = Jaw_Pos.transform.position;
+        saliva_VFX.transform.rotation = gameObject.transform.rotation;
+        saliva_VFX.Stop();
+        saliva_VFX.Play();
+    }
+    
+    
     public void PlayHurtSound()
     {
         audioSource.PlayOneShot(hurtClip);

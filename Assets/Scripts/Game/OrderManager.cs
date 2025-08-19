@@ -10,9 +10,9 @@ public class OrderManager : MonoBehaviour
 {
     public Action<IngredientSo[]> OnRemoveOrder;
     public Action<int> OnOrderExpired;
+    public Action OnMealDeliveredSuccessfully;
 
     public GameObject sapo;
-    public GameObject StarVFX_GO;
     public Animator layoutanim, boomboxanim;
     [SerializeField] private AudioClip successOrder;
     
@@ -26,10 +26,8 @@ public class OrderManager : MonoBehaviour
     float timeSpawn;
 
     public int difficultyIndex;
-
     public static float timeTracker;
-
-    public Order orderGO;
+    
 
     [FormerlySerializedAs("lastOrderMeal")]
     public MealSo lastOrderMealSo;
@@ -121,8 +119,9 @@ public class OrderManager : MonoBehaviour
     {
         layoutanim.SetTrigger("Success");
         boomboxanim.SetTrigger("Pulo");
-        Instantiate(StarVFX_GO, sapo.transform.position, Quaternion.identity);
         _scoreManager.AddScore(mealSo.score);
+        
+        OnMealDeliveredSuccessfully?.Invoke();
         //Debug.Log("Pontua��o!");
     }
 

@@ -5667,6 +5667,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8390776859581140455}
     - target: {fileID: 351877386284715998, guid: 9d97dbe8f8ea02441a68565b62e7d129, type: 3}
+      propertyPath: StarVFX_GO
+      value: 
+      objectReference: {fileID: 7769493904050122182, guid: 6fc24b23e219b3d43b510399945bcf14, type: 3}
+    - target: {fileID: 351877386284715998, guid: 9d97dbe8f8ea02441a68565b62e7d129, type: 3}
       propertyPath: layoutanim
       value: 
       objectReference: {fileID: 533283777}
@@ -7696,6 +7700,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5679806036048657316, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679806036048657318, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5771516933167147137, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5771516933167147137, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6174424992608141081, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
       propertyPath: IsGodMode
       value: 1
@@ -7712,6 +7732,10 @@ PrefabInstance:
       propertyPath: bellyDisplay
       value: 
       objectReference: {fileID: 1141227207}
+    - target: {fileID: 8885341285801940914, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
