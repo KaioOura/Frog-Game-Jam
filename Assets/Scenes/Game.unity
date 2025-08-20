@@ -915,10 +915,10 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.874
+    m_Strength: 1
     m_Bias: 0.02
     m_NormalBias: 0.1
     m_NearPlane: 0.1
@@ -2018,6 +2018,7 @@ Transform:
   m_Children:
   - {fileID: 1153982991}
   - {fileID: 404311091}
+  - {fileID: 1327742910}
   m_Father: {fileID: 1035946114}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &694934157
@@ -2034,6 +2035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientPool: {fileID: 1153982992}
   _orderPool: {fileID: 404311092}
+  _mealPool: {fileID: 1327742911}
 --- !u!1 &718065152
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,6 +3285,54 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7135370442800457270, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
   m_PrefabInstance: {fileID: 8034141845938540518}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1327742909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1327742910}
+  - component: {fileID: 1327742911}
+  m_Layer: 0
+  m_Name: MealPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1327742910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327742909}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 694934156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1327742911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327742909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c9d5155a14a6749bc1d43641fe5c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultCapacity: 2
+  maxCapacity: 5
+  mealPrefab: {fileID: 5850737469567302652, guid: a65d38b0d14a2434fbc9c74d5308e1a4, type: 3}
+  mealParent: {fileID: 1327742910}
 --- !u!114 &1426411432 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3963479671118193523, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}

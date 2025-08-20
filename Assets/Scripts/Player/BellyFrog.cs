@@ -51,6 +51,7 @@ public class BellyFrog : MonoBehaviour
     
     private Health _health;
     private IEnumerator bellyRoutine;
+    private MealPoolManager _mealPool;
     
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,7 @@ public class BellyFrog : MonoBehaviour
         OnMealDelivered += gameManager.OrderManager.OnMealDelivered;
         OnCheckMeal += gameManager.OrderManager.CheckMatchMeal;
         gameManager.OrderManager.OnMealDeliveredSuccessfully += OnMealSuccessfully;
+        _mealPool = gameManager.ObjectPoolManager.MealPool;
         _health = health;
     }
 
@@ -143,7 +145,7 @@ public class BellyFrog : MonoBehaviour
             
             CartAnimator.SetTrigger("Cart Out");
             mealGO.transform.SetParent(cartPos);
-            Destroy(mealGO, 0.2f);
+            _mealPool.QueueReleaseWithDelay(mealGO, 0.2f);
             activeMealSo = null;
             mealGO = null;
             frogController.SetBool("Has recipe", false);
@@ -171,15 +173,13 @@ public class BellyFrog : MonoBehaviour
             foreach (var item in belly)
             {
                 item.ReleaseToPool();
-                //Destroy(item.gameObject);
             }
 
             //Spawnar e lancar meal
-
-            MealGO _mealGO = Instantiate(activeMealSo.mealGO);
-            mealGO = _mealGO.gameObject;
+            
+            mealGO = _mealPool.Pool.Get();
             mealGO.SetActive(false);
-            _mealGO.transform.position = bellyPos.transform.position;
+            mealGO.transform.position = bellyPos.transform.position;
             frogController.SetTrigger("Food Out");
             animationController.realayerWeight = 0;
 

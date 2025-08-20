@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 557982883739600228}
   - component: {fileID: 8455296564966409583}
   m_Layer: 0
-  m_Name: Esfiha_Meal
+  m_Name: Standard_Meal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.894, y: 1.497745, z: -1.0620002}
-  m_LocalScale: {x: 0.26207998, y: 0.26207998, z: 0.26207998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3453800810084070209}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 557982883739600228}
   col: {fileID: 3769247643788610933}
-  mealSo: {fileID: 11400000, guid: 7e579d631e22dfd4ca88d765482d17d4, type: 2}
+  mealSo: {fileID: 0}
 --- !u!1001 &2910702999380235434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36cff7455b1ca32408701f017f5b0c5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.718
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36cff7455b1ca32408701f017f5b0c5a, type: 3}
       propertyPath: m_LocalPosition.z

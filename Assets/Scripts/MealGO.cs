@@ -5,9 +5,6 @@ using UnityEngine.Serialization;
 
 public class MealGO : MonoBehaviour
 {
-    public string myName;
-    public int baseScore;
-    public Sprite myImage;
     public Rigidbody rb;
     public Collider col;
 
@@ -15,9 +12,7 @@ public class MealGO : MonoBehaviour
 
     private void Start()
     {
-        myName = mealSo.mealName;
-        baseScore = mealSo.score;
-        myImage = mealSo.image;
+
     }
 
     public void LaunchItSelf(Vector3 dir)
