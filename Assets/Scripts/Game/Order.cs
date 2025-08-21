@@ -14,6 +14,7 @@ public class Order : MonoBehaviour
 
     public Image[] RecipeIngredientsIMG => recipeIngredientsIMG;
     public MealSo MyMealSo => myMealSo;
+    public RectTransform Rect => _rect;
     
     [FormerlySerializedAs("myMeal")] public MealSo myMealSo;
     [SerializeField] private Image mealImage;
@@ -25,7 +26,13 @@ public class Order : MonoBehaviour
 
     private IEnumerator countDownRoutine;
     private OrderHighlighter _orderHighlighter;
+    private RectTransform _rect;
 
+    private void Awake()
+    {
+        _rect = GetComponent<RectTransform>();
+    }
+    
     public void SetOrderHighlighter(OrderHighlighter orderHighlighter)
     {
         _orderHighlighter = orderHighlighter;

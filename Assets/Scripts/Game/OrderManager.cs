@@ -31,9 +31,8 @@ public class OrderManager : MonoBehaviour
 
     [FormerlySerializedAs("lastOrderMeal")]
     public MealSo lastOrderMealSo;
-
-
     public Transform ordersPos;
+    [SerializeField] private VerticalUIList verticalUIList;
 
     private ObjectPoolManager _objectPoolManager;
     private ScoreManager _scoreManager;
@@ -105,6 +104,7 @@ public class OrderManager : MonoBehaviour
         }
         
         Order order = _objectPoolManager.OrderPool.Pool.Get();
+        verticalUIList.AddUI(order.Rect);
         order.transform.SetParent(ordersPos);
         order.transform.localScale = Vector3.one;
 
@@ -155,7 +155,7 @@ public class OrderManager : MonoBehaviour
 
         foreach (var item in activeOrders)
         {
-            item.DeleteOrder();
+            DeleteOrder(item);
         }
 
         activeOrders.Clear();
@@ -173,7 +173,13 @@ public class OrderManager : MonoBehaviour
         {
             OnRemoveOrder?.Invoke(order.myMealSo.recipeIngredientsSo);
             activeOrders.Remove(order);
-            order.DeleteOrder();
+            DeleteOrder(order);
         }
+    }
+
+    private void DeleteOrder(Order order)
+    {
+        order.DeleteOrder();
+        verticalUIList.RemoveUI(order.Rect);
     }
 }

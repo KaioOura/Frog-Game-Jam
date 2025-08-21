@@ -1,0 +1,38 @@
+using UnityEngine;
+
+[RequireComponent(typeof(RectTransform))]
+public class SafeAreaAdjust : MonoBehaviour
+{
+    RectTransform panel;
+    Rect lastSafeArea = new Rect(0, 0, 0, 0);
+
+    void Awake()
+    {
+        panel = GetComponent<RectTransform>();
+        ApplySafeArea();
+    }
+
+    void Update()
+    {
+        if (lastSafeArea != Screen.safeArea)
+            ApplySafeArea();
+    }
+
+    void ApplySafeArea()
+    {
+        Rect safeArea = Screen.safeArea;
+
+        // Normaliza para [0..1]
+        Vector2 anchorMin = safeArea.position;
+        Vector2 anchorMax = safeArea.position + safeArea.size;
+        anchorMin.x /= Screen.width;
+        anchorMin.y /= Screen.height;
+        anchorMax.x /= Screen.width;
+        anchorMax.y /= Screen.height;
+
+        panel.anchorMin = anchorMin;
+        panel.anchorMax = anchorMax;
+
+        lastSafeArea = safeArea;
+    }
+}
