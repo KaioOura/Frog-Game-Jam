@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -21,7 +23,23 @@ public class OrdersOrganizer : MonoBehaviour
     [Header("Start Position")]
     [SerializeField] private Vector2 firstRowStart = new Vector2(0, 0);
     [SerializeField] private Vector2 secondRowStart = new Vector2(0, -50f);
+    [SerializeField] private List<Transform> orderDesiredPositions = new List<Transform>();
+    [SerializeField] private List<Transform> orderPositions = new List<Transform>();
 
+    private int _activeOrders = -1;
+
+    public void AssignOrder(Transform orderTransform)
+    {
+        int orderPositionIndex = _activeOrders + 1 > orderPositions.Count ? 0 : _activeOrders + 1;
+        
+        orderTransform.DOMove(orderPositions[orderPositionIndex].position, animationSpeed);
+    }
+
+    public void UpdateOrderPositioning()
+    {
+        
+    }
+    
     private void Update()
     {
         int max = transform.childCount;
