@@ -40,7 +40,7 @@ public class IngredientSpawner : MonoBehaviour
 
     IEnumerator SpawnIngredientRoutine()
     {
-        yield return new WaitUntil(() => _orderManager.activeOrders.Count > 0);
+        yield return new WaitUntil(() => _orderManager.ActiveOrders.Count > 0);
 
         while (true)
         {
@@ -75,7 +75,7 @@ public class IngredientSpawner : MonoBehaviour
     
     private Order FindOrderCloseToExpire()
     {
-        return _orderManager.activeOrders
+        return _orderManager.ActiveOrders
             .Where(o => o.IsCloseToExpire())
             .OrderBy(o => o.GetTimeRemainingNormalized())
             .FirstOrDefault();
@@ -95,7 +95,7 @@ public class IngredientSpawner : MonoBehaviour
         }
 
         // Ingredientes normais
-        foreach (var order in _orderManager.activeOrders)
+        foreach (var order in _orderManager.ActiveOrders)
         {
             if (order.IsCloseToExpire()) continue;
 

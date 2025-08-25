@@ -11,29 +11,36 @@ public class OrderManager : MonoBehaviour
     public Action<IngredientSo[]> OnRemoveOrder;
     public Action<int> OnOrderExpired;
     public Action OnMealDeliveredSuccessfully;
+    
+    public List<Order> ActiveOrders => _activeOrders;
 
-    public GameObject sapo;
-    public Animator layoutanim, boomboxanim;
+    [SerializeField] private GameObject sapo;
+    [FormerlySerializedAs("layoutanim")] [SerializeField] private Animator layoutAnim;
+    [FormerlySerializedAs("boomboxanim")] [SerializeField] private Animator boomboxAnim;
+    
     [SerializeField] private AudioClip successOrder;
     
-    public MealSo[] meals;
-    public List<Order> activeOrders;
+    [SerializeField] private MealSo[] meals;
 
-    public int maxOrders;
+    [SerializeField] private int maxOrders;
 
-    public int[] difficultyBreakdown;
-    public float[] timeToSpawn;
-    float timeSpawn;
-
-    public int difficultyIndex;
-    public static float timeTracker;
+    [Tooltip("Time in seconds to change difficulty")]
+    [SerializeField] private int[] difficultyBreakdown;
     
-
+    [Tooltip("Time in seconds to spawn order based on difficulty")]
+    [SerializeField] private float[] timeToSpawn;
+    
+    [SerializeField] private int difficultyIndex;
+    
     [FormerlySerializedAs("lastOrderMeal")]
-    public MealSo lastOrderMealSo;
-    public Transform ordersPos;
+    [SerializeField] private MealSo lastOrderMealSo;
+    
+    [SerializeField] private Transform ordersPos;
     [SerializeField] private VerticalUIList verticalUIList;
 
+    private List<Order> _activeOrders = new List<Order>();
+    private float _timeSpawn;
+    private static float timeTracker;
     private ObjectPoolManager _objectPoolManager;
     private ScoreManager _scoreManager;
     private MealSo _currentMatchedMeal;
@@ -69,7 +76,7 @@ public class OrderManager : MonoBehaviour
             return;
 
         timeTracker += Time.deltaTime;
-        timeSpawn += Time.deltaTime;
+        _timeSpawn += Time.deltaTime;
 
         if (timeTracker > difficultyBreakdown[difficultyIndex] && difficultyIndex < difficultyBreakdown.Length - 1)
         {
@@ -77,10 +84,10 @@ public class OrderManager : MonoBehaviour
             timeTracker = 0;
         }
 
-        if (timeSpawn > timeToSpawn[difficultyIndex] && activeOrders.Count < maxOrders)
+        if (_timeSpawn > timeToSpawn[difficultyIndex] && _activeOrders.Count < maxOrders)
         {
             SpawnOrder(difficultyIndex);
-            timeSpawn = 0;
+            _timeSpawn = 0;
         }
 
         // if (Input.GetKeyDown(KeyCode.R))
@@ -112,13 +119,13 @@ public class OrderManager : MonoBehaviour
 
         lastOrderMealSo = mealsAvailable[randMeal];
 
-        activeOrders.Add(order);
+        _activeOrders.Add(order);
     }
 
     private void OnSuccessMealDelivered(MealSo mealSo)
     {
-        layoutanim.SetTrigger("Success");
-        boomboxanim.SetTrigger("Pulo");
+        layoutAnim.SetTrigger("Success");
+        boomboxAnim.SetTrigger("Pulo");
         _scoreManager.AddScore(mealSo.score);
         
         OnMealDeliveredSuccessfully?.Invoke();
@@ -137,7 +144,7 @@ public class OrderManager : MonoBehaviour
 
     public void CheckMatchMeal(MealSo mealSo)
     {
-        foreach (var item in activeOrders.Where(item => item.myMealSo == mealSo))
+        foreach (var item in _activeOrders.Where(item => item.myMealSo == mealSo))
         {
             item.StopAllCoroutines();
             _currentMatchedMeal = mealSo;
@@ -150,15 +157,15 @@ public class OrderManager : MonoBehaviour
     public void ResetOrders()
     {
         timeTracker = 0;
-        timeSpawn = 0;
+        _timeSpawn = 0;
         difficultyIndex = 0;
 
-        foreach (var item in activeOrders)
+        foreach (var item in _activeOrders)
         {
             DeleteOrder(item);
         }
 
-        activeOrders.Clear();
+        _activeOrders.Clear();
     }
 
     public void ReceiveOrderExpired(Order order)
@@ -169,10 +176,10 @@ public class OrderManager : MonoBehaviour
     
     public void RemoveOrderFromList(Order order)
     {
-        if (activeOrders.Contains(order))
+        if (_activeOrders.Contains(order))
         {
             OnRemoveOrder?.Invoke(order.myMealSo.recipeIngredientsSo);
-            activeOrders.Remove(order);
+            _activeOrders.Remove(order);
             DeleteOrder(order);
         }
     }
