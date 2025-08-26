@@ -32,10 +32,10 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(lookPositions.positions[lookIndex].position);
     }
 
-    public void Initialize(GameManager gameManager, CharState charState)
+    public void Initialize(GameManager gameManager, MobileInputUI mobileInputUI, CharState charState)
     {
         _gameManager = gameManager;
-        _joystick = gameManager.Joystick;
+        _joystick = mobileInputUI.Joystick;
         
         _charState = charState;
     }

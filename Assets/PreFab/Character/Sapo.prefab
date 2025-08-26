@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 8758846576510494481}
   - component: {fileID: 4864270855603531161}
   - component: {fileID: 2555122337145733162}
-  - component: {fileID: 1625907852806123965}
   - component: {fileID: 1872418763073544342}
   m_Layer: 0
   m_Name: Sapo
@@ -359,27 +358,6 @@ MonoBehaviour:
   ColliderLayer:
     serializedVersion: 2
     m_Bits: 8
---- !u!65 &1625907852806123965
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759815190310601565}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.31, y: 2.2057846, z: 6.9363527}
-  m_Center: {x: -0.42, y: 0, z: 3.3867142}
 --- !u!114 &1872418763073544342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +375,7 @@ MonoBehaviour:
   interactionLayer:
     serializedVersion: 2
     m_Bits: 128
+  interactLine: {fileID: 0}
   showDebugRay: 1
 --- !u!1 &2311468649126948260
 GameObject:

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using GoogleMobileAds.Api;
 using SaveData;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
@@ -15,15 +12,13 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public ScoreManager ScoreManager { get; private set; }
     [field: SerializeField] public ObjectPoolManager ObjectPoolManager { get; private set; }
     [field: SerializeField] public UIManager UIManager { get; private set; }
-
-    public Joystick Joystick => joystick;
-
+    
     public bool isMobile; //TODO: remover isso quando criar um meio de alternar build mobile e web
     public BellyFrog bellyFrog;
     public Animator an;
     public GameStates gameStates;
 
-    [SerializeField] private Joystick joystick;
+
     [SerializeField] private GameObject actionButton; //TODO: Criar manager de UI
     [SerializeField] private GameObject deliverButton;
     [SerializeField] private Character character;
@@ -35,12 +30,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerDataHandler playerDataHandler;
     [SerializeField] private GameFlowManager gameFlowManager;
     [SerializeField] private FakePlayerHolderSo fakePlayerHolderSo;
-    
-    public bool IsGodMode;
+    [SerializeField] private InputManager inputManager;
     
     private FirebaseDataManager _firebaseDataManager;
-
-
+    
     private void Awake()
     {
         instance = this;
@@ -71,6 +64,9 @@ public class GameManager : MonoBehaviour
         ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
         OrderManager.Initialize(ScoreManager, ObjectPoolManager);
+
+        inputManager.OnTapInput += character.PlayerTongueAction.LaunchTongue;
+        inputManager.OnSwipeDownInput += character.BellyFrog.ThrowUpAllIngredients;
         
         if (_firebaseDataManager) //This is for playing game directly from Game scene
             UIManager.LeaderboardUI.InitializeLeaderboard(_firebaseDataManager?.LeaderboardManager);
@@ -85,9 +81,9 @@ public class GameManager : MonoBehaviour
             character.BellyFrog.OnThrowUp += orderHighlighter.ResetIngredientsColor;
         }
         
-        joystick.gameObject.SetActive(false);
-        deliverButton.SetActive(false);
-        actionButton.SetActive(false);
+        // joystick.gameObject.SetActive(false);
+        // deliverButton.SetActive(false);
+        // actionButton.SetActive(false);
     }
 
     private void InitializeComponents()
@@ -99,6 +95,7 @@ public class GameManager : MonoBehaviour
 
         displayUserInfoUI.Initialize(playerDataHandler);
         powerUpManager.Initialize(playerDataHandler);
+        UIManager.MobileInputUI.Initialize(inputManager);
     }
 
     public void ChangeQuality(int value)
@@ -125,19 +122,13 @@ public class GameManager : MonoBehaviour
 
         bellyFrog.ResetBellyFrog();
         UIManager.ShowMenu(false);
+        UIManager.MobileInputUI.ShowUI(true);
 
         an.SetTrigger("Game");
 
         ingredientSpawner.StartIngredientSpawn();
 
         AudioManager.instance.PlayGameMusic();
-
-        if (isMobile) //Mover para UIManager?
-        {
-            joystick.gameObject.SetActive(true);
-            deliverButton.SetActive(true);
-            actionButton.SetActive(true);
-        }
     }
     
     public void LoseGame()
@@ -154,9 +145,7 @@ public class GameManager : MonoBehaviour
 
         OrderManager.ResetOrders();
 
-        joystick.gameObject.SetActive(false);
-        deliverButton.SetActive(false);
-        actionButton.SetActive(false);
+        UIManager.MobileInputUI.ShowUI(false);
     }
 
     public void GoToMenu()

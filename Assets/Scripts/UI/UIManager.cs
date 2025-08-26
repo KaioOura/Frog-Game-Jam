@@ -7,9 +7,10 @@ using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance;
+    public static UIManager instance; //TODO: Dividir em sistemas separados. Por exemplo: ScoreUI, HealthUI, MenuUI
 
     [field: SerializeField] public LeaderboardUI LeaderboardUI { get; private set; }
+    [field: SerializeField] public MobileInputUI MobileInputUI { get; private set; }
     
     public Image[] lifeImages;
 

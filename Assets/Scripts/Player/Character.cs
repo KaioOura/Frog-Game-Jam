@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
     public CharState CharState => charState;
     public Health Health => health;
     public BellyFrog BellyFrog => bellyFrog;
+    public PlayerTongueAction PlayerTongueAction => playerTongueAction;
 
     [SerializeField] private Health health;
     [SerializeField] private PlayerMovement playerMovement;
@@ -27,7 +28,7 @@ public class Character : MonoBehaviour
     
     public void InitializeComponents(GameManager gameManager)
     {
-        playerMovement.Initialize(gameManager, charState);
+        playerMovement.Initialize(gameManager, gameManager.UIManager.MobileInputUI, charState);
         bellyFrog.Initialize(gameManager, health);
         health.OnDeath += gameManager.OnDie;
         health.OnUpdateHealth += gameManager.UIManager.UpdateLives;
