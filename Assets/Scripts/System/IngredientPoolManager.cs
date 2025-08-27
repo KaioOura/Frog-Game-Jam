@@ -59,6 +59,7 @@ public class IngredientPoolManager : MonoBehaviour
 
     private void ReleaseIngredient(Ingredient ingredient)
     {
+        ingredient.gameObject.SetActive(false);
         _pool[ingredient.IngredientSo].Release(ingredient);
     }
 }

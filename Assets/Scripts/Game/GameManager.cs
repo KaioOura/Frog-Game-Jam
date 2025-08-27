@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject deliverButton;
     [SerializeField] private Character character;
     [SerializeField] private IngredientSpawner ingredientSpawner;
+    [SerializeField] private ConveyorManager conveyorManager;
     [SerializeField] private RenderPipelineAsset[] qualityLevels;
     [SerializeField] private GameObject cameraUI;
     [SerializeField] private DisplayUserInfoUI displayUserInfoUI;
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
 
         character.InitializeComponents(this);
         ObjectPoolManager.Initialize();
-        ingredientSpawner.Initialize(OrderManager, ObjectPoolManager);
+        ingredientSpawner.Initialize(OrderManager, ObjectPoolManager, conveyorManager);
         ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
         OrderManager.Initialize(ScoreManager, ObjectPoolManager);
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
 
         an.SetTrigger("Game");
 
-        ingredientSpawner.StartIngredientSpawn();
+        //ingredientSpawner.StartIngredientSpawn();
 
         AudioManager.instance.PlayGameMusic();
     }
@@ -134,7 +135,7 @@ public class GameManager : MonoBehaviour
     public void LoseGame()
     {
         cameraUI.SetActive(true);
-        ingredientSpawner.StopIngredientSpawn();
+        //ingredientSpawner.StopIngredientSpawn();
         var rotationVector = new Vector3(0, 180, 0);
         bellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;

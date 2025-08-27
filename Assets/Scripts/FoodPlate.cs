@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public class FoodPlate : MonoBehaviour
 {
+    public PlateMover PlateMover => _plateMover;
+    
     public Treadmill treadmill;
     public int posIndex;
     public Transform spawnPoint;
@@ -12,6 +14,8 @@ public class FoodPlate : MonoBehaviour
 
     private bool Shaken;
     private Ingredient _currentIngredient;
+    private PlateMover _plateMover;
+    private IngredientSpawner _ingredientSpawner;
 
     [SerializeField]
     private Animator plateAnimator;
@@ -22,25 +26,22 @@ public class FoodPlate : MonoBehaviour
     void Start()
     {
         plateAnimator = GetComponentInChildren<Animator>();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize(IngredientSpawner ingredientSpawner)
     {
-        //ShakePlate();
-        if (Vector3.Distance(transform.position, treadmill.points[posIndex].position) < treadmill.speed * Time.deltaTime) //Checa se a posi��o do prato chegou no atual ponto da esteira
-        {
-            posIndex++;
-        }
+        _ingredientSpawner = ingredientSpawner;
+
+        _plateMover = GetComponent<PlateMover>();
         
-        if (posIndex > treadmill.points.Length - 1) //Chegou no fim da esteira ALSO se for prato pronto creditar pontos
-        {
-            posIndex = 0;
-            transform.position = spawnPoint.position;
-            RemoveIngredient();
-        }
-        
-        transform.position = Vector3.MoveTowards(transform.position, treadmill.points[posIndex].position, treadmill.speed * Time.deltaTime); //Move os pratos
+        _plateMover.OnRequestFood += OnFoodRequested;
+        _plateMover.OnEndPath += RemoveIngredient;
+    }
+
+    public void OnFoodRequested()
+    {
+        AssignIngredient(_ingredientSpawner.SpawnIngredient());
     }
     
     public void AssignIngredient(Ingredient ingredient)

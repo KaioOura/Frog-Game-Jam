@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3723037419323794133}
   - component: {fileID: 5172062535138785370}
+  - component: {fileID: 474995482929113009}
   m_Layer: 0
   m_Name: FoodPlate
   m_TagString: Untagged
@@ -50,6 +51,20 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   foodOnPlatePos: {fileID: 8268979276919217864}
   plateAnimator: {fileID: 0}
+--- !u!114 &474995482929113009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965435086806879279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4d93ad8b194404c9466b2b89a5b7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  currentTile: {fileID: 0}
 --- !u!1 &4864459070697776342
 GameObject:
   m_ObjectHideFlags: 0

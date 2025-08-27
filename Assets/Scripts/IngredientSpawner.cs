@@ -14,16 +14,18 @@ public class IngredientSpawner : MonoBehaviour
     
     private OrderManager _orderManager;
     private ObjectPoolManager _objectPoolManager;
+    private ConveyorManager _conveyorManager;
     private Order orderCloseToExpire;
     private IEnumerator spawnRoutine;
     float timeTrack;
 
-    public void Initialize(OrderManager orderManager, ObjectPoolManager objectPoolManager)
+    public void Initialize(OrderManager orderManager, ObjectPoolManager objectPoolManager, ConveyorManager conveyorManager)
     {
         _orderManager = orderManager;
         _orderManager.OnRemoveOrder += OnRemoveIngredientsFromUrgent;
         
         _objectPoolManager = objectPoolManager;
+        _conveyorManager = conveyorManager;
     }
     
     public void StartIngredientSpawn()
@@ -49,29 +51,27 @@ public class IngredientSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnIngredient()
+    public Ingredient SpawnIngredient()
     {
-        FoodPlate spot = GetFirstFreeSpot();
-        if (spot == null) return;
-
         orderCloseToExpire = FindOrderCloseToExpire();
 
         IngredientSo ingredientToSpawn = SelectIngredientToSpawn();
         Ingredient ingredient = _objectPoolManager.IngredientPoolManager.Pool[ingredientToSpawn].Get();
 
         //Ingredient instance = Instantiate(ingredientToSpawn.ingredientPrefab, spot.foodOnPlatePos.position, Quaternion.identity);
-        spot.AssignIngredient(ingredient);
+
+        return ingredient;
     }
     
-    private FoodPlate GetFirstFreeSpot()
-    {
-        foreach (var spot in treadmill.plates)
-        {
-            if (spot.posIndex == 0 && !spot.IsOccupied())
-                return spot;
-        }
-        return null;
-    }
+    // private FoodPlate GetFirstFreeSpot()
+    // {
+    //     foreach (var spot in _conveyorManager.FoodPlates)
+    //     {
+    //         if (spot.PlateMover.CurrentStep <= 0 && !spot.IsOccupied())
+    //             return spot;
+    //     }
+    //     return null;
+    // }
     
     private Order FindOrderCloseToExpire()
     {
