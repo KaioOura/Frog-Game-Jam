@@ -21,31 +21,10 @@ public class PlayerTongueAction : MonoBehaviour
     [Header("Sounds")]
     public AudioSource audioSource;
     public AudioClip[] tongueClip;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
     
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     if (GameManager.instance.gameStates != GameStates.game)
-    //         return;
-    //
-    //     tongueTimer += Time.deltaTime;
-    //
-    //     if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
-    //     {
-    //         LaunchTongue();
-    //     }
-    //     else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X))
-    //     {
-    //         bellyFrog.ThrowUpAllIngredients();
-    //     }
-    // }
-
+    [Header("Events")] 
+    [SerializeField] private EventChannelTutorialAction eventChannelTutorialAction;
+    
     public void LaunchTongue()
     {
         if (Time.time < tongueTimer)
@@ -59,6 +38,8 @@ public class PlayerTongueAction : MonoBehaviour
         StartCoroutine(TongueVisibleTimer());
 
         tongueTimer = Time.time + tongueCooldown;
+        
+        eventChannelTutorialAction.RaiseEvent(TutorialAction.LaunchTongue);
 
     }
 

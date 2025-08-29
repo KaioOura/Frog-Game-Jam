@@ -52,6 +52,9 @@ public class BellyFrog : MonoBehaviour
     private Health _health;
     private IEnumerator bellyRoutine;
     private MealPoolManager _mealPool;
+
+    [Header("Events")] 
+    [SerializeField] private EventChannelTutorialAction eventChannelTutorialAction;
     
     // Start is called before the first frame update
     void Start()
@@ -329,28 +332,4 @@ public class BellyFrog : MonoBehaviour
     {
         audioSource.PlayOneShot(hurtClip);
     }
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Pickable"))
-    //     {
-    //         if (other.TryGetComponent(out Ingredient ingredientScriptable))
-    //         {
-    //             ingredient = ingredientScriptable;
-    //             ingredient.UpdateTargetVFXGO(true);
-    //         }
-    //
-    //     }
-    // }
-    //
-    // private void OnTriggerExit(Collider other)
-    // {
-    //     if (other.CompareTag("Pickable"))
-    //     {
-    //         if (other.TryGetComponent(out Ingredient ingredientScriptable))
-    //         {
-    //             ingredient = ingredientScriptable;
-    //             ingredient.UpdateTargetVFXGO(false);
-    //         }
-    //     }
-    // }
 }

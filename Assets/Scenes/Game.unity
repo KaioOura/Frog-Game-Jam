@@ -2712,6 +2712,7 @@ Transform:
   - {fileID: 694934156}
   - {fileID: 1815944808}
   - {fileID: 1848407046}
+  - {fileID: 1469237971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1091446594
@@ -3430,6 +3431,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1939824558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1469237970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1469237971}
+  - component: {fileID: 1469237972}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1469237971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469237970}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1035946114}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1469237972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469237970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e392c259dc4296648bd11097524d72a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startTutorial: 1
+  tutorialSteps:
+  - tutorialAction: 2
+  - tutorialAction: 3
+  eventChannelTutorialAction: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
 --- !u!1 &1476057915
 GameObject:
   m_ObjectHideFlags: 0
@@ -5687,6 +5737,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8553704614545747055, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: eventChannelTutorialAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
     - target: {fileID: 8758846576510494481, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
       propertyPath: cartPos
       value: 
@@ -5699,6 +5753,10 @@ PrefabInstance:
       propertyPath: bellyDisplay
       value: 
       objectReference: {fileID: 1141227207}
+    - target: {fileID: 8758846576510494481, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: eventChannelTutorialAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
