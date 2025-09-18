@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class PlayerTongueAction : MonoBehaviour
@@ -22,8 +23,9 @@ public class PlayerTongueAction : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip[] tongueClip;
     
+    [FormerlySerializedAs("eventChannelTutorialAction")]
     [Header("Events")] 
-    [SerializeField] private EventChannelTutorialAction eventChannelTutorialAction;
+    [SerializeField] private EventChannelAction eventChannelAction;
     
     public void LaunchTongue()
     {
@@ -39,7 +41,7 @@ public class PlayerTongueAction : MonoBehaviour
 
         tongueTimer = Time.time + tongueCooldown;
         
-        eventChannelTutorialAction.RaiseEvent(TutorialAction.LaunchTongue);
+        eventChannelAction.RaiseEvent(new InGameAction(GameAction.LaunchTongue, 1));
 
     }
 

@@ -1,8 +1,10 @@
 using UnityEngine;
 using DG.Tweening;
 using SaveData;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using Application = UnityEngine.Application;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public ScoreManager ScoreManager { get; private set; }
     [field: SerializeField] public ObjectPoolManager ObjectPoolManager { get; private set; }
     [field: SerializeField] public UIManager UIManager { get; private set; }
+    [field: SerializeField] public TimeScaler TimeScaler { get; private set; }
+    [field: SerializeField] public TutorialManager TutorialManager { get; private set; }
+    [field: SerializeField] public ActionManager ActionManager { get; private set; }
+    
     
     public bool isMobile; //TODO: remover isso quando criar um meio de alternar build mobile e web
     public BellyFrog bellyFrog;
@@ -32,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameFlowManager gameFlowManager;
     [SerializeField] private FakePlayerHolderSo fakePlayerHolderSo;
     [SerializeField] private InputManager inputManager;
+
     
     private FirebaseDataManager _firebaseDataManager;
     
@@ -81,6 +88,9 @@ public class GameManager : MonoBehaviour
             character.BellyFrog.OnIngredientAdded += orderHighlighter.HighLightIngredients;
             character.BellyFrog.OnThrowUp += orderHighlighter.ResetIngredientsColor;
         }
+        
+        gameFlowManager.Initialize(TimeScaler);
+        TutorialManager.Initialize(TimeScaler, ActionManager);
         
         // joystick.gameObject.SetActive(false);
         // deliverButton.SetActive(false);
@@ -151,7 +161,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMenu()
     {
-        Time.timeScale = 1;
+        TimeScaler.ShouldStopTime(false);
     }
 
     public void OnDie()

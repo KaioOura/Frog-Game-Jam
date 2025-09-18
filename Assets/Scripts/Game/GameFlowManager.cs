@@ -7,13 +7,14 @@ public class GameFlowManager : MonoBehaviour
 {
     public GameObject pausePage;
     bool isPause = false;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private TimeScaler _timeScaler;
+    
+    public void Initialize(TimeScaler timeScaler)
     {
-        
+        _timeScaler = timeScaler;
     }
-
+    
     // Update is called once per frame
     // void Update()
     // {
@@ -32,11 +33,11 @@ public class GameFlowManager : MonoBehaviour
         {
             GameManager.instance.gameStates = GameStates.pause;
             //pausePage.SetActive(true);
-            Time.timeScale = 0;
+            _timeScaler.ShouldStopTime(true);
         }
         else
         {
-            Time.timeScale = 1;
+            _timeScaler.ShouldStopTime(false);
             GameManager.instance.gameStates = GameStates.game;
             //pausePage.SetActive(false);
         }

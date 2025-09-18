@@ -6,8 +6,18 @@ using UnityEngine.Serialization;
 [Serializable]
 public class TutorialStep
 {
-    public TutorialAction TutorialAction => tutorialAction;
+    public bool ShouldStopTime => shouldStopTime;
+    public InGameAction InGameAction => inGameAction;
+    public int StartActionCount => _startActionCount;
     
-   [SerializeField] private TutorialAction tutorialAction;
-   
+    [SerializeField] private InGameAction inGameAction; 
+    [SerializeField] private bool shouldStopTime;
+
+    private int _startActionCount;
+
+
+    public void SetActionStored(int value)
+    {
+        _startActionCount = value;
+    }
 }

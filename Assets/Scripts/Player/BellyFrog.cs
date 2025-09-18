@@ -53,8 +53,9 @@ public class BellyFrog : MonoBehaviour
     private IEnumerator bellyRoutine;
     private MealPoolManager _mealPool;
 
+    [FormerlySerializedAs("eventChannelTutorialAction")]
     [Header("Events")] 
-    [SerializeField] private EventChannelTutorialAction eventChannelTutorialAction;
+    [SerializeField] private EventChannelAction eventChannelAction;
     
     // Start is called before the first frame update
     void Start()
@@ -94,6 +95,9 @@ public class BellyFrog : MonoBehaviour
         if (belly.Count - 1 >= maxIngredients)
             return;
 
+        InGameAction inGameAction = new InGameAction(GameAction.GetIngredient, 1, ingredient.IngredientSo);
+        eventChannelAction.RaiseEvent(inGameAction);
+        
         AddToBelly(ingredient);
         animationController.realayerWeight += 0.25f;
         ingredient.gameObject.SetActive(false);

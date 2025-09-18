@@ -1,58 +1,43 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private bool startTutorial = true;
-    [SerializeField] private List<TutorialStep> tutorialSteps = new List<TutorialStep>();
-    [SerializeField] private EventChannelTutorialAction eventChannelTutorialAction;
+    [SerializeField] private Tutorial tutorialDebug;
+    [SerializeField] private TutorialController tutorialController;
     
-    private int _currentTutorialStep;
+    private ActionManager _actionManager;
 
-    private void Start()
+    public void Initialize(TimeScaler timeScaler, ActionManager actionManager)
+    {
+        tutorialController.Initialize(timeScaler, actionManager.ActionDataBase);
+
+        tutorialController.OnTutorialEnded += UnsubscribeEvents;
+
+        _actionManager = actionManager;
+    }
+
+    [ContextMenu("Start Tutorial")]
+    public void StartTutorial()
     {
         SubscribeEvents();
-    }
-
-    public void SubscribeEvents()
-    {
-        eventChannelTutorialAction.Register(OnReceiveTutorialAction);
-    }
-
-    public void UnsubscribeEvents()
-    {
-        eventChannelTutorialAction.Register(OnReceiveTutorialAction);
+        tutorialController.StartTutorial(tutorialDebug);
     }
     
-    public void OnReceiveTutorialAction(TutorialAction tutorialAction)
+    private void SubscribeEvents()
     {
-        CheckCurrentTutorialStep(tutorialAction);
+        _actionManager.OnActionPerformed += tutorialController.CheckCurrentTutorialStep;
     }
 
-    private void CheckCurrentTutorialStep(TutorialAction tutorialAction) //TODO: Criar um TutorialController para controlar os diferentes estados do tutorial, pausar, trigar UI, etc
+    private void UnsubscribeEvents()
     {
-        if (tutorialSteps[_currentTutorialStep].TutorialAction != tutorialAction) return;
-        
-        _currentTutorialStep++;
-
-        if (_currentTutorialStep >= tutorialSteps.Count)
-        {
-            //Tutorial finalizado
-            UnsubscribeEvents();
-            Debug.Log("Tutorial finished");
-            return;
-        }
-        
-        Debug.Log("Step completed");
+        _actionManager.OnActionPerformed -= tutorialController.CheckCurrentTutorialStep;
     }
+
+    
 }
 
-public enum TutorialAction
-{
-    ScreenTouch,
-    MoveJoystick,
-    LaunchTongue,
-    ThrowUp,
-    DeliveryMeal
-}
+
