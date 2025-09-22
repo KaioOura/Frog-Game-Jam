@@ -10,6 +10,8 @@ namespace SaveData
         public PlayerCurrencyHandler Currency { get; private set; }
         public PlayerProgressHandler Progress { get; private set; }
         public PlayerPowerUpsHandler PowerUps { get; private set; }
+        
+        public PlayerTutorialHandler Tutorial { get; private set; }
         public void Initialize(PlayerData playerData)
         {
             _playerData = playerData;
@@ -17,6 +19,7 @@ namespace SaveData
             Currency = new PlayerCurrencyHandler(_playerData);
             Progress = new PlayerProgressHandler(_playerData);
             PowerUps = new PlayerPowerUpsHandler(_playerData);
+            Tutorial = new PlayerTutorialHandler(_playerData);
         }
 
         public void InitializeNotLoggedIn()
@@ -27,6 +30,7 @@ namespace SaveData
             Currency = new PlayerCurrencyHandler(_playerData);
             Progress = new PlayerProgressHandler(_playerData);
             PowerUps = new PlayerPowerUpsHandler(_playerData);
+            Tutorial = new PlayerTutorialHandler(_playerData);
         }
     }
 }

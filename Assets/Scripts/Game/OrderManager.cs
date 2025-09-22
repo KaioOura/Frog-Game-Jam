@@ -11,6 +11,7 @@ public class OrderManager : MonoBehaviour
     public Action<IngredientSo[]> OnRemoveOrder;
     public Action<int> OnOrderExpired;
     public Action OnMealDeliveredSuccessfully;
+    public Action<MealSo> OnOrderSpawned;
     
     public List<Order> ActiveOrders => _activeOrders;
 
@@ -104,7 +105,9 @@ public class OrderManager : MonoBehaviour
 
         //Debug.Log($"Meal {mealsAvailable.Count}");
 
-        if (mealsAvailable[randMeal] == lastOrderMealSo)
+        MealSo mealSo = mealsAvailable[randMeal];
+        
+        if (mealSo == lastOrderMealSo)
         {
             SpawnOrder(difficultyIndex);
             return;
@@ -115,11 +118,13 @@ public class OrderManager : MonoBehaviour
         order.transform.SetParent(ordersPos);
         order.transform.localScale = Vector3.one;
 
-        order.InitializeOrder(mealsAvailable[randMeal], this);
+        order.InitializeOrder(mealSo, this);
 
-        lastOrderMealSo = mealsAvailable[randMeal];
+        lastOrderMealSo = mealSo;
 
         _activeOrders.Add(order);
+        
+        OnOrderSpawned?.Invoke(mealSo);
     }
 
     private void OnSuccessMealDelivered(MealSo mealSo)

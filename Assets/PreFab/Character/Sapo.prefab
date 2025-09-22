@@ -170,6 +170,7 @@ MonoBehaviour:
   lookIndex: 0
   newInput: 1
   rotationSpeed: 5
+  eventChannelAction: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
   audioSource: {fileID: 4864270855603531161}
   turnClip: {fileID: 0}
 --- !u!114 &8553704614545747055
@@ -193,6 +194,7 @@ MonoBehaviour:
   audioSource: {fileID: 4864270855603531161}
   tongueClip:
   - {fileID: 8300000, guid: b4c2d04e02ff0394dbaee6937f1cc278, type: 3}
+  eventChannelAction: {fileID: 0}
 --- !u!114 &8758846576510494481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +242,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fa06e2fed80d5684cb296a9dbb3689b8, type: 3}
   succesMeal: {fileID: 8300000, guid: b1209d01f5c825647be98ab0c3d89a60, type: 3}
   hurtClip: {fileID: 8300000, guid: 6da5b87e80c5e174a8567ab033eb0f01, type: 3}
+  eventChannelAction: {fileID: 0}
 --- !u!82 &4864270855603531161
 AudioSource:
   m_ObjectHideFlags: 0

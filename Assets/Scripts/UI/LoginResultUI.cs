@@ -52,6 +52,7 @@ public class LoginResultUI : MonoBehaviour
             Username = inputField.text,
             Coins = 0,
             Highschore = 0,
+            IsTutorial = true,
             Items = new List<string> { "sword", "potion", "shield" },
             Level = 0,
         };

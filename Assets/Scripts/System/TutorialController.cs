@@ -26,7 +26,6 @@ public class TutorialController : MonoBehaviour
     private void StartTutorialStep(int index = 0)
     {
         _currentTutorialStep = index;
-        //Guardar no tutorial step o valor da action armazenada
         int startValueStored =
             _actionDataBase.GetActionAmount(_tutorial.TutorialSteps[_currentTutorialStep].InGameAction.Key);
         _tutorial.TutorialSteps[_currentTutorialStep].SetActionStored(startValueStored);
@@ -36,6 +35,23 @@ public class TutorialController : MonoBehaviour
     private void ApplyTutorialActions(TutorialStep tutorialStep)
     {
         _timeScaler.ShouldStopTime(tutorialStep.ShouldStopTime);
+        
+        if (tutorialStep.SpotLightFade != null)
+            tutorialStep.SpotLightFade.gameObject.SetActive(true);
+        
+        if (tutorialStep.TutorialText != null)
+            tutorialStep.TutorialText.gameObject.SetActive(true);
+    }
+
+    private void ClearTutorialStep(TutorialStep tutorialStep)
+    {
+        _timeScaler.ShouldStopTime(false);
+        
+        if (tutorialStep.SpotLightFade != null)
+            tutorialStep.SpotLightFade.gameObject.SetActive(false);
+        
+        if (tutorialStep.TutorialText != null)
+            tutorialStep.TutorialText.gameObject.SetActive(false);
     }
     
     public void CheckCurrentTutorialStep(string inGameActionKey)
@@ -53,6 +69,8 @@ public class TutorialController : MonoBehaviour
             print($"{inGameActionKey}_progress");
             return;
         }
+        
+        ClearTutorialStep(_tutorial.TutorialSteps[_currentTutorialStep]);
         
         _currentTutorialStep++;
 

@@ -21,6 +21,7 @@ public class PlayerData
     public List<string> Items = new List<string> { "sword", "potion", "shield" };
     //public Dictionary<PowerUpEnum, int> Upgrades = new Dictionary<PowerUpEnum, int>();
     public int Level;
+    [FormerlySerializedAs("isTutorial")] public bool IsTutorial = true;
 
     public PlayerData()
     {

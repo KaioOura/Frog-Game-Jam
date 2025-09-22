@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool newInput;
     [SerializeField] private float rotationSpeed = 5;
-
+    [SerializeField] private EventChannelAction eventChannelAction;
+    
     [Header("Sounds")] public AudioSource audioSource;
     public AudioClip turnClip;
 
@@ -99,6 +101,8 @@ public class PlayerMovement : MonoBehaviour
 
             // Suaviza a rotação do personagem
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            
+            eventChannelAction.RaiseEvent(new InGameAction(GameAction.MoveJoystick, 1));
         }
     }
 

@@ -90,11 +90,9 @@ public class GameManager : MonoBehaviour
         }
         
         gameFlowManager.Initialize(TimeScaler);
-        TutorialManager.Initialize(TimeScaler, ActionManager);
-        
-        // joystick.gameObject.SetActive(false);
-        // deliverButton.SetActive(false);
-        // actionButton.SetActive(false);
+        TutorialManager.Initialize(TimeScaler, ActionManager, playerDataHandler);
+        ActionManager.Initialize(playerDataHandler);
+        OrderManager.OnOrderSpawned += ActionManager.OnOrderSpawned;
     }
 
     private void InitializeComponents()
@@ -140,6 +138,7 @@ public class GameManager : MonoBehaviour
         //ingredientSpawner.StartIngredientSpawn();
 
         AudioManager.instance.PlayGameMusic();
+        TutorialManager.TryStartTutorial();
     }
     
     public void LoseGame()

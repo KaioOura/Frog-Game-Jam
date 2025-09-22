@@ -19,6 +19,7 @@ public class Order : MonoBehaviour
     [FormerlySerializedAs("myMeal")] public MealSo myMealSo;
     [SerializeField] private Image mealImage;
     [SerializeField] private Image[] recipeIngredientsIMG;
+    [SerializeField] private GameObject[] ingredientSeparators;
     [SerializeField] private int mealTime;
     [SerializeField] private int orignalMealTime;
     [SerializeField] private Image timeCount;
@@ -54,6 +55,10 @@ public class Order : MonoBehaviour
         {
             recipeIngredientsIMG[i].gameObject.SetActive(true);
             recipeIngredientsIMG[i].sprite = mealSo.recipeIngredientsSo[i].myImage;
+
+            int separatorIndex = i - 1;
+            if (separatorIndex >= 0)
+                ingredientSeparators[separatorIndex].SetActive(true);
         }
 
         _orderHighlighter.UpdateOrderIngredients();
@@ -68,9 +73,10 @@ public class Order : MonoBehaviour
     IEnumerator TimeCountDown()
     {
         yield return new WaitForEndOfFrame();
-        timeCount.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
-            ingredientGrid.rectTransform.sizeDelta.x);
 
+        float timeRemaining = 1;
+        timeCount.color = GetTimeColor(timeRemaining);
+        
         while (mealTime >= 0)
         {
             if (GameManager.instance.gameStates == GameStates.finish)
@@ -81,14 +87,25 @@ public class Order : MonoBehaviour
             yield return new WaitForSeconds(1);
 
             mealTime -= 1;
-            timeCount.fillAmount = GetTimeRemainingNormalized();
+            timeRemaining = GetTimeRemainingNormalized();
+            timeCount.color = GetTimeColor(timeRemaining);
+            timeCount.fillAmount = timeRemaining;
             //Debug.Log(timeCount);
         }
 
         OnOrderExpired?.Invoke(this);
     }
-    
 
+    private Color GetTimeColor(float timeRemaining)
+    {
+        return timeRemaining switch
+        {
+            > 0.7f => Color.green,
+            > 0.3f => Color.yellow,
+            _ => Color.red
+        };
+    }
+    
     public float GetTimeRemainingNormalized()
     {
         return mealTime / (float)orignalMealTime;
@@ -104,6 +121,11 @@ public class Order : MonoBehaviour
         foreach (var t in recipeIngredientsIMG)
         {
             t.gameObject.SetActive(false);
+        }
+
+        foreach (var ingredientSeparator in ingredientSeparators)
+        {
+            ingredientSeparator.SetActive(false);
         }
         
         StopAllCoroutines();

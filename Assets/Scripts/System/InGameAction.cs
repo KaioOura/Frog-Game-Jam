@@ -27,5 +27,6 @@ namespace System
         ThrowUp,
         DeliveryMeal,
         GetIngredient,
+        SpawnOrder,
     }
 }
