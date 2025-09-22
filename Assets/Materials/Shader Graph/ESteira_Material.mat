@@ -62,6 +62,7 @@ Material:
     - Vector1_f4b5acfc1e0a4940b03ed250da53bf33: 2
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    m_Colors:
+    - _Tilling: {r: 2.88, g: 4.05, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
