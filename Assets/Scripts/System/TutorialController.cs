@@ -54,11 +54,11 @@ public class TutorialController : MonoBehaviour
             tutorialStep.TutorialText.gameObject.SetActive(false);
     }
     
-    public void CheckCurrentTutorialStep(string inGameActionKey)
+    public void CheckCurrentTutorialStep(InGameAction inGameAction)
     {
-        if (_tutorial.TutorialSteps[_currentTutorialStep].InGameAction.Key != inGameActionKey) return;
+        if (!_tutorial.TutorialSteps[_currentTutorialStep].InGameAction.CheckKey(inGameAction)) return;
 
-        int finaValue = _actionDataBase.GetActionAmount(inGameActionKey) -
+        int finaValue = _actionDataBase.GetActionAmount(inGameAction.Key) -
                         _tutorial.TutorialSteps[_currentTutorialStep].StartActionCount;
         
         bool hasReachedCount = finaValue >= _tutorial.TutorialSteps[_currentTutorialStep].InGameAction.Amount;
@@ -66,7 +66,7 @@ public class TutorialController : MonoBehaviour
 
         if (!hasReachedCount)
         {
-            print($"{inGameActionKey}_progress");
+            print($"{inGameAction}_progress");
             return;
         }
         

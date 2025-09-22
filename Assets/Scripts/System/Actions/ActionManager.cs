@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour
 {
-    public event Action<string> OnActionPerformed;
+    public event Action<InGameAction> OnActionPerformed;
 
     public EventChannelAction EventChannelAction => eventChannelAction;
     public ActionDataBase ActionDataBase => actionDataBase;
@@ -27,7 +27,7 @@ public class ActionManager : MonoBehaviour
     private void OnReceiveAction(InGameAction inGameAction)
     {
         actionDataBase.ProcessAction(inGameAction);
-        OnActionPerformed?.Invoke(inGameAction.Key);
+        OnActionPerformed?.Invoke(inGameAction);
     }
 
     public void OnOrderSpawned(MealSo mealSo)
