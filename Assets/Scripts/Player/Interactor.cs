@@ -17,9 +17,9 @@ public class Interactor : MonoBehaviour
 
     private void Start()
     {
-        interactLine.SetPosition(0, new Vector3(transform.position.x, 1.5f, transform.position.z));
+        interactLine.SetPosition(0, new Vector3(transform.position.x, 2.2f, transform.position.z));
         
-        endPointPos = new Vector3(transform.position.x, 1.5f, transform.position.z);
+        endPointPos = new Vector3(transform.position.x, 2.2f, transform.position.z);
     }
 
     private void Update()
