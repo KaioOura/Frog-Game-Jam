@@ -43,10 +43,15 @@ namespace System
     {
         ScreenTouch,
         MoveJoystick,
+        SwipeUp,
+        SwipeDown,
+        SwipeLeft,
+        SwipeRight,
         LaunchTongue,
         ThrowUp,
         DeliveryMeal,
         GetIngredient,
         SpawnOrder,
+        GenerateMeal,
     }
 }

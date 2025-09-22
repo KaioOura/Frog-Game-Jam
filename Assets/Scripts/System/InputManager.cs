@@ -9,8 +9,16 @@ public class InputManager : MonoBehaviour
     public event Action OnSwipeDownInput;
     
     [SerializeField] private LeanTouch leanTouch;
-
+    [SerializeField] private EventChannelAction eventChannel;
     
+    private InGameAction _swipeDownAction;
+
+    private void Start()
+    {
+        _swipeDownAction = new InGameAction(GameAction.SwipeDown, 1);
+    }
+
+
     public void Subscribe()
     {
         LeanTouch.OnFingerTap += HandleTap;
@@ -50,6 +58,8 @@ public class InputManager : MonoBehaviour
     public void OnSlideDownInput()
     {
         OnSwipeDownInput?.Invoke();
+        
+        eventChannel.RaiseEvent(_swipeDownAction);
     }
     
 }

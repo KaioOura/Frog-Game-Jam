@@ -56,6 +56,7 @@ public class BellyFrog : MonoBehaviour
     private InGameAction launchMealAction;
     private InGameAction launchIngredientAction;
     private InGameAction getIngredientAction;
+    private InGameAction generateMealAction;
 
     [FormerlySerializedAs("eventChannelTutorialAction")]
     [Header("Events")] 
@@ -66,9 +67,10 @@ public class BellyFrog : MonoBehaviour
     {
         animationController = GetComponent<Animation_Controller>();
         
-        launchMealAction = new InGameAction(GameAction.ThrowUp, 1, null);
-        launchIngredientAction = new InGameAction(GameAction.ThrowUp, 1, null);
-        getIngredientAction = new InGameAction(GameAction.GetIngredient, 1, null);
+        launchMealAction = new InGameAction(GameAction.ThrowUp, 1);
+        launchIngredientAction = new InGameAction(GameAction.ThrowUp, 1);
+        getIngredientAction = new InGameAction(GameAction.GetIngredient, 1);
+        generateMealAction = new InGameAction(GameAction.GenerateMeal, 1, mealSo: activeMealSo);
     }
 
     public void Initialize(GameManager gameManager, Health health)
@@ -278,10 +280,10 @@ public class BellyFrog : MonoBehaviour
 
         activeMealSo = GetMeal();
 
+        generateMealAction.MealSo = activeMealSo;
+        eventChannelAction.RaiseEvent(generateMealAction);
+
         bellyDisplay.UpdateMealUI(activeMealSo);
-        
-        
-        //Debug.Log(activeMealSo != null ? activeMealSo.name : "Not a meal");
     }
 
     MealSo GetMeal()

@@ -2504,6 +2504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leanTouch: {fileID: 1815944806}
+  eventChannel: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
 --- !u!114 &1815944806
 MonoBehaviour:
   m_ObjectHideFlags: 0

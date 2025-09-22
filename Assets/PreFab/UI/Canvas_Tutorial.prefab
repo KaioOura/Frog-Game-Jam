@@ -295,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970952544578517476, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: inGameAction.GameAction
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2879891870780037668, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_Type
@@ -484,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970952544578517476, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: inGameAction.GameAction
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2879891870780037668, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_Type
@@ -544,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4700358930272511973, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_text
-      value: Swipe down to throw up ingredients or meals
+      value: Swipe down to throw up ingredients or meals.
       objectReference: {fileID: 0}
     - target: {fileID: 4700358930272511973, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_fontSize
@@ -687,6 +687,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial_Step_Move
       objectReference: {fileID: 0}
+    - target: {fileID: 1970952544578517476, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
+      propertyPath: inGameAction.GameAction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3641623083407620753, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -818,7 +822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970952544578517476, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: inGameAction.GameAction
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2879891870780037668, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_Type
@@ -866,7 +870,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4700358930272511973, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_text
-      value: Touch the left side of the screen to use Pepe's tongue
+      value: 'Get 2 ingredients to form a Meal.
+
+        Touch the left side of the
+        screen to use Pepe''s tongue.'
       objectReference: {fileID: 0}
     - target: {fileID: 4700358930272511973, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_fontSize
@@ -991,7 +998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1616498456456839290, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_Name
-      value: Tutorial_Step (4)_GetIngredient
+      value: Tutorial_Step (4)_GenerateMeal
       objectReference: {fileID: 0}
     - target: {fileID: 1970952544578517476, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: tutorialText
@@ -1011,7 +1018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970952544578517476, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: inGameAction.GameAction
-      value: 5
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2879891870780037668, guid: cd3a63643c7e8e74098ab688558f6ac7, type: 3}
       propertyPath: m_Type
