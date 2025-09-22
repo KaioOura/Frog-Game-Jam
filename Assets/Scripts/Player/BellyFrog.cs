@@ -52,6 +52,10 @@ public class BellyFrog : MonoBehaviour
     private Health _health;
     private IEnumerator bellyRoutine;
     private MealPoolManager _mealPool;
+    
+    private InGameAction launchMealAction;
+    private InGameAction launchIngredientAction;
+    private InGameAction getIngredientAction;
 
     [FormerlySerializedAs("eventChannelTutorialAction")]
     [Header("Events")] 
@@ -61,6 +65,10 @@ public class BellyFrog : MonoBehaviour
     void Start()
     {
         animationController = GetComponent<Animation_Controller>();
+        
+        launchMealAction = new InGameAction(GameAction.ThrowUp, 1, null);
+        launchIngredientAction = new InGameAction(GameAction.ThrowUp, 1, null);
+        getIngredientAction = new InGameAction(GameAction.GetIngredient, 1, null);
     }
 
     public void Initialize(GameManager gameManager, Health health)
@@ -95,8 +103,11 @@ public class BellyFrog : MonoBehaviour
         if (belly.Count - 1 >= maxIngredients)
             return;
 
-        InGameAction inGameAction = new InGameAction(GameAction.GetIngredient, 1, ingredient.IngredientSo);
-        eventChannelAction.RaiseEvent(inGameAction);
+        getIngredientAction.GameAction = GameAction.GetIngredient;
+        getIngredientAction.Amount = 1;
+        getIngredientAction.IngredientSo = ingredient.IngredientSo;
+
+        eventChannelAction.RaiseEvent(getIngredientAction);
         
         AddToBelly(ingredient);
         animationController.realayerWeight += 0.25f;
@@ -121,7 +132,7 @@ public class BellyFrog : MonoBehaviour
     {
         if (isThrowingUp || tongue.isTongueOccupied)
             return;
-
+        
         timeFoodInBelly = 0;
 
         timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
@@ -189,6 +200,8 @@ public class BellyFrog : MonoBehaviour
             mealGO.transform.position = bellyPos.transform.position;
             frogController.SetTrigger("Food Out");
             animationController.realayerWeight = 0;
+            launchMealAction.MealSo = activeMealSo;  
+            eventChannelAction.RaiseEvent(launchMealAction);
 
             //Move Meal to Cart agora está sendo comandada por eventos na animação
             //MoveMealToCart();
@@ -206,6 +219,8 @@ public class BellyFrog : MonoBehaviour
                 PlaySalivaVfx();
                 animationController.realayerWeight -= 0.25f;
                 frogController.SetTrigger("Food Out");
+                launchIngredientAction.IngredientSo = belly[numIngredients].IngredientSo;  
+                eventChannelAction.RaiseEvent(launchIngredientAction);
                 LaunchIngredient(belly[numIngredients]);
                 numIngredients--;
                 yield return new WaitForSeconds(0.17f);
