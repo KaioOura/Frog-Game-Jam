@@ -14,14 +14,14 @@ public class TutorialManager : MonoBehaviour
     private ActionManager _actionManager;
     private PlayerDataHandler _playerDataHandler;
 
-    public void Initialize(TimeScaler timeScaler, ActionManager actionManager, PlayerDataHandler playerDataHandler)
+    public void Initialize(GameManager gameManager, PlayerDataHandler playerDataHandler)
     {
-        tutorialController.Initialize(timeScaler, actionManager.ActionDataBase);
+        tutorialController.Initialize(gameManager.TimeScaler, gameManager.ActionManager.ActionDataBase);
 
         tutorialController.OnTutorialEnded += UnsubscribeEvents;
-        tutorialController.OnTutorialEnded += () => _playerDataHandler.Tutorial.SetTutorial(false);
+        tutorialController.OnTutorialEnded += gameManager.OnTutorialEnded;
 
-        _actionManager = actionManager;
+        _actionManager = gameManager.ActionManager;
         _playerDataHandler = playerDataHandler;
     }
     

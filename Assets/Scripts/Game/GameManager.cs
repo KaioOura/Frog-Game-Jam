@@ -1,9 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using SaveData;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 using Application = UnityEngine.Application;
 
 public class GameManager : MonoBehaviour
@@ -90,7 +88,7 @@ public class GameManager : MonoBehaviour
         }
         
         gameFlowManager.Initialize(TimeScaler);
-        TutorialManager.Initialize(TimeScaler, ActionManager, playerDataHandler);
+        TutorialManager.Initialize(this, playerDataHandler);
         ActionManager.Initialize(playerDataHandler);
         OrderManager.OnOrderSpawned += ActionManager.OnOrderSpawned;
     }
@@ -179,6 +177,12 @@ public class GameManager : MonoBehaviour
         gameFlowManager.PauseGame(false);
     }
 
+    public void OnTutorialEnded()
+    {
+        playerDataHandler.Tutorial.SetTutorial(false);
+        _firebaseDataManager.SavePlayerData();
+    }
+    
     public void QuitGame()
     {
         Application.Quit();
