@@ -12,6 +12,7 @@ public class MobileInputUI : MonoBehaviour
     [SerializeField] private GameObject actionButton;
     [SerializeField] private GameObject deliveryButton;
     [SerializeField] private GameObject tapSwipeButton;
+    [SerializeField] public EventChannelAction eventChannelAction;
     
     private List<GameObject> _activeButtons = new List<GameObject>();
     private InputManager _inputManager;
@@ -21,6 +22,8 @@ public class MobileInputUI : MonoBehaviour
     public void Initialize(InputManager inputManager)
     {
         _inputManager = inputManager;
+
+        joystick.SetEventChannelAction(eventChannelAction);
         
         ShowStandardMobileInputUIs(useStandardMobileInput);
         ShowUI(false);

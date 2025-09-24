@@ -113,8 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aaff95818e5347449b687c4f327469b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsGodMode: 1
-  maxHealth: 6
+  IsGodMode: 0
+  maxHealth: 3
   health: 0
 --- !u!114 &8423423938426781002
 MonoBehaviour:
@@ -170,7 +170,6 @@ MonoBehaviour:
   lookIndex: 0
   newInput: 1
   rotationSpeed: 5
-  eventChannelAction: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
   audioSource: {fileID: 4864270855603531161}
   turnClip: {fileID: 0}
 --- !u!114 &8553704614545747055

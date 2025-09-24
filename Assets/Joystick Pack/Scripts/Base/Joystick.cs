@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    public event Action<Vector2> OnMoveJoystick;
+    
     public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
@@ -33,12 +37,16 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     [SerializeField] protected RectTransform background = null;
     [SerializeField] private RectTransform handle = null;
+    
+    private EventChannelAction _eventChannelAction = null;
     private RectTransform baseRect = null;
 
     private Canvas canvas;
     private Camera cam;
 
     private Vector2 input = Vector2.zero;
+    
+    private InGameAction _inGameActionMoveJoystick;
 
     protected virtual void Start()
     {
@@ -55,8 +63,15 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         handle.anchorMax = center;
         handle.pivot = center;
         handle.anchoredPosition = Vector2.zero;
+        
+        _inGameActionMoveJoystick = new InGameAction(GameAction.MoveJoystick, 1);
     }
 
+    public void SetEventChannelAction(EventChannelAction eventChannel)
+    {
+        _eventChannelAction = eventChannel;
+    }
+    
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
@@ -74,6 +89,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         FormatInput();
         HandleInput(input.magnitude, input.normalized, radius, cam);
         handle.anchoredPosition = input * radius * handleRange;
+        
+        _eventChannelAction.RaiseEvent(_inGameActionMoveJoystick);
     }
 
     protected virtual void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)

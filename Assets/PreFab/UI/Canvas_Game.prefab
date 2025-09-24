@@ -1628,6 +1628,7 @@ MonoBehaviour:
   actionButton: {fileID: 2876490523510096924}
   deliveryButton: {fileID: 6032366235736733455}
   tapSwipeButton: {fileID: 512134132912650439}
+  eventChannelAction: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
 --- !u!1 &4452146917261343127
 GameObject:
   m_ObjectHideFlags: 0
