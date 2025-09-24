@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792436c11b1fe5b4ea3cf0afb1508d25, type: 3}
   m_Name: Camarao_IngredientSo
   m_EditorClassIdentifier: 
-  myImage: {fileID: 21300000, guid: 06beb38a85169614f9f6c37a467812d3, type: 3}
+  myImage: {fileID: 21300000, guid: bd3e544819acb184dac58cb9cbdbd84a, type: 3}
   myName: Camarao
-  baseScore: 0
-  isRottenFood: 0
   baseWeight: 5
   ingredientPrefab: {fileID: 2056439711196111434, guid: 69d6e9e3161bced4b88b283dc27c7120, type: 3}

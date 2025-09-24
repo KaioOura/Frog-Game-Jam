@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 828425128578578293}
   - component: {fileID: 6174424992608141081}
   - component: {fileID: 8423423938426781002}
+  - component: {fileID: 3283186701725182220}
   - component: {fileID: 2899257645510243418}
   - component: {fileID: 8989279138273209856}
   - component: {fileID: 8553704614545747055}
@@ -132,6 +133,19 @@ MonoBehaviour:
   playerMovement: {fileID: 8989279138273209856}
   playerTongueAction: {fileID: 8553704614545747055}
   bellyFrog: {fileID: 8758846576510494481}
+  characterStateState: {fileID: 3283186701725182220}
+--- !u!114 &3283186701725182220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759815190310601565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37faea0741ea6984e867cda4bb94cf28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &2899257645510243418
 SphereCollider:
   m_ObjectHideFlags: 0

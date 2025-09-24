@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public CharState CharState => charState;
     public Health Health => health;
     public BellyFrog BellyFrog => bellyFrog;
     public PlayerTongueAction PlayerTongueAction => playerTongueAction;
@@ -12,8 +11,7 @@ public class Character : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerTongueAction playerTongueAction;
     [SerializeField] private BellyFrog bellyFrog;
-    
-    private CharState charState;
+    [SerializeField] private CharacterState characterStateState;
 
 
     public void Start()
@@ -28,7 +26,7 @@ public class Character : MonoBehaviour
     
     public void InitializeComponents(GameManager gameManager)
     {
-        playerMovement.Initialize(gameManager, gameManager.UIManager.MobileInputUI, charState);
+        playerMovement.Initialize(gameManager, gameManager.UIManager.MobileInputUI, characterStateState);
         bellyFrog.Initialize(gameManager, health);
         health.OnDeath += gameManager.OnDie;
         health.OnUpdateHealth += gameManager.UIManager.UpdateLives;
@@ -37,7 +35,7 @@ public class Character : MonoBehaviour
 
     public void ChangeState(CharState newState)
     {
-        charState = newState;
+        characterStateState.ChangeState(newState);
     }
     
 }

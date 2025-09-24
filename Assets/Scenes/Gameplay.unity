@@ -2537,14 +2537,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8553704614545747055, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
-      propertyPath: eventChannelAction
-      value: 
-      objectReference: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
-    - target: {fileID: 8553704614545747055, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
-      propertyPath: eventChannelTutorialAction
-      value: 
-      objectReference: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
+    - target: {fileID: 6174424992608141081, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+      propertyPath: IsGodMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8758846576510494481, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
       propertyPath: cartPos
       value: 
@@ -2557,14 +2553,6 @@ PrefabInstance:
       propertyPath: bellyDisplay
       value: 
       objectReference: {fileID: 387808940}
-    - target: {fileID: 8758846576510494481, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
-      propertyPath: eventChannelAction
-      value: 
-      objectReference: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
-    - target: {fileID: 8758846576510494481, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
-      propertyPath: eventChannelTutorialAction
-      value: 
-      objectReference: {fileID: 11400000, guid: 87c121e12a2dd204c88ea0bd0c6569ae, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2595,6 +2583,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e700be33bc01f14da0440622aa32937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1472173083 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6174424992608141081, guid: 281bae136c2ccf6469aa0ef2f496731b, type: 3}
+  m_PrefabInstance: {fileID: 1472173073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aaff95818e5347449b687c4f327469b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1473258216
@@ -3173,6 +3172,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.0015
       objectReference: {fileID: 0}
+    - target: {fileID: 9195987961067225630, guid: a9a70ff5246289141806d9752c6822f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3447,7 +3450,15 @@ PrefabInstance:
     - target: {fileID: 6247086445208293828, guid: 6c241067cb18dbe4e9813f86e8b2e6d5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2084258910}
+      objectReference: {fileID: 1472173083}
+    - target: {fileID: 6247086445208293828, guid: 6c241067cb18dbe4e9813f86e8b2e6d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KillChar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247086445208293828, guid: 6c241067cb18dbe4e9813f86e8b2e6d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Health, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6772427301067004601, guid: 6c241067cb18dbe4e9813f86e8b2e6d5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

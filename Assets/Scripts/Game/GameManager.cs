@@ -180,7 +180,8 @@ public class GameManager : MonoBehaviour
     public void OnTutorialEnded()
     {
         playerDataHandler.Tutorial.SetTutorial(false);
-        _firebaseDataManager.SavePlayerData();
+        if (_firebaseDataManager != null)
+            _firebaseDataManager.SavePlayerData();
     }
     
     public void QuitGame()

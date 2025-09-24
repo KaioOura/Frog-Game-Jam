@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Joystick _joystick;
     private GameManager _gameManager;
-    private CharState _charState;
+    private CharacterState _characterState;
 
     private void OnEnable()
     {
@@ -33,12 +33,12 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(lookPositions.positions[lookIndex].position);
     }
 
-    public void Initialize(GameManager gameManager, MobileInputUI mobileInputUI, CharState charState)
+    public void Initialize(GameManager gameManager, MobileInputUI mobileInputUI, CharacterState characterState)
     {
         _gameManager = gameManager;
         _joystick = mobileInputUI.Joystick;
         
-        _charState = charState;
+        _characterState = characterState;
     }
 
     // Update is called once per frame
@@ -50,8 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleInput()
     {
-        if (_charState is CharState.UsingTongue)
-            return;
+
 
         //KeyboardTurn();
         MobileTurn();
@@ -89,6 +88,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 direction = _joystick.Direction;
 
+        if (_characterState.CharState is CharState.UsingTongue)
+            direction = Vector2.zero;
+        
         // Verifica se há input suficiente para rotacionar
         if (direction.magnitude > 0.1f)
         {

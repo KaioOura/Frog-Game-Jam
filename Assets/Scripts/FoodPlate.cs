@@ -36,7 +36,8 @@ public class FoodPlate : MonoBehaviour
 
     public void OnFoodRequested()
     {
-        AssignIngredient(_ingredientSpawner.SpawnIngredient());
+        if (_ingredientSpawner.HasOrderActive())
+            AssignIngredient(_ingredientSpawner.SpawnIngredient());
     }
     
     public void AssignIngredient(Ingredient ingredient)

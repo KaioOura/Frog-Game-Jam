@@ -51,6 +51,11 @@ public class IngredientSpawner : MonoBehaviour
         }
     }
 
+    public bool HasOrderActive()
+    {
+        return _orderManager.ActiveOrders.Count > 0;
+    }
+    
     public Ingredient SpawnIngredient()
     {
         orderCloseToExpire = FindOrderCloseToExpire();

@@ -48,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outDir: 0
   gridPos: {x: -1.5, y: -2}
-  tileSize: 1
   target: {fileID: 4954643149885326216}
   visualTransform: {fileID: 8673086291580039020}
   isEditing: 1
@@ -104,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &384754630602117101
 Transform:
   m_ObjectHideFlags: 0

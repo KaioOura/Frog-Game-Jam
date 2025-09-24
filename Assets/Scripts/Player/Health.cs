@@ -28,7 +28,18 @@ public class Health : MonoBehaviour
     {
         if (!IsGodMode)
             health -= damage;
+        
+        CheckDamage();
+    }
 
+    public void ForceTakeDamage(int damage)
+    {
+        health -= damage;
+        CheckDamage();
+    }
+    
+    private void CheckDamage()
+    {
         if (health <= 0)
             health = 0;
         
@@ -40,7 +51,6 @@ public class Health : MonoBehaviour
             OnDeath?.Invoke();
         }
     }
-
     public void ResetLife()
     {
         Heal(maxHealth);
@@ -49,6 +59,6 @@ public class Health : MonoBehaviour
     [ContextMenu("Kill Char")]
     public void KillChar()
     {
-        TakeDamage(health);
+        ForceTakeDamage(health);
     }
 }
