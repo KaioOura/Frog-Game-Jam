@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        lookPositions = FindObjectOfType<LookPositions>();
+        lookPositions = FindAnyObjectByType<LookPositions>();
     }
 
     // Start is called before the first frame update

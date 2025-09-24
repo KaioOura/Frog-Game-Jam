@@ -5,11 +5,6 @@ using DG.Tweening;
 
 public class FoodPlate : MonoBehaviour
 {
-    public PlateMover PlateMover => _plateMover;
-    
-    public Treadmill treadmill;
-    public int posIndex;
-    public Transform spawnPoint;
     public Transform foodOnPlatePos;
 
     private bool Shaken;

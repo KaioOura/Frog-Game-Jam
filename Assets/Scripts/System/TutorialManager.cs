@@ -7,7 +7,6 @@ using UnityEngine.Serialization;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private bool startTutorial = true;
     [SerializeField] private Tutorial tutorialDebug;
     [SerializeField] private TutorialController tutorialController;
     

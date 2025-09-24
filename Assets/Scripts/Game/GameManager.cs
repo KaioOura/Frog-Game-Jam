@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         character.Health.ResetLife();
         OrderManager.ResetOrders();
 
-        Ingredient[] ingredients = FindObjectsOfType<Ingredient>();
+        Ingredient[] ingredients = FindObjectsByType<Ingredient>((FindObjectsSortMode)FindObjectsInactive.Include);
 
         foreach (var item in ingredients)
         {

@@ -44,8 +44,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLives(int life)
     {
-        int lifeImagesActive = 0;
-        
         for (var index = 0; index < lifeImages.Length; index++)
         {
             var item = lifeImages[index];

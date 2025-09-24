@@ -27,7 +27,6 @@ public class ConveyorTile : MonoBehaviour
 
     [SerializeField] private Dir outDir; // direção da esteira
     [SerializeField] private Vector2 gridPos; // posição no grid (definida na cena)
-    [SerializeField] private float tileSize = 1f; // tamanho do tile
     [SerializeField] private Transform target;
     [SerializeField] private Transform visualTransform;
     [SerializeField] private bool isEditing;
