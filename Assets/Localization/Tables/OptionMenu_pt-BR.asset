@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: OptionMenu_pt-BR
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: pt-BR
+  m_SharedData: {fileID: 11400000, guid: f170b509fd2e74b4a9fabd51d6d525d0, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 43726753792
+    m_Localized: "Op\xE7\xF5es"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168167559168
+    m_Localized: Geral
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348845592576
+    m_Localized: "M\xFAsica"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 416768151552
+    m_Localized: Efeitos Sonoros
+    m_Metadata:
+      m_Items: []
+  - m_Id: 553426964480
+    m_Localized: "Qualidade Gr\xE1fica"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 771941814272
+    m_Localized: Baixa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 853298728960
+    m_Localized: "M\xE9dia"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 916213288960
+    m_Localized: Alta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 964355510272
+    m_Localized: Voltar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3727701397504
+    m_Localized: Idioma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3924892405760
+    m_Localized: "Ingl\xEAs"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4102328242176
+    m_Localized: PT-Brasil
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
