@@ -3832,7 +3832,7 @@ PrefabInstance:
     - target: {fileID: 366855767328127149, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2084258910}
+      objectReference: {fileID: 2084258913}
     - target: {fileID: 662232852245306223, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -3844,7 +3844,7 @@ PrefabInstance:
     - target: {fileID: 3077897421924504226, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2084258910}
+      objectReference: {fileID: 2084258913}
     - target: {fileID: 3232615231885264826, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3868,7 +3868,7 @@ PrefabInstance:
     - target: {fileID: 4884484214761103258, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2084258910}
+      objectReference: {fileID: 2084258913}
     - target: {fileID: 5076652358655544585, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4246,6 +4246,7 @@ GameObject:
   - component: {fileID: 2084258911}
   - component: {fileID: 2084258910}
   - component: {fileID: 2084258912}
+  - component: {fileID: 2084258913}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4282,10 +4283,6 @@ MonoBehaviour:
   character: {fileID: 1472173075}
   ingredientSpawner: {fileID: 1473258218}
   conveyorManager: {fileID: 1278366958}
-  qualityLevels:
-  - {fileID: 11400000, guid: a31e9f9f9c9d4b9429ed0d1234e22103, type: 2}
-  - {fileID: 11400000, guid: d847b876476d3d6468f5dfcd34266f96, type: 2}
-  - {fileID: 11400000, guid: 19ba41d7c0026c3459d37c2fe90c55a0, type: 2}
   cameraUI: {fileID: 1635880286}
   displayUserInfoUI: {fileID: 1929839242}
   powerUpManager: {fileID: 2104272771}
@@ -4320,6 +4317,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49b8e91e79c57349a84de230c26e371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2084258913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084258909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b8e92b36caa224187683d71760b6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qualityLevelSo: {fileID: 11400000, guid: 2a5a94ee5e808d041a7735ce553ecdee, type: 2}
 --- !u!1 &2104272769
 GameObject:
   m_ObjectHideFlags: 0

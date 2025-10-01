@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Character character;
     [SerializeField] private IngredientSpawner ingredientSpawner;
     [SerializeField] private ConveyorManager conveyorManager;
-    [SerializeField] private RenderPipelineAsset[] qualityLevels;
     [SerializeField] private GameObject cameraUI;
     [SerializeField] private DisplayUserInfoUI displayUserInfoUI;
     [SerializeField] private PowerUpManager powerUpManager;
@@ -105,11 +104,7 @@ public class GameManager : MonoBehaviour
         UIManager.MobileInputUI.Initialize(inputManager);
     }
 
-    public void ChangeQuality(int value)
-    {
-        QualitySettings.SetQualityLevel(value);
-        QualitySettings.renderPipeline = qualityLevels[value];
-    }
+
 
     public void StartGame()
     {

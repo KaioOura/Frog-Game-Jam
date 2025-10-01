@@ -9,7 +9,7 @@ public class AdManager : MonoBehaviour
 
     public bool IsBuildTest;
     
-    private RewardedAd _rewardedAd;
+    private static RewardedAd _rewardedAd;
     private Action _pendingRewardCallback;
     private bool _pendingReward;
     private Reward _lastReward;
@@ -93,7 +93,7 @@ public class AdManager : MonoBehaviour
     {
          _pendingRewardCallback = rewardCallback;
          
-        if (_rewardedAd != null && _rewardedAd.CanShowAd())
+        if (IsAdAvailable())
         {
             Debug.Log($"RewardedAdn exists an can show ad");
             _rewardedAd.Show((Reward reward) =>
@@ -120,5 +120,10 @@ public class AdManager : MonoBehaviour
         {
             Debug.Log("Rewarded ad is not ready yet.");
         }
+    }
+
+    public static bool IsAdAvailable()
+    {
+        return _rewardedAd != null && _rewardedAd.CanShowAd();
     }
 }
