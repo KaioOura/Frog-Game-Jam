@@ -25,7 +25,7 @@ public class OrderHighlighter : MonoBehaviour
         ResetIngredientsColor();
 
 
-        foreach (var ingredientSo in _bellyFrog.bellySo)
+        foreach (var ingredientSo in _bellyFrog.BellyInventory.GetIngredientSOs())
         {
             HighLightIngredients(ingredientSo);
         }

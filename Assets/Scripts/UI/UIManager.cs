@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
 
     [field: SerializeField] public LeaderboardUI LeaderboardUI { get; private set; }
     [field: SerializeField] public MobileInputUI MobileInputUI { get; private set; }
+    [field: SerializeField] public BellyDisplayUI BellyDisplayUI { get; private set; }
     
     public Image[] lifeImages;
 

@@ -34,11 +34,16 @@ public class InputManager : MonoBehaviour
     private void HandleTap(LeanFinger finger)
     {
         if (finger.IsOverGui)
-            TapInput();
+            return;
+        
+        if (finger.ScreenPosition.x < Screen.width * 0.5f)
+            return;
+        
+        TapInput();
     }
     private void HandleSwipeInput(LeanFinger finger)
     {
-        if (!finger.IsOverGui)
+        if (finger.ScreenPosition.x < Screen.width * 0.5f)
             return;
         
         Vector2 swipe = finger.SwipeScreenDelta.normalized;

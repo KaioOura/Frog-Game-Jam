@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine.Profiling;
 using UnityEngine.Serialization;
@@ -12,6 +13,9 @@ public class BellyFrog : MonoBehaviour
     public Action OnThrowUp;
     public Action<MealSo> OnCheckMeal;
     public Action<MealSo> OnMealDelivered;
+    public Action<List<Ingredient>, MealSo> OnUpdateBellyUI;
+    
+    public BellyInventory BellyInventory => bellyInventory;
     
     [SerializeField] private ParticleSystem saliva_VFX;
     [SerializeField] private ParticleSystem Sweat_VFX;
@@ -24,21 +28,18 @@ public class BellyFrog : MonoBehaviour
     public Animation_Controller animationController;
     public Animator CartAnimator;
     public Animator frogController;
-    public BellyDisplay bellyDisplay;
-    public List<Ingredient> belly;
-    public List<IngredientSo> bellySo;
-    public int maxIngredients;
+    [SerializeField] private BellyInventory bellyInventory;
     public Transform bellyPos, JawPos;
     public Tongue tongue;
     public List<MealSo> meals;
 
-    [FormerlySerializedAs("activeMeal")] public MealSo activeMealSo;
+    public MealSo activeMealSo;
     GameObject mealGO;
     [SerializeField] private IngredientSo rottenFood;
 
-    public float maxTimeInBelly;
-    public float timeFoodInBelly;
-    public float reduceTimeInBelly;
+    // public float maxTimeInBelly;
+    // public float timeFoodInBelly;
+    // public float reduceTimeInBelly;
     
     bool isThrowingUp;
 
@@ -84,25 +85,26 @@ public class BellyFrog : MonoBehaviour
 
     private void AddToBelly(Ingredient ingredient)
     {
-        belly.Add(ingredient);
-        bellySo.Add(ingredient.IngredientSo);
+        bellyInventory.AddIngredient(ingredient);
     }
 
-    private void RemoveFromBelly(Ingredient ingredient)
+    public void RemoveFromBelly(int slotIndex)
     {
-        belly.Remove(ingredient);
-        bellySo.Remove(ingredient.IngredientSo);
+        launchIngredientAction.IngredientSo = bellyInventory.Belly[slotIndex].IngredientSo;  
+        eventChannelAction.RaiseEvent(launchIngredientAction);
+        LaunchIngredient(bellyInventory.Belly[slotIndex]);
+        //fazer o sapo cuspir o ingrediente correto e depois chamar esse método abaixo
+        bellyInventory.RemoveIngredient(slotIndex);
     }
 
     private void ClearBelly()
     {
-        belly.Clear();
-        bellySo.Clear();
+        bellyInventory.ClearBelly();
     }
     
     public void AddIngredient(Ingredient ingredient)
     {
-        if (belly.Count - 1 >= maxIngredients)
+        if (bellyInventory.GetBellyCount() >= bellyInventory.MaxIngredients)
             return;
 
         getIngredientAction.GameAction = GameAction.GetIngredient;
@@ -126,29 +128,44 @@ public class BellyFrog : MonoBehaviour
             return;
         }
 
-        bellyDisplay.UpdateUI();
+        OnUpdateBellyUI?.Invoke(bellyInventory.GetIngredients(), activeMealSo);
         OnIngredientAdd(ingredient);
     }
 
+    public void ThrowIngredient(int slotIndex)
+    {
+        if (!CanThrowUp())
+            return;
+
+        StopBellyRoutine();
+
+        bellyRoutine = ThrowUpSingleIngredient(slotIndex);
+        StartCoroutine(bellyRoutine);
+    }
+    
     public void ThrowUpAllIngredients()
     {
-        if (isThrowingUp || tongue.isTongueOccupied)
+        if (!CanThrowUp())
             return;
-        
-        timeFoodInBelly = 0;
 
-        timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
-        UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
-        
+        StopBellyRoutine();
+
+        bellyRoutine = ThrowUpIngredients();
+        StartCoroutine(bellyRoutine);
+    }
+
+    private bool CanThrowUp() =>
+        !isThrowingUp && !tongue.isTongueOccupied;
+
+    private void StopBellyRoutine()
+    {
         if (bellyRoutine != null)
         {
             StopCoroutine(bellyRoutine);
             bellyRoutine = null;
         }
-        
-        StartCoroutine(ThrowUpIngredients());
     }
-
+    
     public void MoveMealToCart(Vector3 PosOffset)
     {
         int rand = UnityEngine.Random.Range(0, swallowClip.Length);
@@ -170,76 +187,114 @@ public class BellyFrog : MonoBehaviour
             mealGO = null;
             frogController.SetBool("Has recipe", false);
             ClearBelly();
-            bellyDisplay.UpdateUI();
-            bellyDisplay.UpdateMealUI(null);
+            OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
 
             isThrowingUp = false;
         });
     }
 
-    IEnumerator ThrowUpIngredients()
+    private IEnumerator ThrowUpSingleIngredient(int slotIndex)
     {
         isThrowingUp = true;
-        int numIngredients = belly.Count - 1;
 
         while (tongue.isTongueOccupied)
             yield return null;
-        
-        Sweat_VFX.Stop();
 
+        RemoveFromBelly(slotIndex);
+        IngredientThrowFeedback();
+
+        yield return new WaitForSeconds(0.17f);
+
+        OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
+        OnThrowUp?.Invoke();
+        isThrowingUp = false;
+    }
+    
+    private IEnumerator ThrowUpIngredients()
+    {
+        isThrowingUp = true;
+
+        while (tongue.isTongueOccupied)
+            yield return null;
+
+        yield return HandleThrow();
+        
+        OnThrowUp?.Invoke();
+        isThrowingUp = false;
+    }
+
+    private IEnumerator HandleThrow()
+    {
         if (activeMealSo != null)
         {
-            frogController.SetBool("Has recipe", true);
-            foreach (var item in belly)
-            {
-                item.ReleaseToPool();
-            }
-
-            //Spawnar e lancar meal
+            yield return ThrowMealRecipe();
             
-            mealGO = _mealPool.Pool.Get();
-            mealGO.SetActive(false);
-            mealGO.transform.position = bellyPos.transform.position;
-            frogController.SetTrigger("Food Out");
-            animationController.realayerWeight = 0;
-            launchMealAction.MealSo = activeMealSo;  
-            eventChannelAction.RaiseEvent(launchMealAction);
-
-            //Move Meal to Cart agora está sendo comandada por eventos na animação
-            //MoveMealToCart();
-
-            //_mealGO.LaunchItSelf(transform.forward);
-
+            yield return new WaitForSeconds(0.17f);
         }
         else
         {
-            while (numIngredients >= 0)
-            {
-
-                int rand = UnityEngine.Random.Range(0, swallowClip.Length);
-                audioSource.PlayOneShot(swallowClip[rand]);
-                PlaySalivaVfx();
-                animationController.realayerWeight -= 0.25f;
-                frogController.SetTrigger("Food Out");
-                launchIngredientAction.IngredientSo = belly[numIngredients].IngredientSo;  
-                eventChannelAction.RaiseEvent(launchIngredientAction);
-                LaunchIngredient(belly[numIngredients]);
-                numIngredients--;
-                yield return new WaitForSeconds(0.17f);
-            }
-
-            ClearBelly();
-            bellyDisplay.UpdateUI();
-            bellyDisplay.UpdateMealUI(null);
-
-            isThrowingUp = false;
+            yield return ThrowIngredientsOneByOne();
+            
+            yield return new WaitForSeconds(0.17f);
+            
+            // ClearBelly();
+            OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
         }
-        
-        OnThrowUp?.Invoke();
     }
 
+    private IEnumerator ThrowMealRecipe()
+    {
+        frogController.SetBool("Has recipe", true);
 
+        foreach (var ingredient in bellyInventory.GetIngredients())
+            ingredient.ReleaseToPool();
 
+        mealGO = _mealPool.Pool.Get();
+        mealGO.SetActive(false);
+        mealGO.transform.position = bellyPos.transform.position;
+
+        frogController.SetTrigger("Food Out");
+        animationController.realayerWeight = 0;
+
+        launchMealAction.MealSo = activeMealSo;
+        eventChannelAction.RaiseEvent(launchMealAction);
+        
+        yield break;
+    }
+
+    private IEnumerator ThrowIngredientsOneByOne()
+    {
+        var ingredients = bellyInventory.GetIngredients();
+
+        while (ingredients.Count > 0)
+        {
+            for (int i = 0; i < bellyInventory.Belly.Count; i++)
+            {
+                if (bellyInventory.Belly[i] != null)
+                {
+                    RemoveFromBelly(i);
+                    break;
+                }
+            }
+
+            IngredientThrowFeedback();
+
+            yield return new WaitForSeconds(0.17f);
+
+            ingredients = bellyInventory.GetIngredients();
+        }
+    }
+    
+    private void IngredientThrowFeedback()
+    {
+        int rand = UnityEngine.Random.Range(0, swallowClip.Length);
+        audioSource.PlayOneShot(swallowClip[rand]);
+
+        PlaySalivaVfx();
+        animationController.realayerWeight -= 0.25f;
+        frogController.SetTrigger("Food Out");
+    }
+    
     void LaunchIngredient(Ingredient ingredient)
     {
         ingredient.gameObject.SetActive(true);
@@ -255,24 +310,24 @@ public class BellyFrog : MonoBehaviour
 
     public bool IsBellyFull()
     {
-        return belly.Count - 1 == maxIngredients;
+        return bellyInventory.IsFull();
     }
 
     void OnIngredientAdd(Ingredient ingredient)
     {
 
-        timeFoodInBelly -= reduceTimeInBelly;
+        //timeFoodInBelly -= reduceTimeInBelly;
 
-        if (bellyRoutine == null)
-        {
-            bellyRoutine = BellyCounter();
-            
-            StartCoroutine(bellyRoutine);
-        }
+        // if (bellyRoutine == null)
+        // {
+        //     bellyRoutine = BellyCounter();
+        //     
+        //     StartCoroutine(bellyRoutine);
+        // }
 
         OnIngredientAdded?.Invoke(ingredient.IngredientSo);
         
-        if (belly.Count < 2)
+        if (bellyInventory.GetIngredients().Count < 2)
         {
             //Debug.Log("Not a meal");
             return;
@@ -283,62 +338,50 @@ public class BellyFrog : MonoBehaviour
         generateMealAction.MealSo = activeMealSo;
         eventChannelAction.RaiseEvent(generateMealAction);
 
-        bellyDisplay.UpdateMealUI(activeMealSo);
+        OnUpdateBellyUI?.Invoke(bellyInventory.GetIngredients(), activeMealSo);
     }
 
     MealSo GetMeal()
     {
-        MealSo mealSo = null;
-
-        foreach (var item in meals)
-        {
-            if (item.Match(belly))
-            {
-                mealSo = item;
-                break;
-            }
-        }
-
-        return mealSo;
+        return meals.FirstOrDefault(item => item.Match(bellyInventory.GetIngredients()));
     }
 
     public void ResetBellyFrog()
     {
         ClearBelly();
-        bellyDisplay.UpdateUI();
-        bellyDisplay.UpdateMealUI(null);
+        OnUpdateBellyUI?.Invoke(bellyInventory.GetIngredients(), activeMealSo);
         animationController.realayerWeight = 0;
-        timeFoodInBelly = 0;
+        //timeFoodInBelly = 0;
 
     }
 
-    IEnumerator BellyCounter()
-    {
-        if (belly.Count <= 0)
-            timeFoodInBelly = 0;
-        
-        Sweat_VFX.Play();
-        
-        while (belly.Count > 0)
-        {
-            timeFoodInBelly += Time.deltaTime;
-            
-            Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
-            
-            if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
-            {
-                _health.TakeDamage(1);
-                ThrowUpAllIngredients();
-            }
-            
-            timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
-            UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
-            
-            yield return null;
-        }
-        
-        Sweat_VFX.Stop();
-    }
+    // IEnumerator BellyCounter()
+    // {
+    //     if (bellyInventory.GetIngredients().Count <= 0)
+    //         timeFoodInBelly = 0;
+    //     
+    //     Sweat_VFX.Play();
+    //     
+    //     while (bellyInventory.GetIngredients().Count > 0)
+    //     {
+    //         timeFoodInBelly += Time.deltaTime;
+    //         
+    //         Sweat_VFX.emissionRate = (15 * timeFoodInBelly) / maxTimeInBelly;
+    //         
+    //         if (timeFoodInBelly >= maxTimeInBelly && !isThrowingUp && !tongue.isTongueOccupied)
+    //         {
+    //             _health.TakeDamage(1);
+    //             ThrowUpAllIngredients();
+    //         }
+    //         
+    //         timeFoodInBelly = Mathf.Clamp(timeFoodInBelly, 0, maxTimeInBelly);
+    //         UIManager.instance.UpdateBellyFrog(timeFoodInBelly, maxTimeInBelly);
+    //         
+    //         yield return null;
+    //     }
+    //     
+    //     Sweat_VFX.Stop();
+    // }
 
     private void PlaySalivaVfx()
     {

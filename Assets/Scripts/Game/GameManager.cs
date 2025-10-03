@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     
     
     public bool isMobile; //TODO: remover isso quando criar um meio de alternar build mobile e web
-    public BellyFrog bellyFrog;
     public Animator an;
     public GameStates gameStates;
 
@@ -75,6 +74,8 @@ public class GameManager : MonoBehaviour
         
         if (_firebaseDataManager) //This is for playing game directly from Game scene
             UIManager.LeaderboardUI.InitializeLeaderboard(_firebaseDataManager?.LeaderboardManager);
+        
+        UIManager.BellyDisplayUI.Initialize(character.BellyFrog);
 
         foreach (var order in ObjectPoolManager.OrderPool.Orders)
         {
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
             Destroy(item.gameObject);
         }
 
-        bellyFrog.ResetBellyFrog();
+        character.BellyFrog.ResetBellyFrog();
         UIManager.ShowMenu(false);
         UIManager.MobileInputUI.ShowUI(true);
 
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
         //ingredientSpawner.StartIngredientSpawn();
 
         AudioManager.instance.PlayGameMusic();
-        TutorialManager.TryStartTutorial();
+        //TutorialManager.TryStartTutorial();
     }
     
     public void LoseGame()
@@ -139,7 +140,7 @@ public class GameManager : MonoBehaviour
         cameraUI.SetActive(true);
         //ingredientSpawner.StopIngredientSpawn();
         var rotationVector = new Vector3(0, 180, 0);
-        bellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
+        character.BellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;
         an.SetTrigger("Menu");
         UIManager.ShowHidePostGame(shouldShow: true);
