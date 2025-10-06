@@ -229,7 +229,6 @@ MonoBehaviour:
   animationController: {fileID: 2555122337145733162}
   CartAnimator: {fileID: 0}
   frogController: {fileID: 5810910346735982571}
-  bellyDisplayUI: {fileID: 0}
   bellyInventory: {fileID: 3451024412205489758}
   bellyPos: {fileID: 3779928746857663444}
   JawPos: {fileID: 6006679373265142644}
@@ -242,6 +241,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b6486c586e1067948bb79cdef778f5c2, type: 2}
   - {fileID: 11400000, guid: d70680ae4bf7f3046bd77b449c3ba3d1, type: 2}
   - {fileID: 11400000, guid: f22c0e56f4aa68a40a32eb49abd6b2b5, type: 2}
+  invalidMeal: {fileID: 11400000, guid: a401c762d3217a444a5ae2d5416108ad, type: 2}
   activeMealSo: {fileID: 0}
   rottenFood: {fileID: 11400000, guid: a0121899779882d49a7b46540125b8b4, type: 2}
   cartPos: {fileID: 0}

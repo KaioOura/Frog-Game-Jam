@@ -83,8 +83,7 @@ public class GameManager : MonoBehaviour
             orderHighlighter.Initialize(order, character.BellyFrog);
             order.SetOrderHighlighter(orderHighlighter);
             
-            character.BellyFrog.OnIngredientAdded += orderHighlighter.HighLightIngredients;
-            character.BellyFrog.OnThrowUp += orderHighlighter.ResetIngredientsColor;
+            character.BellyFrog.OnUpdateIngredients += orderHighlighter.UpdateOrderIngredients;
         }
         
         gameFlowManager.Initialize(TimeScaler);

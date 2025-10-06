@@ -10,9 +10,9 @@ public class BellyDisplayUI : MonoBehaviour
     public event Action<int> OnSlotClicked;
     public event Action OnRemoveMeal;
     
-    public Image[] bellySlot;
-    public Image mealImage;
-    
+    [SerializeField] private Image mealImage;
+    [SerializeField] private Image[] bellySlot;
+
     public void Initialize(BellyFrog bellyFrog)
     {
         bellyFrog.OnUpdateBellyUI += UpdateUI;
@@ -29,6 +29,7 @@ public class BellyDisplayUI : MonoBehaviour
             mealImage.gameObject.SetActive(false);
             return;
         }
+        
         mealImage.gameObject.SetActive(true);
         mealImage.sprite = mealSo.image;
     }

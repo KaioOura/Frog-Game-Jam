@@ -61,4 +61,9 @@ public class Health : MonoBehaviour
     {
         ForceTakeDamage(health);
     }
+
+    public void ShouldEnableGodMode(bool shouldEnable)
+    {
+        IsGodMode = shouldEnable;
+    }
 }

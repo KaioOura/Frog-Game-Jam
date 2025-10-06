@@ -9,8 +9,7 @@ using UnityEngine.Serialization;
 
 public class BellyFrog : MonoBehaviour
 {
-    public Action<IngredientSo> OnIngredientAdded;
-    public Action OnThrowUp;
+    public Action OnUpdateIngredients;
     public Action<MealSo> OnCheckMeal;
     public Action<MealSo> OnMealDelivered;
     public Action<List<Ingredient>, MealSo> OnUpdateBellyUI;
@@ -32,6 +31,7 @@ public class BellyFrog : MonoBehaviour
     public Transform bellyPos, JawPos;
     public Tongue tongue;
     public List<MealSo> meals;
+    [SerializeField] private MealSo invalidMeal;
 
     public MealSo activeMealSo;
     GameObject mealGO;
@@ -128,8 +128,8 @@ public class BellyFrog : MonoBehaviour
             return;
         }
 
-        OnUpdateBellyUI?.Invoke(bellyInventory.GetIngredients(), activeMealSo);
-        OnIngredientAdd(ingredient);
+        //OnUpdateBellyUI?.Invoke(bellyInventory.GetIngredients(), activeMealSo);
+        OnIngredientAdd();
     }
 
     public void ThrowIngredient(int slotIndex)
@@ -188,6 +188,7 @@ public class BellyFrog : MonoBehaviour
             frogController.SetBool("Has recipe", false);
             ClearBelly();
             OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
+            OnUpdateIngredients?.Invoke();
 
             isThrowingUp = false;
         });
@@ -205,8 +206,11 @@ public class BellyFrog : MonoBehaviour
 
         yield return new WaitForSeconds(0.17f);
 
+        activeMealSo = GetMeal();
+        
         OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
-        OnThrowUp?.Invoke();
+        OnUpdateIngredients?.Invoke();
+        
         isThrowingUp = false;
     }
     
@@ -219,13 +223,13 @@ public class BellyFrog : MonoBehaviour
 
         yield return HandleThrow();
         
-        OnThrowUp?.Invoke();
+        OnUpdateIngredients?.Invoke();
         isThrowingUp = false;
     }
 
     private IEnumerator HandleThrow()
     {
-        if (activeMealSo != null)
+        if (activeMealSo != null && activeMealSo != invalidMeal)
         {
             yield return ThrowMealRecipe();
             
@@ -237,7 +241,7 @@ public class BellyFrog : MonoBehaviour
             
             yield return new WaitForSeconds(0.17f);
             
-            // ClearBelly();
+            activeMealSo = null;
             OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
         }
     }
@@ -313,37 +317,28 @@ public class BellyFrog : MonoBehaviour
         return bellyInventory.IsFull();
     }
 
-    void OnIngredientAdd(Ingredient ingredient)
+    void OnIngredientAdd()
     {
-
-        //timeFoodInBelly -= reduceTimeInBelly;
-
-        // if (bellyRoutine == null)
-        // {
-        //     bellyRoutine = BellyCounter();
-        //     
-        //     StartCoroutine(bellyRoutine);
-        // }
-
-        OnIngredientAdded?.Invoke(ingredient.IngredientSo);
         
-        if (bellyInventory.GetIngredients().Count < 2)
-        {
-            //Debug.Log("Not a meal");
-            return;
-        }
-
+        OnUpdateIngredients?.Invoke();
+        
         activeMealSo = GetMeal();
 
+        OnUpdateBellyUI?.Invoke(bellyInventory.GetIngredients(), activeMealSo);
+        
+        if (activeMealSo == null)
+            return;
+        
         generateMealAction.MealSo = activeMealSo;
         eventChannelAction.RaiseEvent(generateMealAction);
-
-        OnUpdateBellyUI?.Invoke(bellyInventory.GetIngredients(), activeMealSo);
     }
 
     MealSo GetMeal()
     {
-        return meals.FirstOrDefault(item => item.Match(bellyInventory.GetIngredients()));
+        if (bellyInventory.GetIngredients().Count < 2) return null;
+        MealSo mealSo = meals.FirstOrDefault(item => item.Match(bellyInventory.GetIngredients()));
+        
+        return mealSo != null ? mealSo : invalidMeal;
     }
 
     public void ResetBellyFrog()
