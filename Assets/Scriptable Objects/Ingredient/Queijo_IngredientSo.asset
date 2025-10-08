@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792436c11b1fe5b4ea3cf0afb1508d25, type: 3}
   m_Name: Queijo_IngredientSo
   m_EditorClassIdentifier: 
-  myImage: {fileID: 21300000, guid: 79e8c325e60cd1d4bae43ca0745b3d98, type: 3}
+  myImage: {fileID: 21300000, guid: e8f232e3c7370d641945390243d7882b, type: 3}
   myName: Queijo
   baseWeight: 5
   ingredientPrefab: {fileID: 867407597217187018, guid: 10c337d0499ee7e4eaf360e7924a65c8, type: 3}

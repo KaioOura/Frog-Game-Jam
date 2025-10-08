@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792436c11b1fe5b4ea3cf0afb1508d25, type: 3}
   m_Name: Farinha_IngredientSo
   m_EditorClassIdentifier: 
-  myImage: {fileID: 21300000, guid: 3269044eae8ea5c4e9514f55a7f24f78, type: 3}
+  myImage: {fileID: 21300000, guid: 8b8710ef47221e14295fbe6c06c00ebf, type: 3}
   myName: Farinha
-  baseScore: 0
-  isRottenFood: 0
   baseWeight: 5
   ingredientPrefab: {fileID: 7837796086130080073, guid: 9e08ac8da51f7ab448fed38ba99a1e76, type: 3}

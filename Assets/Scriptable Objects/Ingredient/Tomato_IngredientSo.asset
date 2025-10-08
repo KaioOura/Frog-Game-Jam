@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792436c11b1fe5b4ea3cf0afb1508d25, type: 3}
   m_Name: Tomato_IngredientSo
   m_EditorClassIdentifier: 
-  myImage: {fileID: 21300000, guid: 54c9ca6692d06e04a9dbb82ee55235be, type: 3}
+  myImage: {fileID: 21300000, guid: 2959999e659bf904d934e8b0bbe33eda, type: 3}
   myName: Tomato
   baseWeight: 5
   ingredientPrefab: {fileID: 633277087768994844, guid: 582ce909987244241b200ea7b570be70, type: 3}

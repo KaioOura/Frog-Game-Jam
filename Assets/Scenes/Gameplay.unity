@@ -2769,6 +2769,15 @@ MonoBehaviour:
   - {fileID: 1687403569}
   - {fileID: 1687403568}
   ingredientSpawner: {fileID: 1473258218}
+  speedList:
+  - 1
+  - 1.5
+  - 2
+  tileSpeedList:
+  - 1.6
+  - 2.5
+  - 3.5
+  sharedTreadMillMaterial: {fileID: 2100000, guid: d802e0cdbd58dbc46999e4242b7b9076, type: 2}
 --- !u!1 &1283633656
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,6 +2918,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScore: 0
   lastScore: 0
+--- !u!1 &1344644455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1344644456}
+  - component: {fileID: 1344644457}
+  m_Layer: 0
+  m_Name: DifficultyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1344644456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344644455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2050935737}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1344644457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344644455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c52098e691d9149a4dbd0923402b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulty: 0
+  difficultyBreakdown: 3c00000078000000b4000000
+  difficultyDebug: 0
 --- !u!1001 &1418153763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2949,6 +3005,18 @@ PrefabInstance:
       propertyPath: verticalUIList
       value: 
       objectReference: {fileID: 1739913947}
+    - target: {fileID: 351877386284715998, guid: 9d97dbe8f8ea02441a68565b62e7d129, type: 3}
+      propertyPath: 'difficultyBreakdown.Array.data[0]'
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 351877386284715998, guid: 9d97dbe8f8ea02441a68565b62e7d129, type: 3}
+      propertyPath: 'difficultyBreakdown.Array.data[1]'
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 351877386284715998, guid: 9d97dbe8f8ea02441a68565b62e7d129, type: 3}
+      propertyPath: 'difficultyBreakdown.Array.data[2]'
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 7333277275031018688, guid: 9d97dbe8f8ea02441a68565b62e7d129, type: 3}
       propertyPath: m_Name
       value: Order Manager
@@ -5188,6 +5256,7 @@ Transform:
   - {fileID: 260654224}
   - {fileID: 1146185131}
   - {fileID: 689327596}
+  - {fileID: 1344644456}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2084258909
@@ -5229,6 +5298,7 @@ MonoBehaviour:
   <TimeScaler>k__BackingField: {fileID: 689327597}
   <TutorialManager>k__BackingField: {fileID: 260654226}
   <ActionManager>k__BackingField: {fileID: 1146185133}
+  <DifficultyManager>k__BackingField: {fileID: 1344644457}
   isMobile: 1
   an: {fileID: 1869355522}
   gameStates: 0

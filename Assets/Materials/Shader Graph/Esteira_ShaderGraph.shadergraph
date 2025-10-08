@@ -1557,7 +1557,7 @@
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_f4b5acfc1e0a4940b03ed250da53bf33",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_Speed",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",

@@ -1,15 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlateMover : MonoBehaviour
 {
+    private static readonly int Speed = Shader.PropertyToID("_Speed");
     public event Action OnRequestFood;
     public event Action OnEndPath;
     
-    public float speed = 2f;
     public ConveyorTile currentTile;
     private Vector3 targetPos;
     private ConveyorManager _conveyorManager;
+    private float _speed = 2f;
     
     void Start()
     {
@@ -22,9 +24,15 @@ public class PlateMover : MonoBehaviour
         _conveyorManager = conveyorManager;
     }
 
+    public void ChangeSpeed(float speed, float tileSpeed)
+    {
+        _speed = speed;
+        currentTile.TileRender.material.SetFloat(Speed, tileSpeed);
+    }
+    
     public void Move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, _speed * Time.deltaTime);
 
         CheckTiles();
     }
@@ -53,14 +61,5 @@ public class PlateMover : MonoBehaviour
         
         currentTile = next;
         targetPos = currentTile.GetExitPoint();
-    }
-    
-    void FixedUpdate()
-    {
-        // move para o alvo
-        
-
-        // chegou no fim da tile
-        
     }
 }

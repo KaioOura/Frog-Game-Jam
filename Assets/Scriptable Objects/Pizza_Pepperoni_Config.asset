@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mealName: Pizza Pepperoni
   score: 100
-  image: {fileID: 21300000, guid: 17a0bcc91d5a5ae4a8ff5c530a7393e2, type: 3}
+  image: {fileID: 21300000, guid: 609af57b2d98c8b4a99ac17303f84a83, type: 3}
   timeSecondsToPrepare: 80
   expirePercentage: 0.7
   mealGO: {fileID: 8455296564966409583, guid: 69a1fb2017fb68b4eabd6a0b039a0d59, type: 3}

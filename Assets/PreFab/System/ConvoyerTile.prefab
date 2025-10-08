@@ -53,6 +53,7 @@ MonoBehaviour:
   isEditing: 1
   tileType: 0
   flowRotations: b4000000000000005a000000a6ffffff
+  tileRender: {fileID: 83698054146592399}
 --- !u!1 &4654464782252057253
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +350,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c37750cbca5664a9b2c6c754b23f3c, type: 3}
+--- !u!23 &83698054146592399 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7067092077251567631, guid: 69c37750cbca5664a9b2c6c754b23f3c, type: 3}
+  m_PrefabInstance: {fileID: 2073344529028469118}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1967869216451245717 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 69c37750cbca5664a9b2c6c754b23f3c, type: 3}

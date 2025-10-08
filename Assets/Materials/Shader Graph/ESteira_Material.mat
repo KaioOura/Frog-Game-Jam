@@ -59,9 +59,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_f4b5acfc1e0a4940b03ed250da53bf33: 2
+    - Vector1_f4b5acfc1e0a4940b03ed250da53bf33: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Speed: 1.6
     m_Colors:
     - _Tilling: {r: 2.88, g: 4.05, b: 0, a: 0}
   m_BuildTextureStacks: []

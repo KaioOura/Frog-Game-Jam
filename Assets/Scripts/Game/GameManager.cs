@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public TimeScaler TimeScaler { get; private set; }
     [field: SerializeField] public TutorialManager TutorialManager { get; private set; }
     [field: SerializeField] public ActionManager ActionManager { get; private set; }
+    [field: SerializeField] public DifficultyManager DifficultyManager { get; private set; }
     
     
     public bool isMobile; //TODO: remover isso quando criar um meio de alternar build mobile e web
@@ -67,7 +68,8 @@ public class GameManager : MonoBehaviour
         ingredientSpawner.Initialize(OrderManager, ObjectPoolManager, conveyorManager);
         ScoreManager.Initialize(playerDataHandler, UIManager);
         RewardManager.OnReceivedReward += OnReceivedReward;
-        OrderManager.Initialize(ScoreManager, ObjectPoolManager);
+        OrderManager.Initialize(ScoreManager, ObjectPoolManager, DifficultyManager);
+        conveyorManager.Initialize(DifficultyManager);
 
         inputManager.OnTapInput += character.PlayerTongueAction.LaunchTongue;
         inputManager.OnSwipeDownInput += character.BellyFrog.ThrowUpAllIngredients;
@@ -114,6 +116,7 @@ public class GameManager : MonoBehaviour
         ScoreManager.ResetScore();
         character.Health.ResetLife();
         OrderManager.ResetOrders();
+        DifficultyManager.ResetDifficulty();
 
         Ingredient[] ingredients = FindObjectsByType<Ingredient>((FindObjectsSortMode)FindObjectsInactive.Include);
 
@@ -144,9 +147,11 @@ public class GameManager : MonoBehaviour
         an.SetTrigger("Menu");
         UIManager.ShowHidePostGame(shouldShow: true);
         
-        _firebaseDataManager.SavePlayerData();
+        if (_firebaseDataManager)
+            _firebaseDataManager.SavePlayerData();
 
         OrderManager.ResetOrders();
+        DifficultyManager.ResetDifficulty();
 
         UIManager.MobileInputUI.ShowUI(false);
     }

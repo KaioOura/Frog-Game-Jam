@@ -24,14 +24,9 @@ public class OrderManager : MonoBehaviour
     [SerializeField] private MealSo[] meals;
 
     [SerializeField] private int maxOrders;
-
-    [Tooltip("Time in seconds to change difficulty")]
-    [SerializeField] private int[] difficultyBreakdown;
     
     [Tooltip("Time in seconds to spawn order based on difficulty")]
     [SerializeField] private float[] timeToSpawn;
-    
-    [SerializeField] private int difficultyIndex;
     
     [FormerlySerializedAs("lastOrderMeal")]
     [SerializeField] private MealSo lastOrderMealSo;
@@ -41,9 +36,9 @@ public class OrderManager : MonoBehaviour
 
     private List<Order> _activeOrders = new List<Order>();
     private float _timeSpawn;
-    private static float timeTracker;
     private ObjectPoolManager _objectPoolManager;
     private ScoreManager _scoreManager;
+    private DifficultyManager _difficultyManager;
     private MealSo _currentMatchedMeal;
     private Order _currentDeliveredOrder;
     private Dictionary<Difficulty, List<MealSo>> _mealsByDifficulty = new Dictionary<Difficulty, List<MealSo>>();
@@ -64,10 +59,11 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    public void Initialize(ScoreManager scoreManager, ObjectPoolManager objectPoolManager)
+    public void Initialize(ScoreManager scoreManager, ObjectPoolManager objectPoolManager, DifficultyManager difficultyManager)
     {
         _scoreManager = scoreManager;
         _objectPoolManager = objectPoolManager;
+        _difficultyManager = difficultyManager; 
     }
     
     // Update is called once per frame
@@ -75,31 +71,19 @@ public class OrderManager : MonoBehaviour
     {
         if (GameManager.instance.gameStates != GameStates.game)
             return;
-
-        timeTracker += Time.deltaTime;
+        
         _timeSpawn += Time.deltaTime;
 
-        if (timeTracker > difficultyBreakdown[difficultyIndex] && difficultyIndex < difficultyBreakdown.Length - 1)
+        if (_timeSpawn > timeToSpawn[(int)_difficultyManager.GetDifficulty()] && _activeOrders.Count < maxOrders)
         {
-            difficultyIndex++;
-            timeTracker = 0;
-        }
-
-        if (_timeSpawn > timeToSpawn[difficultyIndex] && _activeOrders.Count < maxOrders)
-        {
-            SpawnOrder(difficultyIndex);
+            SpawnOrder(_difficultyManager.GetDifficulty());
             _timeSpawn = 0;
         }
-
-        // if (Input.GetKeyDown(KeyCode.R))
-        // {
-        //     SpawnOrder(0);
-        // }
     }
 
-    private void SpawnOrder(int difficulty)
+    private void SpawnOrder(Difficulty difficulty)
     {
-        List<MealSo> mealsAvailable = _mealsByDifficulty[(Difficulty)difficulty];
+        List<MealSo> mealsAvailable = _mealsByDifficulty[difficulty];
 
         int randMeal = UnityEngine.Random.Range(0, mealsAvailable.Count);
 
@@ -109,7 +93,7 @@ public class OrderManager : MonoBehaviour
         
         if (mealSo == lastOrderMealSo)
         {
-            SpawnOrder(difficultyIndex);
+            SpawnOrder(difficulty);
             return;
         }
         
@@ -161,9 +145,7 @@ public class OrderManager : MonoBehaviour
     
     public void ResetOrders()
     {
-        timeTracker = 0;
         _timeSpawn = 0;
-        difficultyIndex = 0;
 
         foreach (var item in _activeOrders)
         {

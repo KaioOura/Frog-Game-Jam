@@ -10,11 +10,20 @@ public class ConveyorManager : MonoBehaviour
     
     [SerializeField] private List<PlateMover> plateMovers = new List<PlateMover>();
     [SerializeField] private IngredientSpawner ingredientSpawner;
+    [SerializeField] private List<float> speedList = new List<float>();
+    [SerializeField] private List<float> tileSpeedList = new List<float>();
+    [SerializeField] private Material sharedTreadMillMaterial;
     
     private List<FoodPlate> _foodPlates = new List<FoodPlate>(); 
     
     private Dictionary<Vector2, ConveyorTile> tiles = new();
 
+    [ContextMenu("Get All PlateMovers")]
+    public void GetAllPlateMovers()
+    {
+        plateMovers = FindObjectsByType<PlateMover>((FindObjectsSortMode)FindObjectsInactive.Exclude).ToList();
+    }
+    
     void Awake()
     {
         tiles.Clear();
@@ -36,12 +45,19 @@ public class ConveyorManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("Get All PlateMovers")]
-    public void GetAllPlateMovers()
+    public void Initialize(DifficultyManager difficultyManager)
     {
-        plateMovers = FindObjectsByType<PlateMover>((FindObjectsSortMode)FindObjectsInactive.Exclude).ToList();
+        difficultyManager.OnChangeDifficulty += ChangeSpeed;
     }
-
+    
+    private void ChangeSpeed(Difficulty difficulty)
+    {
+        for (int i = 0; i < plateMovers.Count; i++)
+        {
+            plateMovers[i].ChangeSpeed(speedList[(int)difficulty], tileSpeedList[(int)difficulty]);
+        }
+    }
+    
     public void FixedUpdate()
     {
         for (int i = 0; i < plateMovers.Count; i++)

@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792436c11b1fe5b4ea3cf0afb1508d25, type: 3}
   m_Name: Paes_IngredientSo
   m_EditorClassIdentifier: 
-  myImage: {fileID: 21300000, guid: 580be7d0a80f26e48848db40045cb51f, type: 3}
+  myImage: {fileID: 21300000, guid: 01b14d58c33776845b37ec8951b759f8, type: 3}
   myName: Paes
-  baseScore: 0
-  isRottenFood: 0
   baseWeight: 5
   ingredientPrefab: {fileID: 1535672556865304132, guid: 253c696eb42051644912f7b5ed672db6, type: 3}

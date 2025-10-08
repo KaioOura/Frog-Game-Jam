@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum Dir
 {
@@ -22,8 +23,8 @@ public class ConveyorTile : MonoBehaviour
     public Transform Target => target;
     public Dir OutDirection => outDir;
     public Vector2 GridPos => gridPos;
-    
     public TileType TileType => tileType;
+    public MeshRenderer TileRender => tileRender;
 
     [SerializeField] private Dir outDir; // direção da esteira
     [SerializeField] private Vector2 gridPos; // posição no grid (definida na cena)
@@ -33,6 +34,7 @@ public class ConveyorTile : MonoBehaviour
     [SerializeField] private TileType tileType;
 
     [SerializeField] private int[] flowRotations;
+    [SerializeField] private MeshRenderer tileRender;
 
     private void OnValidate()
     {
