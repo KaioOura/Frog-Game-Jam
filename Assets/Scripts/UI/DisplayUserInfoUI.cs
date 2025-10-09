@@ -16,7 +16,8 @@ public class DisplayUserInfoUI : MonoBehaviour
 
     public void UpdateInfo()
     {
-        string info = $"UserID: {_playerDataHandler.Identity.GetUserID()} | Username: {_playerDataHandler.Identity.GetUsername()} \n" +
+        string info = $"Build Version: {Application.version} \n" +
+                      $"UserID: {_playerDataHandler.Identity.GetUserID()} | Username: {_playerDataHandler.Identity.GetUsername()} \n" +
                       $"Coins: {_playerDataHandler.Currency.GetCoins()} | HighScore: {_playerDataHandler.Progress.GetHighScore()}";
 
         infos.text = info;
