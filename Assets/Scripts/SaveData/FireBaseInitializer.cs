@@ -42,7 +42,7 @@ public class FireBaseInitializer : MonoBehaviour
                 debugText.text = "DatabaseReference Success";
                 
                 
-                //CheckDependencies();
+                CheckDependencies();
                 StartCoroutine(AwaitInitialization());
             });
     }
