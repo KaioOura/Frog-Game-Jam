@@ -40,12 +40,32 @@ public class FireBaseInitializer : MonoBehaviour
 
                 databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
                 debugText.text = "DatabaseReference Success";
-                FirebaseReady = true;
+                
+                
+                //CheckDependencies();
                 StartCoroutine(AwaitInitialization());
             });
     }
 
-
+    void CheckDependencies()
+    {
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+        {
+            var dependencyStatus = task.Result;
+            if (dependencyStatus == DependencyStatus.Available)
+            {
+                debugText.text = "[Firebase] Inicializado com sucesso!";
+                Debug.Log("[Firebase] Inicializado com sucesso!");
+                FirebaseReady = true;
+            }
+            else
+            {
+                Debug.LogError($"[Firebase] Falha nas dependências: {dependencyStatus}");
+            }
+        });
+    }
+    
+    
     private IEnumerator AwaitInitialization()
     {
         yield return new WaitUntil(() => FirebaseReady);
