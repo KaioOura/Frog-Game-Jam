@@ -14,6 +14,7 @@ public class OrderManager : MonoBehaviour
     public Action<MealSo> OnOrderSpawned;
     
     public List<Order> ActiveOrders => _activeOrders;
+    public string LastMealExpired => _lastMealExpired;
 
     [SerializeField] private GameObject sapo;
     [FormerlySerializedAs("layoutanim")] [SerializeField] private Animator layoutAnim;
@@ -42,6 +43,7 @@ public class OrderManager : MonoBehaviour
     private MealSo _currentMatchedMeal;
     private Order _currentDeliveredOrder;
     private Dictionary<Difficulty, List<MealSo>> _mealsByDifficulty = new Dictionary<Difficulty, List<MealSo>>();
+    private string _lastMealExpired;
     
     // Start is called before the first frame update
     void Start()
@@ -157,6 +159,7 @@ public class OrderManager : MonoBehaviour
 
     public void ReceiveOrderExpired(Order order)
     {
+        _lastMealExpired = order.myMealSo.name;
         OnOrderExpired?.Invoke(1);
         RemoveOrderFromList(order);
     }

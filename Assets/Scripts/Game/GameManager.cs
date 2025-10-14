@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
+using Firebase.Analytics;
+using Firebase.Firestore;
 using SaveData;
 using UnityEngine.Rendering;
 using Application = UnityEngine.Application;
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     
     private FirebaseDataManager _firebaseDataManager;
+    private int _startGameTime;
     
     private void Awake()
     {
@@ -130,11 +134,14 @@ public class GameManager : MonoBehaviour
         UIManager.MobileInputUI.ShowUI(true);
 
         an.SetTrigger("Game");
-
-        //ingredientSpawner.StartIngredientSpawn();
+        
 
         AudioManager.instance.PlayGameMusic();
         //TutorialManager.TryStartTutorial();
+
+        _startGameTime = (int)Time.time;
+        
+        GameAnalyticsManager.Track("game_start");
     }
     
     public void LoseGame()
@@ -154,6 +161,10 @@ public class GameManager : MonoBehaviour
         DifficultyManager.ResetDifficulty();
 
         UIManager.MobileInputUI.ShowUI(false);
+        
+        int timePlayed = (int)(Time.time - _startGameTime);
+        GameAnalyticsManager.Track("game_end", 
+            ParametersGetter.GetDieParameters(playerDataHandler, DifficultyManager, ScoreManager, timePlayed, OrderManager));
     }
 
     public void GoToMenu()
@@ -169,12 +180,18 @@ public class GameManager : MonoBehaviour
         ScoreManager.UpdateScore();
         UIManager.ShowSecondChance(true);
         gameFlowManager.PauseGame(true);
+
+       
+        int timePlayed = (int)(Time.time - _startGameTime);
+        GameAnalyticsManager.Track("onDie", 
+            ParametersGetter.GetDieParameters(playerDataHandler, DifficultyManager, ScoreManager, timePlayed, OrderManager));
     }
     
     private void OnReceivedReward()
     {
         character.Health.Heal(2);
         gameFlowManager.PauseGame(false);
+        GameAnalyticsManager.Track("rewarded_ad_received");
     }
 
     public void OnTutorialEnded()

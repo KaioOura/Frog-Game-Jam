@@ -44,7 +44,7 @@ public class AdManager : MonoBehaviour
         {
             _pendingReward = false;
             _pendingRewardCallback?.Invoke();
-            Debug.LogError($"User earned reward: {_lastReward.Amount} {_lastReward.Type}");
+            //Debug.LogError($"User earned reward: {_lastReward.Amount} {_lastReward.Type}");
         }
     }
 
@@ -75,7 +75,7 @@ public class AdManager : MonoBehaviour
         {
             if (error != null)
             {
-                Debug.LogError("Failed to load rewarded ad: " + error);
+                GameLogger.Error("Failed to load rewarded ad: " + error);
                 return;
             }
             _rewardedAd = ad;
@@ -95,6 +95,7 @@ public class AdManager : MonoBehaviour
          
         if (IsAdAvailable())
         {
+            GameAnalyticsManager.Track("start_rewarded_ad");
             Debug.Log($"RewardedAdn exists an can show ad");
             _rewardedAd.Show((Reward reward) =>
             {
@@ -107,18 +108,21 @@ public class AdManager : MonoBehaviour
             _rewardedAd.OnAdFullScreenContentClosed += () =>
             {
                 Debug.Log("Ad closed, reloading...");
+                GameAnalyticsManager.Track("close_rewarded_ad");
                 LoadRewardAd();
             };
             
             _rewardedAd.OnAdFullScreenContentFailed += (AdError adError) =>
             {
                 Debug.Log("Ad failed to show: " + adError);
+                GameAnalyticsManager.Track("failed_rewarded_ad");
                 LoadRewardAd();
             };
         }
         else
         {
             Debug.Log("Rewarded ad is not ready yet.");
+            GameAnalyticsManager.Track("not_ready_rewarded_ad");
         }
     }
 

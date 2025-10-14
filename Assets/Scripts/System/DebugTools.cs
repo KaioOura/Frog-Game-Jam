@@ -37,4 +37,11 @@ public class DebugTools : MonoBehaviour
     {
         health.KillChar();
     }
+    
+    public void ForceManagedCrash()
+    {
+        // Mensagem clara para teste
+        Debug.Log("Forçando crash gerenciado (Exception)...");
+        throw new System.Exception("CRASH TEST: Exception forçada - managed");
+    }
 }

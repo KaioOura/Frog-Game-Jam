@@ -1,10 +1,17 @@
+using System.Linq;
 using Firebase.Analytics;
 using UnityEngine;
 
 public static class GameAnalyticsManager
 {
-    public static void Track(string eventName, params (string key, object value)[] parameters)
+    public static void Track(string eventName, Parameter[] parameters = null)
     {
+        if (string.IsNullOrEmpty(eventName))
+        {
+            Debug.LogWarning("[Analytics] Tentativa de logar evento com nome vazio.");
+            return;
+        }
+
         if (parameters == null || parameters.Length == 0)
         {
             FirebaseAnalytics.LogEvent(eventName);
@@ -12,13 +19,12 @@ public static class GameAnalyticsManager
         }
         else
         {
-            Parameter[] firebaseParams = new Parameter[parameters.Length];
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                firebaseParams[i] = new Parameter(parameters[i].key, parameters[i].value.ToString());
-            }
-            FirebaseAnalytics.LogEvent(eventName, firebaseParams);
-            Debug.Log($"[Analytics] Evento: {eventName} com {parameters.Length} parâmetros.");
+            FirebaseAnalytics.LogEvent(eventName, parameters);
+
+            // Mostra os parâmetros no console (útil para debug)
+            //string paramList = parameters.Select()
+            //Debug.Log($"[Analytics] Evento: {eventName} com parâmetros: {paramList}");
         }
     }
+
 }

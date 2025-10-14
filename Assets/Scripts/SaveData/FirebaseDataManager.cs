@@ -88,8 +88,11 @@ public class FirebaseDataManager : MonoBehaviour
 
         if (auth.CurrentUser != null)
         {
-            Debug.Log("Usuário já está logado: " + auth.CurrentUser.UserId);
+            
             _userID = auth.CurrentUser.UserId;
+            
+            GameLogger.Log("Usuário já está logado: " + _userID);
+            GameLogger.SetUser(_userID);
             // Pode seguir usando o Database normalmente
         }
         else
@@ -104,7 +107,8 @@ public class FirebaseDataManager : MonoBehaviour
                 }
                 
                 _userID = task.Result.User.UserId;
-                Debug.Log("Novo usuário anônimo criado: " + _userID);
+                GameLogger.Log("Novo usuário anônimo criado: " + _userID);
+                GameLogger.SetUser(_userID);
             });
         }
         
@@ -144,7 +148,7 @@ public class FirebaseDataManager : MonoBehaviour
         {
             if (task.IsCompletedSuccessfully)
             {
-                Debug.Log("Data saved successfully.");
+                GameLogger.Log("Data saved successfully.");
                 onSuccessfulComplete?.Invoke(); // true = sucesso
             }
             else
@@ -197,7 +201,7 @@ public class FirebaseDataManager : MonoBehaviour
             }
             else
             {
-                Debug.Log($"No data found for this id: {_userID}, you need to create an offline account");
+                GameLogger.Log($"No data found for this id: {_userID}, you need to create an offline account");
                 OnFailDataLoad?.Invoke();
             }
         });

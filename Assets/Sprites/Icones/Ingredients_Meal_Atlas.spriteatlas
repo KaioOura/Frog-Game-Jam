@@ -60,13 +60,17 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 609af57b2d98c8b4a99ac17303f84a83, type: 3}
     - {fileID: 2800000, guid: e8f232e3c7370d641945390243d7882b, type: 3}
     - {fileID: 2800000, guid: 2959999e659bf904d934e8b0bbe33eda, type: 3}
+    - {fileID: 2800000, guid: a1d8a2700c9f630438b5fed528aa3f21, type: 3}
+    - {fileID: 2800000, guid: 986605383c4f5f74c992198b2d97700c, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
+    - a1d8a2700c9f630438b5fed528aa3f21: 21300000
     - ab6707012afa84c47bb9ec511ca6d699: 21300000
     - e8f232e3c7370d641945390243d7882b: 21300000
     - 8bea5af35682b94408ae2f52d2016d7c: 21300000
+    - 986605383c4f5f74c992198b2d97700c: 21300000
     - bd3e544819acb184dac58cb9cbdbd84a: 21300000
     - 01b14d58c33776845b37ec8951b759f8: 21300000
     - 60c04d8875d6de64f820aa1df8a7a3fa: 21300000
@@ -81,9 +85,11 @@ SpriteAtlas:
     - 8b8710ef47221e14295fbe6c06c00ebf: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: a1d8a2700c9f630438b5fed528aa3f21, type: 3}
   - {fileID: 21300000, guid: ab6707012afa84c47bb9ec511ca6d699, type: 3}
   - {fileID: 21300000, guid: e8f232e3c7370d641945390243d7882b, type: 3}
   - {fileID: 21300000, guid: 8bea5af35682b94408ae2f52d2016d7c, type: 3}
+  - {fileID: 21300000, guid: 986605383c4f5f74c992198b2d97700c, type: 3}
   - {fileID: 21300000, guid: bd3e544819acb184dac58cb9cbdbd84a, type: 3}
   - {fileID: 21300000, guid: 01b14d58c33776845b37ec8951b759f8, type: 3}
   - {fileID: 21300000, guid: 60c04d8875d6de64f820aa1df8a7a3fa, type: 3}
@@ -97,9 +103,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 58496bcfd839e064bbe0f7816a8c9896, type: 3}
   - {fileID: 21300000, guid: 8b8710ef47221e14295fbe6c06c00ebf, type: 3}
   m_PackedSpriteNamesToIndex:
+  - esfiha
   - Macarrao_queijo
   - Queijo
   - macarrao
+  - hamburguer_camarao
   - camarao
   - Pao
   - "Lingui\xE7ao"

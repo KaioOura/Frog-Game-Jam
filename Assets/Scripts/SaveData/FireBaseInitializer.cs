@@ -54,17 +54,17 @@ public class FireBaseInitializer : MonoBehaviour
             var dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
             {
+                FirebaseApp app = FirebaseApp.DefaultInstance;
                 debugText.text = "[Firebase] Inicializado com sucesso!";
-                Debug.Log("[Firebase] Inicializado com sucesso!");
+                GameLogger.Log("[Firebase] Inicializado com sucesso!");
                 FirebaseReady = true;
             }
             else
             {
-                Debug.LogError($"[Firebase] Falha nas dependências: {dependencyStatus}");
+                GameLogger.Error($"[Firebase] Falha nas dependências: {dependencyStatus}");
             }
         });
     }
-    
     
     private IEnumerator AwaitInitialization()
     {
@@ -73,5 +73,18 @@ public class FireBaseInitializer : MonoBehaviour
         yield return new WaitForSeconds(1);
         
         sceneLoader.LoadScene();
+    }
+    
+    void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            GameAnalyticsManager.Track("player_left_game");
+        else
+            GameAnalyticsManager.Track("player_returned_game");
+    }
+
+    void OnApplicationQuit()
+    {
+        GameAnalyticsManager.Track("player_quit");
     }
 }

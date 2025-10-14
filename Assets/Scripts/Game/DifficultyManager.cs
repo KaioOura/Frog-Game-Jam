@@ -55,4 +55,9 @@ public class DifficultyManager : MonoBehaviour
         
         OnChangeDifficulty?.Invoke(this.difficulty);
     }
+
+    public Difficulty GetCurrentDifficulty()
+    {
+        return difficulty;
+    }
 }
