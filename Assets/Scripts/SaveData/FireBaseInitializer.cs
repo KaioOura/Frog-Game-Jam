@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Firebase;
 using Firebase.Auth;
@@ -6,6 +7,7 @@ using Firebase.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class FireBaseInitializer : MonoBehaviour
 {
@@ -13,13 +15,26 @@ public class FireBaseInitializer : MonoBehaviour
     public static DatabaseReference databaseReference;
     public static string UserID;
     [SerializeField] private string ID;
-
-    [SerializeField] private SceneLoader sceneLoader;
     [SerializeField] private TextMeshProUGUI debugText;
+    [SerializeField] private LoaderUI loaderUI;
+    [SerializeField] private SceneLoader sceneLoader;
+    private ScreenFader _screenFader;
+
+    private void Awake()
+    {
+        sceneLoader.LoadScene();
+    }
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        
+        _screenFader = FindAnyObjectByType<ScreenFader>();
+        
+        loaderUI.AddStep("FireBase", "Connecting wires", 1, () => FirebaseReady);
+        loaderUI.AddStep("AdManager", "Getting orders", 1, () => AdManager.IsReady);
+        loaderUI.Initialize(() => _screenFader.StartCoroutine(_screenFader.LoadSceneWithFade("Login", "Init")));
+        
         UserID = ID;
         
         debugText.text = "Trying to initialize...";
@@ -43,7 +58,6 @@ public class FireBaseInitializer : MonoBehaviour
                 
                 
                 CheckDependencies();
-                StartCoroutine(AwaitInitialization());
             });
     }
 
@@ -66,14 +80,6 @@ public class FireBaseInitializer : MonoBehaviour
         });
     }
     
-    private IEnumerator AwaitInitialization()
-    {
-        yield return new WaitUntil(() => FirebaseReady);
-        yield return new WaitUntil(() => AdManager.IsReady);
-        yield return new WaitForSeconds(1);
-        
-        sceneLoader.LoadScene();
-    }
     
     void OnApplicationPause(bool pause)
     {
