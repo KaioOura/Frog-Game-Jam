@@ -18,6 +18,7 @@ public class ScreenFader : MonoBehaviour
     
     public IEnumerator FadeIn(Action onComplete = null)
     {
+        canvasGroup.blocksRaycasts = true;
         float t = 0;
         while (t < fadeDuration)
         {
@@ -41,12 +42,18 @@ public class ScreenFader : MonoBehaviour
             yield return null;
         }
 
+        canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0;
 
         onComplete?.Invoke();
     }
+
+    public void LoadSceneWithFade(string sceneName, string sceneToUnload)
+    {
+        StartCoroutine(LoadSceneWithFadeRoutine(sceneName, sceneToUnload));
+    }
     
-    public IEnumerator LoadSceneWithFade(string sceneName, string sceneToUnload)
+    public IEnumerator LoadSceneWithFadeRoutine(string sceneName, string sceneToUnload)
     {
         // 1. Fade IN (vai até preto)
         yield return StartCoroutine(FadeIn());
@@ -76,6 +83,7 @@ public class ScreenFader : MonoBehaviour
             yield return null;
         }
 
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         yield return new WaitForSeconds(1);
         
         // 5. Agora que a cena já terminou de carregar → Fade OUT

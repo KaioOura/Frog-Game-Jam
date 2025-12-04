@@ -22,7 +22,7 @@ public class FireBaseInitializer : MonoBehaviour
 
     private void Awake()
     {
-        sceneLoader.LoadScene();
+        sceneLoader.LoadScene(true);
     }
 
     private void Start()
@@ -33,7 +33,7 @@ public class FireBaseInitializer : MonoBehaviour
         
         loaderUI.AddStep("FireBase", "Connecting wires", 1, () => FirebaseReady);
         loaderUI.AddStep("AdManager", "Getting orders", 1, () => AdManager.IsReady);
-        loaderUI.Initialize(() => _screenFader.StartCoroutine(_screenFader.LoadSceneWithFade("Login", "Init")));
+        loaderUI.Initialize(() => _screenFader.LoadSceneWithFade("Login", SceneManager.GetActiveScene().name));
         
         UserID = ID;
         

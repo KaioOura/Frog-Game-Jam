@@ -4,9 +4,8 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private string sceneToLoad;
-    [SerializeField] private bool isAdditive;
 
-    public void LoadScene()
+    public void LoadScene(bool isAdditive)
     {
         print($"Loading: {sceneToLoad} Scene");
         

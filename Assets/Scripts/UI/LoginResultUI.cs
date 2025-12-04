@@ -3,16 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoginResultUI : MonoBehaviour
 {
     [SerializeField] private GameObject offlineCreationVisual;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private SceneLoader sceneLoader;
+    
+    
+    private ScreenFader _screenFader;
     private FirebaseDataManager _firebaseDataManager;
 
     private void Awake()
     {
+        _screenFader = FindAnyObjectByType<ScreenFader>();
         StartCoroutine(SubscribeEvents());
     }
 
@@ -41,7 +46,7 @@ public class LoginResultUI : MonoBehaviour
 
     void OnEnterGame()
     {
-        sceneLoader.LoadScene();
+        _screenFader.LoadSceneWithFade("Gameplay", SceneManager.GetActiveScene().name);
     }
 
     public void ConfirmOfflineAccountCreation()
