@@ -16,9 +16,15 @@ public class BellyFrog : MonoBehaviour
     
     public BellyInventory BellyInventory => bellyInventory;
     
+    private static readonly int Damage = Animator.StringToHash("Damage");
+    private static readonly int CartOut = Animator.StringToHash("Cart Out");
+    private static readonly int HasRecipe = Animator.StringToHash("Has recipe");
+    private static readonly int FoodOut = Animator.StringToHash("Food Out");
+    
     [SerializeField] private ParticleSystem saliva_VFX;
     [SerializeField] private ParticleSystem Sweat_VFX;
     [SerializeField] private ParticleSystem StarVFX_GO;
+    [SerializeField] private ParticleSystem explosionVFX;
     public GameObject Jaw_Pos;
 
     public bool targeting;
@@ -123,8 +129,7 @@ public class BellyFrog : MonoBehaviour
         {
             //Perder vida, cuspir tudo
             _health.TakeDamage(1);
-            PlayHurtSound();
-            ThrowUpAllIngredients();
+            StartCoroutine(HandleDamageFeedbackRoutine());
             return;
         }
 
@@ -132,6 +137,18 @@ public class BellyFrog : MonoBehaviour
         OnIngredientAdd();
     }
 
+    private IEnumerator HandleDamageFeedbackRoutine()
+    {
+        frogController.SetTrigger(Damage);
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => frogController.GetCurrentAnimatorStateInfo(0).IsName("Damage"));
+        PlayHurtFeedback();
+        yield return new WaitUntil(() => !frogController.GetCurrentAnimatorStateInfo(0).IsName("Damage"));
+        
+        ThrowUpAllIngredients();
+    }
+    
     public void ThrowIngredient(int slotIndex)
     {
         if (!CanThrowUp())
@@ -180,12 +197,12 @@ public class BellyFrog : MonoBehaviour
         {
             OnMealDelivered?.Invoke(activeMealSo);
             
-            CartAnimator.SetTrigger("Cart Out");
+            CartAnimator.SetTrigger(CartOut);
             mealGO.transform.SetParent(cartPos);
             _mealPool.QueueReleaseWithDelay(mealGO, 0.2f);
             activeMealSo = null;
             mealGO = null;
-            frogController.SetBool("Has recipe", false);
+            frogController.SetBool(HasRecipe, false);
             ClearBelly();
             OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
             OnUpdateIngredients?.Invoke();
@@ -248,7 +265,7 @@ public class BellyFrog : MonoBehaviour
 
     private IEnumerator ThrowMealRecipe()
     {
-        frogController.SetBool("Has recipe", true);
+        frogController.SetBool(HasRecipe, true);
 
         foreach (var ingredient in bellyInventory.GetIngredients())
             ingredient.ReleaseToPool();
@@ -257,7 +274,7 @@ public class BellyFrog : MonoBehaviour
         mealGO.SetActive(false);
         mealGO.transform.position = bellyPos.transform.position;
 
-        frogController.SetTrigger("Food Out");
+        frogController.SetTrigger(FoodOut);
         animationController.realayerWeight = 0;
 
         launchMealAction.MealSo = activeMealSo;
@@ -296,7 +313,7 @@ public class BellyFrog : MonoBehaviour
 
         PlaySalivaVfx();
         animationController.realayerWeight -= 0.25f;
-        frogController.SetTrigger("Food Out");
+        frogController.SetTrigger(FoodOut);
     }
     
     void LaunchIngredient(Ingredient ingredient)
@@ -387,8 +404,9 @@ public class BellyFrog : MonoBehaviour
     }
     
     
-    public void PlayHurtSound()
+    public void PlayHurtFeedback()
     {
         audioSource.PlayOneShot(hurtClip);
+        explosionVFX.Play();
     }
 }

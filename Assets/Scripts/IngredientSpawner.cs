@@ -11,6 +11,8 @@ public class IngredientSpawner : MonoBehaviour
     public Treadmill treadmill;
     public IngredientSo rottenIngredient;
     public float timeSpawn = 0.5f;
+    [SerializeField] private bool spawnOnlyBomb;
+    
     
     private OrderManager _orderManager;
     private ObjectPoolManager _objectPoolManager;
@@ -90,6 +92,9 @@ public class IngredientSpawner : MonoBehaviour
     {
        Dictionary<IngredientSo, int> weightedIngredients = new Dictionary<IngredientSo, int>();
 
+       if (spawnOnlyBomb)
+           return rottenIngredient;
+       
         // Ingrediente urgente com peso adaptativo
         if (orderCloseToExpire != null)
         {

@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoaderUI : MonoBehaviour
 {
     [SerializeField] private List<LoaderUIStep> fakeSteps;
     [SerializeField] private TextMeshProUGUI loaderText;
+    [SerializeField] private Image loadBar;
 
     private List<LoaderUIStep> _steps = new List<LoaderUIStep>();
+    private float _currentStep;
     
     public void AddStep(string name, string desc, float time, Func<bool> condition = null)
     {
@@ -43,10 +46,20 @@ public class LoaderUI : MonoBehaviour
             {
                 yield return new WaitUntil(loaderUIStep.Condition);
             }
+
+            _currentStep++;
+            UpdateLoadBar();
         }
-        
+
+
         callBack?.Invoke();
     }
+
+    private void UpdateLoadBar()
+    {
+        loadBar.fillAmount = _currentStep / _steps.Count;
+    }
+    
     
 }
 

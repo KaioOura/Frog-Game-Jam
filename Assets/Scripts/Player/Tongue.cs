@@ -7,7 +7,6 @@ using UnityEngine.Profiling;
 public class Tongue : MonoBehaviour
 {
     public BellyFrog bellyFrog;
-    public Animator an;
     public Transform ingredientPos;
     public bool isTongueOccupied;
     public Ingredient ingredientCollected;
