@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
-    public float urgentBaseWeight = 7f;  // peso do ingrediente urgente quando o tempo está cheio
+    public float urgentBaseWeight = 7f; // peso do ingrediente urgente quando o tempo está cheio
     public float urgentMaxWeight = 10f; // peso do ingrediente urgente quando o tempo está no final
     public List<IngredientSo> closeExpireIngredients;
     public Treadmill treadmill;
     public IngredientSo rottenIngredient;
     public float timeSpawn = 0.5f;
     [SerializeField] private bool spawnOnlyBomb;
-    
-    
+
+
     private OrderManager _orderManager;
     private ObjectPoolManager _objectPoolManager;
     private ConveyorManager _conveyorManager;
@@ -21,15 +21,16 @@ public class IngredientSpawner : MonoBehaviour
     private IEnumerator spawnRoutine;
     float timeTrack;
 
-    public void Initialize(OrderManager orderManager, ObjectPoolManager objectPoolManager, ConveyorManager conveyorManager)
+    public void Initialize(OrderManager orderManager, ObjectPoolManager objectPoolManager,
+        ConveyorManager conveyorManager)
     {
         _orderManager = orderManager;
         _orderManager.OnRemoveOrder += OnRemoveIngredientsFromUrgent;
-        
+
         _objectPoolManager = objectPoolManager;
         _conveyorManager = conveyorManager;
     }
-    
+
     public void StartIngredientSpawn()
     {
         spawnRoutine = SpawnIngredientRoutine();
@@ -57,7 +58,7 @@ public class IngredientSpawner : MonoBehaviour
     {
         return _orderManager.ActiveOrders.Count > 0;
     }
-    
+
     public Ingredient SpawnIngredient()
     {
         orderCloseToExpire = FindOrderCloseToExpire();
@@ -69,7 +70,7 @@ public class IngredientSpawner : MonoBehaviour
 
         return ingredient;
     }
-    
+
     // private FoodPlate GetFirstFreeSpot()
     // {
     //     foreach (var spot in _conveyorManager.FoodPlates)
@@ -79,7 +80,7 @@ public class IngredientSpawner : MonoBehaviour
     //     }
     //     return null;
     // }
-    
+
     private Order FindOrderCloseToExpire()
     {
         return _orderManager.ActiveOrders
@@ -87,20 +88,22 @@ public class IngredientSpawner : MonoBehaviour
             .OrderBy(o => o.GetTimeRemainingNormalized())
             .FirstOrDefault();
     }
-    
+
     private IngredientSo SelectIngredientToSpawn()
     {
-       Dictionary<IngredientSo, int> weightedIngredients = new Dictionary<IngredientSo, int>();
+        Dictionary<IngredientSo, int> weightedIngredients = new Dictionary<IngredientSo, int>();
 
-       if (spawnOnlyBomb)
-           return rottenIngredient;
-       
+#if UNITY_EDITOR
+        if (spawnOnlyBomb)
+            return rottenIngredient;
+#endif
+
         // Ingrediente urgente com peso adaptativo
         if (orderCloseToExpire != null)
         {
             float timeRemaining = orderCloseToExpire.GetTimeRemainingNormalized();
             int urgentWeight = (int)Mathf.Lerp(urgentMaxWeight, urgentBaseWeight, timeRemaining);
-            
+
             weightedIngredients.Add(GetUrgentIngredient(), urgentWeight);
         }
 
@@ -114,10 +117,10 @@ public class IngredientSpawner : MonoBehaviour
                 if (!weightedIngredients.ContainsKey(ingredientSo))
                     weightedIngredients.Add(ingredientSo, ingredientSo.baseWeight);
             }
-           
         }
+
         weightedIngredients.Add(rottenIngredient, rottenIngredient.baseWeight);
-        
+
         return ChooseWeightedRandom(weightedIngredients);
     }
 
@@ -139,7 +142,7 @@ public class IngredientSpawner : MonoBehaviour
 
         return weightedList.Keys.Last();
     }
-    
+
     private IngredientSo GetUrgentIngredient()
     {
         // Lista de ingredientes do pedido
