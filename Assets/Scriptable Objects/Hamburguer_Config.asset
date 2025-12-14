@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mealName: Hamburguer
   score: 50
-  image: {fileID: 21300000, guid: 750ac1fb0d276244baca1b81f26d94d1, type: 3}
+  image: {fileID: 21300000, guid: 85669c5b0b4157a4cb169eac311058ab, type: 3}
   timeSecondsToPrepare: 30
   expirePercentage: 0.5
   mealGO: {fileID: 8455296564966409583, guid: 43153cf4c7e42e3459e8b76af181fd8f, type: 3}

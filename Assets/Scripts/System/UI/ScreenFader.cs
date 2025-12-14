@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ScreenFader : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeDuration = 0.5f;
     [SerializeField] private SceneLoader sceneLoader;
+    [SerializeField] private Image loadingImage;
 
     private void Awake()
     {
