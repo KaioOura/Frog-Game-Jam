@@ -5540,6 +5540,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 366896973}
+    - target: {fileID: 1745299233297654130, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745299233297654130, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745299233297654130, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745299233297654130, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3077897421924504226, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5552,6 +5568,22 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1470812797}
+    - target: {fileID: 3607229764128222714, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3607229764128222714, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3607229764128222714, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3607229764128222714, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3963479671118193523, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

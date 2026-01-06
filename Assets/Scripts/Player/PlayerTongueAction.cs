@@ -29,7 +29,7 @@ public class PlayerTongueAction : MonoBehaviour
     
     public void LaunchTongue()
     {
-        if (Time.time < tongueTimer)
+        if (Time.time < tongueTimer || GameManager.instance.gameStates is not GameStates.game)
             return;
         
         int rand = Random.Range(0, tongueClip.Length);
