@@ -51,6 +51,14 @@ public class BellyDisplayUI : MonoBehaviour
         }
     }
 
+    public void ResetUI()
+    {
+        foreach (var t in bellySlot)
+        {
+            t.gameObject.SetActive(false);
+        }
+    }
+    
     public void OnItemClicked(int slot)
     {
         OnSlotClicked?.Invoke(slot);   

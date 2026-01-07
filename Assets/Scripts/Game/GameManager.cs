@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
         character.BellyFrog.ResetBellyFrog();
         UIManager.ShowMenu(false);
         UIManager.MobileInputUI.ShowUI(true);
+        UIManager.BellyDisplayUI.ResetUI();
 
         an.SetTrigger("Game");
         

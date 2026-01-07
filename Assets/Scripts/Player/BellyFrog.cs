@@ -97,7 +97,8 @@ public class BellyFrog : MonoBehaviour
     private void LaunchFromBelly(int slotIndex)
     {
         launchIngredientAction.IngredientSo = bellyInventory.Belly[slotIndex].IngredientSo;  
-        eventChannelAction.RaiseEvent(launchIngredientAction); 
+        eventChannelAction.RaiseEvent(launchIngredientAction);
+        
         LaunchIngredient(bellyInventory.Belly[slotIndex]);
         //fazer o sapo cuspir o ingrediente correto e depois chamar esse método abaixo
         bellyInventory.RemoveIngredient(slotIndex);
@@ -183,7 +184,6 @@ public class BellyFrog : MonoBehaviour
             if (bellyInventory.Belly[i] == null) continue;
             
             RemoveFromBelly(i);
-            break;
         }
         
         OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
