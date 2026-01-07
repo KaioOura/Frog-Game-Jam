@@ -201,6 +201,12 @@ public class GameManager : MonoBehaviour
         if (_firebaseDataManager != null)
             _firebaseDataManager.SavePlayerData();
     }
+
+    public void PauseGame(bool shouldPause)
+    {
+        gameFlowManager.PauseGame(shouldPause);
+        UIManager.ShowPauseInGame(shouldPause);
+    }
     
     public void QuitGame()
     {

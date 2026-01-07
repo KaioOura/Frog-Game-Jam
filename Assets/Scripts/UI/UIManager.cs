@@ -12,17 +12,16 @@ public class UIManager : MonoBehaviour
     [field: SerializeField] public LeaderboardUI LeaderboardUI { get; private set; }
     [field: SerializeField] public MobileInputUI MobileInputUI { get; private set; }
     [field: SerializeField] public BellyDisplayUI BellyDisplayUI { get; private set; }
+    [field: SerializeField] public SecondChanceUI SecondChanceUI { get; private set; }
     
     public Image[] lifeImages;
-
-    public Image bellyFrogImage;
 
     public TextMeshProUGUI currentScoreTMP, finalScoreTMP;
     public TextMeshProUGUI finalHighScoreTMP;
     [SerializeField] private TextMeshProUGUI secondChanceScoreTMP;
     [SerializeField] private TextMeshProUGUI secondChanceHighScoreTMP;
     
-    public GameObject menu, game,postGame, secondChance;
+    public GameObject menu, game,postGame, secondChance, pauseUI;
     
     public void UpdateScore(int scoreToUpdate)
     {
@@ -77,24 +76,12 @@ public class UIManager : MonoBehaviour
     
     public void ShowSecondChance(bool shouldShow)
     {
-        if (shouldShow)
-        {
-            secondChance.SetActive(true);
-        }
-        else
-        {
-            secondChance.SetActive(false);
-        }
+        secondChance.SetActive(shouldShow);
     }
 
     public void ShowPauseInGame(bool shouldShow)
     {
-        
-    }
-
-    public void UpdateBellyFrog(float value, float maxValue)
-    {
-        bellyFrogImage.fillAmount = value / maxValue;
+        pauseUI.SetActive(shouldShow);
     }
     
 }
