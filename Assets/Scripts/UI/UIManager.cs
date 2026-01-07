@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance; //TODO: Dividir em sistemas separados. Por exemplo: ScoreUI, HealthUI, MenuUI
+    //TODO: Dividir em sistemas separados. Por exemplo: ScoreUI, HealthUI, MenuUI
 
     [field: SerializeField] public LeaderboardUI LeaderboardUI { get; private set; }
     [field: SerializeField] public MobileInputUI MobileInputUI { get; private set; }
@@ -21,15 +21,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI finalHighScoreTMP;
     [SerializeField] private TextMeshProUGUI secondChanceScoreTMP;
     [SerializeField] private TextMeshProUGUI secondChanceHighScoreTMP;
-
-
+    
     public GameObject menu, game,postGame, secondChance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
+    
     public void UpdateScore(int scoreToUpdate)
     {
         currentScoreTMP.text = scoreToUpdate.ToString();
@@ -91,6 +85,11 @@ public class UIManager : MonoBehaviour
         {
             secondChance.SetActive(false);
         }
+    }
+
+    public void ShowPauseInGame(bool shouldShow)
+    {
+        
     }
 
     public void UpdateBellyFrog(float value, float maxValue)

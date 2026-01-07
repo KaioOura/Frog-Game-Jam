@@ -8,26 +8,27 @@ public class PlateMover : MonoBehaviour
     public event Action OnRequestFood;
     public event Action OnEndPath;
     
-    public ConveyorTile currentTile;
+    private ConveyorTile _currentTile;
     private Vector3 targetPos;
     private ConveyorManager _conveyorManager;
     private float _speed = 2f;
     
     void Start()
     {
-        if (currentTile != null)
-            targetPos = currentTile.GetExitPoint();
+        if (_currentTile != null)
+            targetPos = _currentTile.GetExitPoint();
     }
 
-    public void Initialize(ConveyorManager conveyorManager)
+    public void Initialize(ConveyorManager conveyorManager, ConveyorTile startConveyorTile)
     {
         _conveyorManager = conveyorManager;
+        _currentTile = startConveyorTile;
     }
 
     public void ChangeSpeed(float speed, float tileSpeed)
     {
         _speed = speed;
-        currentTile.TileRender.material.SetFloat(Speed, tileSpeed);
+        _currentTile.TileRender.material.SetFloat(Speed, tileSpeed);
     }
     
     public void Move()
@@ -41,11 +42,11 @@ public class PlateMover : MonoBehaviour
     {
         if (!(Vector3.Distance(transform.position, targetPos) < 0.01f)) return;
         
-        ConveyorTile next = _conveyorManager.GetNextTile(currentTile);
+        ConveyorTile next = _conveyorManager.GetNextTile(_currentTile);
 
         if (next == null)
         {
-            currentTile = null; // saiu da esteira
+            _currentTile = null; // saiu da esteira
             return;
         }
         
@@ -59,7 +60,7 @@ public class PlateMover : MonoBehaviour
                 break;
         }
         
-        currentTile = next;
-        targetPos = currentTile.GetExitPoint();
+        _currentTile = next;
+        targetPos = _currentTile.GetExitPoint();
     }
 }

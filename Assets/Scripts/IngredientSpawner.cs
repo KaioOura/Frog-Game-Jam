@@ -8,7 +8,6 @@ public class IngredientSpawner : MonoBehaviour
     public float urgentBaseWeight = 7f; // peso do ingrediente urgente quando o tempo está cheio
     public float urgentMaxWeight = 10f; // peso do ingrediente urgente quando o tempo está no final
     public List<IngredientSo> closeExpireIngredients;
-    public Treadmill treadmill;
     public IngredientSo rottenIngredient;
     public float timeSpawn = 0.5f;
     [SerializeField] private bool spawnOnlyBomb;

@@ -9,7 +9,9 @@ public class ConveyorManager : MonoBehaviour
     public List<FoodPlate> FoodPlates => _foodPlates;
     
     [SerializeField] private List<PlateMover> plateMovers = new List<PlateMover>();
+    [SerializeField] private List<ConveyorTile> tilesList = new List<ConveyorTile>();
     [SerializeField] private IngredientSpawner ingredientSpawner;
+    [SerializeField] private ConveyorTile startTile;
     [SerializeField] private List<float> speedList = new List<float>();
     [SerializeField] private List<float> tileSpeedList = new List<float>();
     [SerializeField] private Material sharedTreadMillMaterial;
@@ -29,15 +31,14 @@ public class ConveyorManager : MonoBehaviour
         tiles.Clear();
 
         // registra todas as tiles na cena
-        foreach (var tile in FindObjectsByType<ConveyorTile>((FindObjectsSortMode)FindObjectsInactive.Exclude))
+        foreach (var tile in tilesList)
         {
-            if (!tiles.ContainsKey(tile.GridPos))
-                tiles.Add(tile.GridPos, tile);
+            tiles.TryAdd(tile.GridPos, tile);
         }
-
+        
         foreach (var plate in plateMovers)
         {
-            plate.Initialize(this);
+            plate.Initialize(this, startTile);
             FoodPlate foodPlate = plate.GetComponent<FoodPlate>();
             foodPlate.Initialize(ingredientSpawner);
             

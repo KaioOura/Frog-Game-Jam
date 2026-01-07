@@ -94,12 +94,17 @@ public class BellyFrog : MonoBehaviour
         bellyInventory.AddIngredient(ingredient);
     }
 
-    public void RemoveFromBelly(int slotIndex)
+    private void LaunchFromBelly(int slotIndex)
     {
         launchIngredientAction.IngredientSo = bellyInventory.Belly[slotIndex].IngredientSo;  
-        eventChannelAction.RaiseEvent(launchIngredientAction);
+        eventChannelAction.RaiseEvent(launchIngredientAction); 
         LaunchIngredient(bellyInventory.Belly[slotIndex]);
         //fazer o sapo cuspir o ingrediente correto e depois chamar esse método abaixo
+        bellyInventory.RemoveIngredient(slotIndex);
+    }
+    private void RemoveFromBelly(int slotIndex)
+    {
+        bellyInventory.Belly[slotIndex].ReleaseToPool();
         bellyInventory.RemoveIngredient(slotIndex);
     }
 
@@ -146,7 +151,7 @@ public class BellyFrog : MonoBehaviour
         PlayHurtFeedback();
         yield return new WaitUntil(() => !frogController.GetCurrentAnimatorStateInfo(0).IsName("Damage"));
         
-        ThrowUpAllIngredients();
+        DeleteAllIngredients();
     }
     
     public void ThrowIngredient(int slotIndex)
@@ -169,6 +174,20 @@ public class BellyFrog : MonoBehaviour
 
         bellyRoutine = ThrowUpIngredients();
         StartCoroutine(bellyRoutine);
+    }
+
+    private void DeleteAllIngredients()
+    {
+        for (int i = 0; i < bellyInventory.Belly.Count; i++)
+        {
+            if (bellyInventory.Belly[i] == null) continue;
+            
+            RemoveFromBelly(i);
+            break;
+        }
+        
+        OnUpdateBellyUI?.Invoke(bellyInventory.Belly, activeMealSo);
+        OnUpdateIngredients?.Invoke();
     }
 
     private bool CanThrowUp() =>
@@ -218,7 +237,7 @@ public class BellyFrog : MonoBehaviour
         while (tongue.isTongueOccupied)
             yield return null;
 
-        RemoveFromBelly(slotIndex);
+        LaunchFromBelly(slotIndex);
         IngredientThrowFeedback();
 
         yield return new WaitForSeconds(0.17f);
@@ -293,7 +312,7 @@ public class BellyFrog : MonoBehaviour
             {
                 if (bellyInventory.Belly[i] != null)
                 {
-                    RemoveFromBelly(i);
+                    LaunchFromBelly(i);
                     break;
                 }
             }
