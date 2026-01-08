@@ -109,9 +109,7 @@ public class GameManager : MonoBehaviour
         powerUpManager.Initialize(playerDataHandler);
         UIManager.MobileInputUI.Initialize(inputManager);
     }
-
-
-
+    
     public void StartGame()
     {
         gameStates = GameStates.game;

@@ -13,6 +13,7 @@ public class MobileInputUI : MonoBehaviour
     [SerializeField] private GameObject deliveryButton;
     [SerializeField] private GameObject tapSwipeButton;
     [SerializeField] private GameObject mealMathUI;
+    [SerializeField] private GameObject settingIcon;
     [SerializeField] public EventChannelAction eventChannelAction;
     
     private List<GameObject> _activeButtons = new List<GameObject>();

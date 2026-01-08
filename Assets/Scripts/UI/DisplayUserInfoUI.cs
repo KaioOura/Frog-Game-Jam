@@ -6,8 +6,7 @@ public class DisplayUserInfoUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI infos;
     private PlayerDataHandler _playerDataHandler;
-
-
+    
     public void Initialize(PlayerDataHandler playerDataHandler)
     {
         _playerDataHandler = playerDataHandler;
