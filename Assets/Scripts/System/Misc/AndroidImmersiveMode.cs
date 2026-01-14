@@ -3,35 +3,49 @@ using UnityEngine;
 public class AndroidImmersiveMode : MonoBehaviour
 {
 #if UNITY_ANDROID && !UNITY_EDITOR
+    AndroidJavaObject decorView;
+#endif
+
     void Start()
     {
-        ApplyImmersiveMode();
+        DontDestroyOnLoad(gameObject);
+        SetImmersiveMode();
     }
 
     void OnApplicationFocus(bool hasFocus)
     {
         if (hasFocus)
-            ApplyImmersiveMode();
-    }
-
-    void ApplyImmersiveMode()
-    {
-        using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
         {
-            AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-            AndroidJavaObject window = activity.Call<AndroidJavaObject>("getWindow");
-            AndroidJavaObject decorView = window.Call<AndroidJavaObject>("getDecorView");
-
-            int flags =
-                0x00000400 | // LAYOUT_FULLSCREEN
-                0x00000200 | // LAYOUT_HIDE_NAVIGATION
-                0x00000100 | // LAYOUT_STABLE
-                0x00000002 | // HIDE_NAVIGATION
-                0x00000004 | // FULLSCREEN
-                0x00001000;  // IMMERSIVE_STICKY
-
-            decorView.Call("setSystemUiVisibility", flags);
+            SetImmersiveMode();
         }
     }
+
+    public void SetImmersiveMode()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            {
+                AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+                AndroidJavaObject window = activity.Call<AndroidJavaObject>("getWindow");
+                decorView = window.Call<AndroidJavaObject>("getDecorView");
+
+                int flags =
+                    0x00000004 | // SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    0x00000002 | // SYSTEM_UI_FLAG_FULLSCREEN
+                    0x00000100 | // SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    0x00000200 | // SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    0x00000400 | // SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    0x00001000;  // SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+                decorView.Call("setSystemUiVisibility", flags);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Immersive Mode failed: " + e.Message);
+        }
 #endif
+    }
 }

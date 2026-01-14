@@ -19,6 +19,7 @@ MonoBehaviour:
   expirePercentage: 0.7
   mealGO: {fileID: 8455296564966409583, guid: b273a2ff336b18642aa24b8918f79a89, type: 3}
   difficulty: 2
+  weight: 1
   recipeIngredientsSo:
   - {fileID: 11400000, guid: a68e27e90b0bce543beff267ede9ba7d, type: 2}
   - {fileID: 11400000, guid: 08f8b41cb3fdcce468543a65e789b0e4, type: 2}

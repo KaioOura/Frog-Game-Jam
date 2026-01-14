@@ -19,4 +19,5 @@ MonoBehaviour:
   expirePercentage: 0.5
   mealGO: {fileID: 0}
   difficulty: 0
+  weight: 1
   recipeIngredientsSo: []

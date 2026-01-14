@@ -25,6 +25,7 @@ public class OrderManager : MonoBehaviour
     [SerializeField] private MealSo[] meals;
 
     [SerializeField] private int maxOrders;
+    [SerializeField] private int difficultyWeightMultiplier = 3;
     
     [Tooltip("Time in seconds to spawn order based on difficulty")]
     [SerializeField] private float[] timeToSpawn;
@@ -44,6 +45,8 @@ public class OrderManager : MonoBehaviour
     private Order _currentDeliveredOrder;
     private Dictionary<Difficulty, List<MealSo>> _mealsByDifficulty = new Dictionary<Difficulty, List<MealSo>>();
     private string _lastMealExpired;
+    
+    private List<MealSo> _eligibleMealsPool = new List<MealSo>(10);
     
     // Start is called before the first frame update
     void Start()
@@ -83,36 +86,86 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    private void SpawnOrder(Difficulty difficulty)
+    private void SpawnOrder(Difficulty currentDifficulty)
     {
-        List<MealSo> mealsAvailable = _mealsByDifficulty[difficulty];
-
-        int randMeal = UnityEngine.Random.Range(0, mealsAvailable.Count);
-
-        //Debug.Log($"Meal {mealsAvailable.Count}");
-
-        MealSo mealSo = mealsAvailable[randMeal];
+        var selectedMeal = GetMealByWeight(currentDifficulty);
         
-        if (mealSo == lastOrderMealSo)
+        if (selectedMeal == null) selectedMeal = _eligibleMealsPool[0];
+
+        if (selectedMeal == lastOrderMealSo && _eligibleMealsPool.Count > 1)
         {
-            SpawnOrder(difficulty);
-            return;
+            // Pega o próximo da lista de forma circular (muito performático)
+            int index = _eligibleMealsPool.IndexOf(selectedMeal);
+            selectedMeal = _eligibleMealsPool[(index + 1) % _eligibleMealsPool.Count];
+        }
+
+        ExecuteSpawn(selectedMeal);
+    }
+
+    private MealSo GetMealByWeight(Difficulty currentDifficulty)
+    {
+        _eligibleMealsPool.Clear();
+        int totalWeight = 0;
+        int currentDiffInt = (int)currentDifficulty;
+
+        // 1. Coletar todas as meals de dificuldades permitidas (atual ou menores)
+        // Percorremos o dicionário que você já preencheu no Start
+        foreach (var entry in _mealsByDifficulty)
+        {
+            if ((int)entry.Key > currentDiffInt) continue;
+            
+            List<MealSo> list = entry.Value;
+            for (int i = 0; i < list.Count; i++)
+            {
+                MealSo m = list[i];
+                    
+                // Definir o peso: Peso base + bônus se for da dificuldade atual
+                // Isso faz com que pratos da dificuldade atual sejam os protagonistas
+                int weight = (m.difficulty == currentDifficulty) ? m.weight * difficultyWeightMultiplier : m.weight;
+                    
+                if (weight <= 0) continue; 
+
+                _eligibleMealsPool.Add(m);
+                totalWeight += weight;
+            }
+        }
+
+        if (_eligibleMealsPool.Count == 0) return null;
+
+        // 2. Sorteio com base no peso total
+        int randomNumber = UnityEngine.Random.Range(0, totalWeight);
+        int cursor = 0;
+        MealSo selectedMeal = null;
+
+        for (int i = 0; i < _eligibleMealsPool.Count; i++)
+        {
+            MealSo m = _eligibleMealsPool[i];
+            int weight = (m.difficulty == currentDifficulty) ? m.weight * difficultyWeightMultiplier : m.weight;
+            cursor += weight;
+
+            if (randomNumber < cursor)
+            {
+                selectedMeal = m;
+                break;
+            }
         }
         
+        return selectedMeal;
+    }
+    
+    private void ExecuteSpawn(MealSo mealSo)
+    {
         Order order = _objectPoolManager.OrderPool.Pool.Get();
         verticalUIList.AddUI(order.Rect);
         order.transform.SetParent(ordersPos);
         order.transform.localScale = Vector3.one;
 
         order.InitializeOrder(mealSo, this);
-
         lastOrderMealSo = mealSo;
-
         _activeOrders.Add(order);
-        
         OnOrderSpawned?.Invoke(mealSo);
     }
-
+    
     private void OnSuccessMealDelivered(MealSo mealSo)
     {
         layoutAnim.SetTrigger("Success");
@@ -135,13 +188,17 @@ public class OrderManager : MonoBehaviour
 
     public void CheckMatchMeal(MealSo mealSo)
     {
-        foreach (var item in _activeOrders.Where(item => item.myMealSo == mealSo))
+        for (int i = 0; i < _activeOrders.Count; i++)
         {
-            item.StopAllCoroutines();
-            _currentMatchedMeal = mealSo;
-            _currentDeliveredOrder = item;
-            AudioManager.instance.PlayAudioOneShot(successOrder);
-            break;
+            if (_activeOrders[i].myMealSo == mealSo)
+            {
+                Order item = _activeOrders[i];
+                item.StopAllCoroutines();
+                _currentMatchedMeal = mealSo;
+                _currentDeliveredOrder = item;
+                AudioManager.instance.PlayAudioOneShot(successOrder);
+                break;
+            }
         }
     }
     

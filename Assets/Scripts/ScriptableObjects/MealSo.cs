@@ -17,6 +17,7 @@ public class MealSo : ScriptableObject
 
     public MealGO mealGO;
     public Difficulty difficulty;
+    public int weight = 10;
 
     [FormerlySerializedAs("recipeIngredients")] public IngredientSo[] recipeIngredientsSo;
     

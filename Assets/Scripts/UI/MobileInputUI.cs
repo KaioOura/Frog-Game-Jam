@@ -63,5 +63,6 @@ public class MobileInputUI : MonoBehaviour
         }
         
         joystick.gameObject.SetActive(shouldShow);
+        settingIcon.SetActive(shouldShow);
     }
 }
