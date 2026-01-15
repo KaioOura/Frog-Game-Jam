@@ -38,7 +38,7 @@ public class FPSDisplay : MonoBehaviour
 
             float averageFPS = totalFPS / totalSeconds;
 
-            fpsText.text = $"FPS: {fps:F1}\nAverage: {averageFPS:F1}\nLowest: {lowestFPS:F1}";
+            fpsText.text = $"FPS: {fps:F1}\nAverage: {averageFPS:F1}";
 
             frameCount = 0;
             deltaTime = 0f;

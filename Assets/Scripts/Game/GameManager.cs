@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
         
 
         AudioManager.instance.PlayGameMusic();
-        //TutorialManager.TryStartTutorial();
+        TutorialManager.TryStartTutorial();
 
         _startGameTime = (int)Time.time;
         
