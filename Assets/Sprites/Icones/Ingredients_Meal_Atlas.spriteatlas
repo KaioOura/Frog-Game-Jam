@@ -106,9 +106,9 @@ SpriteAtlas:
   - esfiha
   - Macarrao_queijo
   - Queijo
-  - macarrao
+  - Macarrao
   - hamburguer_camarao
-  - camarao
+  - Camarao
   - Pao
   - "Lingui\xE7ao"
   - Carne
@@ -116,10 +116,10 @@ SpriteAtlas:
   - hamburguer_queijo
   - Pizza
   - Macarrao_camarao
-  - tomate
+  - Tomate
   - Macarrao_bolonhesa
-  - alho
-  - farinha
+  - Alho
+  - Farinha
   m_RenderDataMap: {}
   m_Tag: Ingredients_Meal_Atlas
   m_IsVariant: 0
