@@ -20,11 +20,12 @@ public class Order : MonoBehaviour
     [SerializeField] private Image mealImage;
     [SerializeField] private Image[] recipeIngredientsIMG;
     [SerializeField] private GameObject[] ingredientSeparators;
-    [SerializeField] private int mealTime;
     [SerializeField] private int orignalMealTime;
     [SerializeField] private Image timeCount;
     [SerializeField] private Image ingredientGrid;
 
+    private float _timeRemaining;
+    private int _urgentCursor;
     private IEnumerator countDownRoutine;
     private OrderHighlighter _orderHighlighter;
     private RectTransform _rect;
@@ -43,8 +44,9 @@ public class Order : MonoBehaviour
     {
         myMealSo = mealSo;
         mealImage.sprite = myMealSo.image;
-        mealTime = mealSo.timeSecondsToPrepare;
         orignalMealTime = mealSo.timeSecondsToPrepare;
+        _timeRemaining = orignalMealTime;
+        _urgentCursor = 0;
 
         timeCount.fillAmount = GetTimeRemainingNormalized();
 
@@ -74,23 +76,20 @@ public class Order : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        float timeRemaining = 1;
-        timeCount.color = GetTimeColor(timeRemaining);
-        
-        while (mealTime >= 0)
+        while (_timeRemaining > 0)
         {
             if (GameManager.instance.gameStates == GameStates.finish)
             {
                 yield break;
             }
 
-            yield return new WaitForSeconds(1);
+            _timeRemaining -= Time.deltaTime;
 
-            mealTime -= 1;
-            timeRemaining = GetTimeRemainingNormalized();
-            timeCount.color = GetTimeColor(timeRemaining);
+            float timeRemaining = GetTimeRemainingNormalized();
             timeCount.fillAmount = timeRemaining;
-            //Debug.Log(timeCount);
+            timeCount.color = GetTimeColor(timeRemaining);
+
+            yield return null;
         }
 
         OnOrderExpired?.Invoke(this);
@@ -108,12 +107,23 @@ public class Order : MonoBehaviour
     
     public float GetTimeRemainingNormalized()
     {
-        return mealTime / (float)orignalMealTime;
+        return Mathf.Clamp01(_timeRemaining / orignalMealTime);
     }
 
     public bool IsCloseToExpire()
     {
         return GetTimeRemainingNormalized() <= myMealSo.expirePercentage;
+    }
+
+    // Cada order cicla os próprios ingredientes urgentes (estado por order,
+    // resetado no InitializeOrder via pool). Evita que orders urgentes
+    // simultâneas misturem ciclos.
+    public IngredientSo GetNextUrgentIngredient()
+    {
+        var recipe = myMealSo.recipeIngredientsSo;
+        IngredientSo next = recipe[_urgentCursor % recipe.Length];
+        _urgentCursor++;
+        return next;
     }
 
     public void DeleteOrder()

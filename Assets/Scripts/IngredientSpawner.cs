@@ -7,9 +7,7 @@ public class IngredientSpawner : MonoBehaviour
 {
     public float urgentBaseWeight = 7f; // peso do ingrediente urgente quando o tempo está cheio
     public float urgentMaxWeight = 10f; // peso do ingrediente urgente quando o tempo está no final
-    public List<IngredientSo> closeExpireIngredients;
     public IngredientSo rottenIngredient;
-    public float timeSpawn = 0.5f;
     [SerializeField] private bool spawnOnlyBomb;
 
 
@@ -17,40 +15,15 @@ public class IngredientSpawner : MonoBehaviour
     private ObjectPoolManager _objectPoolManager;
     private ConveyorManager _conveyorManager;
     private Order orderCloseToExpire;
-    private IEnumerator spawnRoutine;
-    float timeTrack;
+
+    private readonly Dictionary<IngredientSo, int> _weightedIngredients = new Dictionary<IngredientSo, int>();
 
     public void Initialize(OrderManager orderManager, ObjectPoolManager objectPoolManager,
         ConveyorManager conveyorManager)
     {
         _orderManager = orderManager;
-        _orderManager.OnRemoveOrder += OnRemoveIngredientsFromUrgent;
-
         _objectPoolManager = objectPoolManager;
         _conveyorManager = conveyorManager;
-    }
-
-    public void StartIngredientSpawn()
-    {
-        spawnRoutine = SpawnIngredientRoutine();
-        StartCoroutine(spawnRoutine);
-    }
-
-    public void StopIngredientSpawn()
-    {
-        if (spawnRoutine != null)
-            StopCoroutine(spawnRoutine);
-    }
-
-    IEnumerator SpawnIngredientRoutine()
-    {
-        yield return new WaitUntil(() => _orderManager.ActiveOrders.Count > 0);
-
-        while (true)
-        {
-            yield return new WaitForSeconds(timeSpawn);
-            SpawnIngredient();
-        }
     }
 
     public bool HasOrderActive()
@@ -90,7 +63,7 @@ public class IngredientSpawner : MonoBehaviour
 
     private IngredientSo SelectIngredientToSpawn()
     {
-        Dictionary<IngredientSo, int> weightedIngredients = new Dictionary<IngredientSo, int>();
+        _weightedIngredients.Clear();
 
 #if UNITY_EDITOR
         if (spawnOnlyBomb)
@@ -103,7 +76,7 @@ public class IngredientSpawner : MonoBehaviour
             float timeRemaining = orderCloseToExpire.GetTimeRemainingNormalized();
             int urgentWeight = (int)Mathf.Lerp(urgentMaxWeight, urgentBaseWeight, timeRemaining);
 
-            weightedIngredients.Add(GetUrgentIngredient(), urgentWeight);
+            _weightedIngredients.Add(orderCloseToExpire.GetNextUrgentIngredient(), urgentWeight);
         }
 
         // Ingredientes normais
@@ -113,14 +86,15 @@ public class IngredientSpawner : MonoBehaviour
 
             foreach (IngredientSo ingredientSo in order.myMealSo.recipeIngredientsSo)
             {
-                if (!weightedIngredients.ContainsKey(ingredientSo))
-                    weightedIngredients.Add(ingredientSo, ingredientSo.baseWeight);
+                if (!_weightedIngredients.ContainsKey(ingredientSo))
+                    _weightedIngredients.Add(ingredientSo, ingredientSo.baseWeight);
             }
         }
 
-        weightedIngredients.Add(rottenIngredient, rottenIngredient.baseWeight);
+        if (!_weightedIngredients.ContainsKey(rottenIngredient))
+            _weightedIngredients.Add(rottenIngredient, rottenIngredient.baseWeight);
 
-        return ChooseWeightedRandom(weightedIngredients);
+        return ChooseWeightedRandom(_weightedIngredients);
     }
 
     private IngredientSo ChooseWeightedRandom(Dictionary<IngredientSo, int> weightedList)
@@ -140,34 +114,5 @@ public class IngredientSpawner : MonoBehaviour
         }
 
         return weightedList.Keys.Last();
-    }
-
-    private IngredientSo GetUrgentIngredient()
-    {
-        // Lista de ingredientes do pedido
-        var recipeIngredients = orderCloseToExpire.myMealSo.recipeIngredientsSo
-            .Select(r => r)
-            .ToList();
-
-        // Procura o primeiro ingrediente que ainda não foi spawnado
-        var nextIngredient = recipeIngredients
-            .FirstOrDefault(ing => !closeExpireIngredients.Contains(ing));
-
-        // Se todos já foram spawnados, reinicia o ciclo pegando o primeiro
-        if (nextIngredient == null)
-        {
-            closeExpireIngredients.Clear();
-            nextIngredient = recipeIngredients.First();
-        }
-
-        // Marca que este ingrediente já foi escolhido
-        closeExpireIngredients.Add(nextIngredient);
-
-        return nextIngredient;
-    }
-
-    private void OnRemoveIngredientsFromUrgent(IngredientSo[] ingredients)
-    {
-        closeExpireIngredients.RemoveAll(ingredients.Contains);
     }
 }

@@ -63,6 +63,10 @@ MonoBehaviour:
     m_Key: optionMenu.Language.PT-BR
     m_Metadata:
       m_Items: []
+  - m_Id: 95355085945655296
+    m_Key: optionMenu.AudioOptions
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

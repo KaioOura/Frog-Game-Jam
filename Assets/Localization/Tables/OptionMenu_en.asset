@@ -66,6 +66,10 @@ MonoBehaviour:
     m_Localized: PT-Brazil
     m_Metadata:
       m_Items: []
+  - m_Id: 95355085945655296
+    m_Localized: Audio Options
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

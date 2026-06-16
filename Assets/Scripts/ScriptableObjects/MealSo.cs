@@ -12,6 +12,11 @@ public class MealSo : ScriptableObject
     public int score;
     public Sprite image;
     public int timeSecondsToPrepare;
+
+    // Quando o tempo restante cai abaixo desta fração, a order entra em "urgência"
+    // e o IngredientSpawner passa a forçar os ingredientes desta receita (rede de
+    // segurança que garante cobertura). Ajuste para que, ao disparar, ainda sobre
+    // tempo × pratos suficientes para spawnar todos os ingredientes da receita.
     [Range(0, 1)]
     public float expirePercentage;
 

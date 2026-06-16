@@ -10,7 +10,7 @@ public class InitialSettingSetter : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("SettingQuality"))
         {
-            _qualitySaved = PlayerPrefs.GetInt("Quality", qualitySetter.QualityLevelSo.QualityLevels.Length - 1);
+            _qualitySaved = PlayerPrefs.GetInt("SettingQuality", qualitySetter.QualityLevelSo.QualityLevels.Length - 1);
             qualitySetter.ChangeQuality(_qualitySaved);
         }
         else

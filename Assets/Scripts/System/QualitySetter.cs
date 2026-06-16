@@ -5,8 +5,17 @@ using UnityEngine.Rendering;
 public class QualitySetter : MonoBehaviour
 {
     public QualityLevelSO QualityLevelSo => qualityLevelSo;
-    
+    public int CurrentQuality => _currentQuality;
+
     [SerializeField] private QualityLevelSO qualityLevelSo;
+
+    private int _currentQuality;
+
+    private void Awake()
+    {
+        // Fonte de verdade do nível atual, válida mesmo antes do menu abrir.
+        _currentQuality = PlayerPrefs.GetInt("SettingQuality", qualityLevelSo.QualityLevels.Length - 1);
+    }
 
     public void SetAutoSetting()
     {
@@ -36,6 +45,8 @@ public class QualitySetter : MonoBehaviour
     
     public void ChangeQuality(int value)
     {
+        _currentQuality = value;
+
         QualitySettings.SetQualityLevel(value);
         QualitySettings.renderPipeline = qualityLevelSo.QualityLevels[value];
 

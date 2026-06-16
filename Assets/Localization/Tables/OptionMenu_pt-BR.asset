@@ -66,6 +66,10 @@ MonoBehaviour:
     m_Localized: PT-Brasil
     m_Metadata:
       m_Items: []
+  - m_Id: 95355085945655296
+    m_Localized: "Op\xE7\xF5es de \xC1udio"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
