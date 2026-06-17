@@ -970,6 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: Kaio
+  forceOfflineInEditor: 0
   debugText: {fileID: 1779686463}
   loaderUI: {fileID: 845795617}
   sceneLoader: {fileID: 659818083}
