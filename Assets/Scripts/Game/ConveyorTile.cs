@@ -63,4 +63,19 @@ public class ConveyorTile : MonoBehaviour
     {
         return target.position;
     }
+
+#if UNITY_EDITOR
+    // Usado pelo ConveyorLayoutBuilder para configurar o tile já posicionado.
+    public void EditorConfigure(Dir direction, TileType type)
+    {
+        outDir = direction;
+        tileType = type;
+        gridPos = RoundToOneDecimal(new Vector2(transform.localPosition.x, transform.localPosition.z));
+
+        if (visualTransform != null && flowRotations != null && flowRotations.Length > (int)direction)
+            visualTransform.localEulerAngles = new Vector3(0, flowRotations[(int)direction], 0);
+
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+#endif
 }

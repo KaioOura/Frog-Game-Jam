@@ -4,10 +4,12 @@ using UnityEngine.Serialization;
 
 public class PlateMover : MonoBehaviour
 {
-    private static readonly int Speed = Shader.PropertyToID("_Speed");
     public event Action OnRequestFood;
     public event Action OnEndPath;
-    
+
+    // Quantos tiles este prato já percorreu (usado para espaçar o spawn).
+    public int TilesTraversed { get; private set; }
+
     private ConveyorTile _currentTile;
     private Vector3 targetPos;
     private ConveyorManager _conveyorManager;
@@ -25,10 +27,9 @@ public class PlateMover : MonoBehaviour
         _currentTile = startConveyorTile;
     }
 
-    public void ChangeSpeed(float speed, float tileSpeed)
+    public void SetSpeed(float speed)
     {
         _speed = speed;
-        _currentTile.TileRender.material.SetFloat(Speed, tileSpeed);
     }
     
     public void Move()
@@ -62,5 +63,6 @@ public class PlateMover : MonoBehaviour
         
         _currentTile = next;
         targetPos = _currentTile.GetExitPoint();
+        TilesTraversed++;
     }
 }
