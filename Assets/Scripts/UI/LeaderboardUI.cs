@@ -31,21 +31,28 @@ public class LeaderboardUI : MonoBehaviour
 
     private void OnEnable()
     {
-        RequestLeaderboardList();
+        // Pode disparar antes da injeção do manager; evita NRE.
+        if (_leaderboardManager != null)
+            RequestLeaderboardList();
     }
 
     private void RequestLeaderboardList()
     {
         _leaderboardManager.GetEntries();
     }
-    
+
     private void UpdateUI(List<LeaderboardEntry> leaderboardEntries)
     {
         for (var index = 0; index < _leaderboardEntryUI.Count; index++)
         {
             var entryUI = _leaderboardEntryUI[index];
-            
-            entryUI.Initialize(leaderboardEntries[index], index);
+
+            // Ativa só os slots com entrada correspondente; oculta o resto.
+            bool hasEntry = index < leaderboardEntries.Count;
+            entryUI.gameObject.SetActive(hasEntry);
+
+            if (hasEntry)
+                entryUI.Initialize(leaderboardEntries[index], index);
         }
     }
 }

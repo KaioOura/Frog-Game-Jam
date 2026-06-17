@@ -12,9 +12,15 @@ using UnityEngine.Serialization;
 public class FireBaseInitializer : MonoBehaviour
 {
     public static bool FirebaseReady = false;
+    public static bool FirebaseFailed = false;
     public static DatabaseReference databaseReference;
     public static string UserID;
     [SerializeField] private string ID;
+#if UNITY_EDITOR
+    [Header("Debug (Editor)")]
+    [Tooltip("Força o modo offline (Firebase indisponível) para testar o fallback de convidado/leaderboard-fakes.")]
+    [SerializeField] private bool forceOfflineInEditor;
+#endif
     [SerializeField] private TextMeshProUGUI debugText;
     [SerializeField] private LoaderUI loaderUI;
     [SerializeField] private SceneLoader sceneLoader;
@@ -31,53 +37,61 @@ public class FireBaseInitializer : MonoBehaviour
         
         _screenFader = FindAnyObjectByType<ScreenFader>();
         
-        loaderUI.AddStep("FireBase", "Connecting wires", 1, () => FirebaseReady);
+        loaderUI.AddStep("FireBase", "Connecting wires", 1, () => FirebaseReady || FirebaseFailed);
         loaderUI.AddStep("AdManager", "Getting orders", 1, () => AdManager.IsReady);
         loaderUI.Initialize(() => _screenFader.LoadSceneWithFade("Login", SceneManager.GetActiveScene().name));
         
         UserID = ID;
         
         debugText.text = "Trying to initialize...";
-        
+
+#if UNITY_EDITOR
+        if (forceOfflineInEditor)
+        {
+            debugText.text = "[Firebase] Modo offline forçado (editor).";
+            GameLogger.Log("[Firebase] Modo offline forçado (editor).");
+            FirebaseFailed = true;
+            return;
+        }
+#endif
+
+        // Firebase exige verificar/consertar dependências ANTES de usar Auth/Database.
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.Result != DependencyStatus.Available)
+            {
+                string status = task.IsFaulted
+                    ? task.Exception?.Flatten().Message
+                    : task.Result.ToString();
+
+                debugText.text = "[Firebase] Falha nas dependências: " + status;
+                GameLogger.Error($"[Firebase] Falha nas dependências: {status}");
+                FirebaseFailed = true;
+                return;
+            }
+
+            Authenticate();
+        });
+    }
+
+    private void Authenticate()
+    {
         FirebaseAuth.DefaultInstance.SignInAnonymouslyAsync()
             .ContinueWithOnMainThread(task =>
             {
                 if (task.IsFaulted)
                 {
-                    
-                    debugText.text = "Erro de autenticação: " + task.Exception.Message;
-                    Debug.LogError(task.Exception);
+                    debugText.text = "Erro de autenticação: " + task.Exception?.Flatten().Message;
+                    GameLogger.Error($"[Firebase] Erro de autenticação: {task.Exception}");
+                    FirebaseFailed = true;
                     return;
                 }
 
-                debugText.text = "Autenticado com sucesso ";
-                //Debug.Log("Usuário autenticado: " + UserID);
-
                 databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-                debugText.text = "DatabaseReference Success";
-                
-                
-                CheckDependencies();
-            });
-    }
-
-    void CheckDependencies()
-    {
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-        {
-            var dependencyStatus = task.Result;
-            if (dependencyStatus == DependencyStatus.Available)
-            {
-                FirebaseApp app = FirebaseApp.DefaultInstance;
                 debugText.text = "[Firebase] Inicializado com sucesso!";
                 GameLogger.Log("[Firebase] Inicializado com sucesso!");
                 FirebaseReady = true;
-            }
-            else
-            {
-                GameLogger.Error($"[Firebase] Falha nas dependências: {dependencyStatus}");
-            }
-        });
+            });
     }
     
     

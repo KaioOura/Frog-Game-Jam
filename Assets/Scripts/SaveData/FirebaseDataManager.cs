@@ -44,12 +44,14 @@ public class FirebaseDataManager : MonoBehaviour
     public LeaderboardManager LeaderboardManager => leaderboardManager;
     public PlayerData PlayerData => _playerData;
     public string UserID => _userID;
+    public bool IsOnline => _isOnline;
 
     [SerializeField] private LeaderboardManager leaderboardManager;
-    
+
     private PlayerData _playerData;
     private DatabaseReference dbRef;
     private string _userID; //It's used to access user's database on FireBase to retrieve and send data
+    private bool _isOnline;
 
 
     private void Awake()
@@ -65,59 +67,68 @@ public class FirebaseDataManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return new WaitUntil(() => FireBaseInitializer.FirebaseReady);
-        //yield return new WaitUntil(() => FirebaseAuthManager.LoggedIn);
+        yield return new WaitUntil(() => FireBaseInitializer.FirebaseReady || FireBaseInitializer.FirebaseFailed);
 
-        FirebaseAuth auth = FirebaseAuth.DefaultInstance;
+        if (FireBaseInitializer.FirebaseFailed)
+        {
+            yield return null; // dá um frame para o LoginResultUI assinar os eventos
+            EnterOfflineMode();
+            yield break;
+        }
+
+        _isOnline = true;
         dbRef = FireBaseInitializer.databaseReference.Child("Players");
 
-// #if UNITY_EDITOR
-//         if (PlayerPrefs.HasKey("UserID"))
-//         {
-//             _userID = PlayerPrefs.GetString("UserID");
-//             Debug.Log("PlayerPrefs UserID found, using it...");
-//         }
-//         else
-//         {
-//             _userID = $"{auth.CurrentUser.UserId}"; //This ID is set manually in FireBaseInitializer while playing on Unity
-//             PlayerPrefs.SetString("UserID", _userID);
-//         }
-//
-// #else
-        
+        // Só acessa o banco depois que _userID estiver garantido (evita a race
+        // de ler/gravar com _userID vazio).
+        EnsureSignedIn(() =>
+        {
+            print("FirebaseDatabaseReference found successfully.");
+
+            LoadPlayerData();
+            leaderboardManager.Initialize();
+        });
+    }
+
+    // Firebase indisponível: segue como sessão convidado (não persiste) para não
+    // travar o jogador na tela de loading. O leaderboard mostra só os fakes.
+    private void EnterOfflineMode()
+    {
+        _isOnline = false;
+        GameLogger.Error("Firebase indisponível — entrando em modo offline (sessão não será salva).");
+
+        _playerData = new PlayerData { Username = "Guest" };
+        leaderboardManager.Initialize();
+        OnSuccessfulDataLoad?.Invoke();
+    }
+
+    private void EnsureSignedIn(Action onReady)
+    {
+        FirebaseAuth auth = FirebaseAuth.DefaultInstance;
 
         if (auth.CurrentUser != null)
         {
-            
             _userID = auth.CurrentUser.UserId;
-            
             GameLogger.Log("Usuário já está logado: " + _userID);
             GameLogger.SetUser(_userID);
-            // Pode seguir usando o Database normalmente
+            onReady?.Invoke();
+            return;
         }
-        else
-        {
-            Debug.Log("Nenhum usuário logado, autenticando anonimamente...");
-            auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(task =>
-            {
-                if (task.IsFaulted)
-                {
-                    Debug.LogError("Erro ao autenticar: " + task.Exception);
-                    return;
-                }
-                
-                _userID = task.Result.User.UserId;
-                GameLogger.Log("Novo usuário anônimo criado: " + _userID);
-                GameLogger.SetUser(_userID);
-            });
-        }
-        
-//#endif
 
-        print("FirebaseDatabaseReference found successfully.");
-        
-        LoadPlayerData();
-        leaderboardManager.Initialize();
+        Debug.Log("Nenhum usuário logado, autenticando anonimamente...");
+        auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Erro ao autenticar: " + task.Exception);
+                return;
+            }
+
+            _userID = task.Result.User.UserId;
+            GameLogger.Log("Novo usuário anônimo criado: " + _userID);
+            GameLogger.SetUser(_userID);
+            onReady?.Invoke();
+        });
     }
 
     [ContextMenu("NextScene")]
@@ -141,6 +152,13 @@ public class FirebaseDataManager : MonoBehaviour
 
     private void SavePlayerData(PlayerData playerData, Action onSuccessfulComplete = null, Action onFailComplete = null)
     {
+        if (!_isOnline || dbRef == null)
+        {
+            GameLogger.Log("Modo offline: progresso não foi salvo.");
+            onFailComplete?.Invoke();
+            return;
+        }
+
         //string json = JsonConvert.SerializeObject(_playerData);
         string json = JsonUtility.ToJson(playerData);
 
