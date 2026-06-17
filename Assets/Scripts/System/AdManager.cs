@@ -92,7 +92,18 @@ public class AdManager : MonoBehaviour
     public void ShowRewardedAd(Action rewardCallback)
     {
          _pendingRewardCallback = rewardCallback;
-         
+
+#if UNITY_EDITOR
+        // Mock de editor: anúncio real não carrega no editor, então simulamos a
+        // visualização e concedemos a recompensa pelo mesmo caminho (Update).
+        if (_rewardedAd == null || !_rewardedAd.CanShowAd())
+        {
+            Debug.Log("[AdManager] Editor mock: concedendo recompensa sem anúncio real.");
+            _pendingReward = true;
+            return;
+        }
+#endif
+
         if (IsAdAvailable())
         {
             GameAnalyticsManager.Track("start_rewarded_ad");
@@ -128,6 +139,10 @@ public class AdManager : MonoBehaviour
 
     public static bool IsAdAvailable()
     {
+#if UNITY_EDITOR
+        return true; // mock: mantém o botão de reward habilitado para testar no editor
+#else
         return _rewardedAd != null && _rewardedAd.CanShowAd();
+#endif
     }
 }
