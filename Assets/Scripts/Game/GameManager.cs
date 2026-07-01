@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
         character.BellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;
         an.SetTrigger("Menu");
-        UIManager.ShowHidePostGame(shouldShow: true);
+        //UIManager.ShowHidePostGame(shouldShow: true);
         
         if (_firebaseDataManager)
             _firebaseDataManager.SavePlayerData();
@@ -164,6 +164,8 @@ public class GameManager : MonoBehaviour
         int timePlayed = (int)(Time.time - _startGameTime);
         GameAnalyticsManager.Track("game_end", 
             ParametersGetter.GetDieParameters(playerDataHandler, DifficultyManager, ScoreManager, timePlayed, OrderManager));
+        
+        GoToMenu();
     }
 
     public void GoToMenu()

@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: game.SecondChance.Title
     m_Metadata:
       m_Items: []
+  - m_Id: 100777743164198912
+    m_Key: Out.of.lives
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

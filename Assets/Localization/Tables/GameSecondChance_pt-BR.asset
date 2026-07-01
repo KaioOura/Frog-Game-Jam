@@ -22,6 +22,10 @@ MonoBehaviour:
     m_Localized: Mais uma chance?
     m_Metadata:
       m_Items: []
+  - m_Id: 100777743164198912
+    m_Localized: Sem vidas!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
