@@ -1,0 +1,77 @@
+===================== FINGERPRINT =====================
+PC (hostname) : DEKSTOP-KAIO
+Data          : Thu Jul  2 00:20:22     2026
+
+----- Unity version (tem que ser IDENTICO) -----
+m_EditorVersion: 6000.3.10f1
+m_EditorVersionWithRevision: 6000.3.10f1 (e35f0c77bd8e)
+
+----- Git (commit + working tree) -----
+Commit: 4053c35f000a915c28e94f762130ce29a5ef51ba
+Branch: develop
+--- git status (TEM QUE ESTAR VAZIO nos dois) ---
+ M Assets/AddressableAssetsData/AddressableAssetSettings.asset
+ M Assets/DefaultVolumeProfile.asset
+ M Assets/Scenes/Gameplay.unity
+ M "Assets/Scenes/Gameplay/GameObject Profile.asset"
+ M "Assets/Scenes/Gameplay/Global Volume Profile.asset"
+ M Assets/UniversalRenderPipelineGlobalSettings.asset
+?? Assets/Feel/FeelDemos/FeelTemplatesDemo.unitypackage.meta
+?? Assets/Feel/FeelDemosURP/FeelDemosURP.unitypackage.meta
+?? Assets/Feel/NiceVibrations/OlderVersions/v1.7/NiceVibrations-v-1-7.unitypackage.meta
+?? Assets/Feel/NiceVibrations/OlderVersions/v2.0.1/NiceVibrations-v-2-0-1.unitypackage.meta
+?? Assets/Feel/NiceVibrations/OlderVersions/v3.9/NiceVibrations-v-3-9-0.unitypackage.meta
+?? Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_3_0.bundle.meta
+?? Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_3_0.so.meta
+?? "Assets/Scenes/Gameplay/GameObject Profile 1.asset"
+?? "Assets/Scenes/Gameplay/GameObject Profile 1.asset.meta"
+?? fingerprint_DEKSTOP-KAIO.txt
+
+----- Color Space (1=Linear) -----
+  m_ActiveColorSpace: 1
+
+----- Graphics APIs por plataforma -----
+549:  m_BuildTargetGraphicsAPIs:
+551:    m_APIs: 10000000
+554:    m_APIs: 10000000
+557:    m_APIs: 150000000b000000
+560:    m_APIs: 0b000000
+563:    m_APIs: 0200000012000000
+
+----- Quality tier ativo -----
+  m_CurrentQuality: 0
+
+----- URP assets: HDR / grading / LUT -----
+[High]
+  m_SupportsHDR: 0
+  m_ColorGradingMode: 0
+  m_ColorGradingLutSize: 32
+[Medium]
+  m_SupportsHDR: 0
+  m_ColorGradingMode: 0
+  m_ColorGradingLutSize: 32
+[Low]
+  m_SupportsHDR: 0
+  m_ColorGradingMode: 0
+  m_ColorGradingLutSize: 16
+
+----- Cameras da cena Gameplay (PP / tipo / renderer / volume mask) -----
+812:    m_Bits: 1
+815:    m_Bits: 1
+869:    m_Bits: 4294967295
+1196:    m_Bits: 247
+1257:  m_CameraType: 0
+1258:  m_Cameras: []
+1259:  m_RendererIndex: 0
+1262:    m_Bits: 1
+1265:  m_RenderPostProcessing: 1
+3213:    m_Bits: 1
+3216:    m_Bits: 1
+3270:    m_Bits: 129
+3363:    m_Bits: 32
+5179:    m_Bits: 32
+5206:  m_CameraType: 1
+5207:  m_Cameras: []
+5208:  m_RendererIndex: 1
+5211:    m_Bits: 1
+5214:  m_RenderPostProcessing: 0
