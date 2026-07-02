@@ -1,0 +1,67 @@
+===================== FINGERPRINT =====================
+PC (hostname) : Xenomorph
+Data          : Thu Jul  2 00:44:04     2026
+
+----- Unity version (tem que ser IDENTICO) -----
+m_EditorVersion: 6000.3.10f1
+m_EditorVersionWithRevision: 6000.3.10f1 (e35f0c77bd8e)
+
+----- Git (commit + working tree) -----
+Commit: a4ebac88758c0cbdccb50ca506ab6f9a0de58f2a
+Branch: develop
+--- git status (TEM QUE ESTAR VAZIO nos dois) ---
+?? fingerprint_Xenomorph.txt
+
+----- Color Space (1=Linear) -----
+  m_ActiveColorSpace: 1
+
+----- Graphics APIs por plataforma -----
+549:  m_BuildTargetGraphicsAPIs:
+551:    m_APIs: 10000000
+554:    m_APIs: 10000000
+557:    m_APIs: 150000000b000000
+560:    m_APIs: 0b000000
+563:    m_APIs: 0200000012000000
+
+----- Quality tier ativo -----
+  m_CurrentQuality: 0
+
+----- URP assets: HDR / grading / LUT -----
+[High]
+  m_SupportsHDR: 0
+  m_ColorGradingMode: 0
+  m_ColorGradingLutSize: 32
+[Medium]
+  m_SupportsHDR: 0
+  m_ColorGradingMode: 0
+  m_ColorGradingLutSize: 32
+[Low]
+  m_SupportsHDR: 0
+  m_ColorGradingMode: 0
+  m_ColorGradingLutSize: 16
+
+----- Cameras da cena Gameplay (PP / tipo / renderer / volume mask) -----
+812:    m_Bits: 1
+815:    m_Bits: 1
+869:    m_Bits: 4294967295
+1196:    m_Bits: 247
+1257:  m_CameraType: 0
+1258:  m_Cameras: []
+1259:  m_RendererIndex: 0
+1262:    m_Bits: 1
+1265:  m_RenderPostProcessing: 1
+3213:    m_Bits: 1
+3216:    m_Bits: 1
+3270:    m_Bits: 129
+3363:    m_Bits: 32
+5179:    m_Bits: 32
+5206:  m_CameraType: 1
+5207:  m_Cameras: []
+5208:  m_RendererIndex: 1
+5211:    m_Bits: 1
+5214:  m_RenderPostProcessing: 0
+
+----- Renderer Features -----
+Assets/Settings/ForwardRenderer.asset:27:  m_RendererFeatures: []
+Assets/Settings/UIRenderer.asset:27:  m_RendererFeatures: []
+=======================================================
