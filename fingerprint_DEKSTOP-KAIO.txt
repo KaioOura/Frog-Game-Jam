@@ -1,31 +1,16 @@
 ===================== FINGERPRINT =====================
 PC (hostname) : DEKSTOP-KAIO
-Data          : Thu Jul  2 00:20:22     2026
+Data          : Thu Jul  2 00:40:44     2026
 
 ----- Unity version (tem que ser IDENTICO) -----
 m_EditorVersion: 6000.3.10f1
 m_EditorVersionWithRevision: 6000.3.10f1 (e35f0c77bd8e)
 
 ----- Git (commit + working tree) -----
-Commit: 4053c35f000a915c28e94f762130ce29a5ef51ba
+Commit: a4ebac88758c0cbdccb50ca506ab6f9a0de58f2a
 Branch: develop
 --- git status (TEM QUE ESTAR VAZIO nos dois) ---
- M Assets/AddressableAssetsData/AddressableAssetSettings.asset
- M Assets/DefaultVolumeProfile.asset
- M Assets/Scenes/Gameplay.unity
- M "Assets/Scenes/Gameplay/GameObject Profile.asset"
- M "Assets/Scenes/Gameplay/Global Volume Profile.asset"
- M Assets/UniversalRenderPipelineGlobalSettings.asset
-?? Assets/Feel/FeelDemos/FeelTemplatesDemo.unitypackage.meta
-?? Assets/Feel/FeelDemosURP/FeelDemosURP.unitypackage.meta
-?? Assets/Feel/NiceVibrations/OlderVersions/v1.7/NiceVibrations-v-1-7.unitypackage.meta
-?? Assets/Feel/NiceVibrations/OlderVersions/v2.0.1/NiceVibrations-v-2-0-1.unitypackage.meta
-?? Assets/Feel/NiceVibrations/OlderVersions/v3.9/NiceVibrations-v-3-9-0.unitypackage.meta
-?? Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_3_0.bundle.meta
-?? Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_3_0.so.meta
-?? "Assets/Scenes/Gameplay/GameObject Profile 1.asset"
-?? "Assets/Scenes/Gameplay/GameObject Profile 1.asset.meta"
-?? fingerprint_DEKSTOP-KAIO.txt
+ M fingerprint_DEKSTOP-KAIO.txt
 
 ----- Color Space (1=Linear) -----
   m_ActiveColorSpace: 1
@@ -75,3 +60,8 @@ Branch: develop
 5208:  m_RendererIndex: 1
 5211:    m_Bits: 1
 5214:  m_RenderPostProcessing: 0
+
+----- Renderer Features -----
+Assets/Settings/ForwardRenderer.asset:27:  m_RendererFeatures: []
+Assets/Settings/UIRenderer.asset:27:  m_RendererFeatures: []
+=======================================================

@@ -5281,7 +5281,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.54, y: 0.162}
   m_AnchorMax: {x: 0.72465765, y: 0.3038705}
-  m_AnchoredPosition: {x: 1.5, y: 0.4996338}
+  m_AnchoredPosition: {x: 1.5, y: 0.49957275}
   m_SizeDelta: {x: -7.0434875, y: -1.2550049}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1676856606
@@ -6834,7 +6834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948902792960994525, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 26
+      value: 25.999939
       objectReference: {fileID: 0}
     - target: {fileID: 2226744931988960470, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: qualitySetter
@@ -7828,6 +7828,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123691510068132619, guid: 8527083c16f11b348b2e41fdf66a20e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8643525248873927845, guid: 8527083c16f11b348b2e41fdf66a20e2, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
