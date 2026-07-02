@@ -5281,7 +5281,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.54, y: 0.162}
   m_AnchorMax: {x: 0.72465765, y: 0.3038705}
-  m_AnchoredPosition: {x: 1.5, y: 0.4998474}
+  m_AnchoredPosition: {x: 1.5, y: 0.49960327}
   m_SizeDelta: {x: -7.0434875, y: -1.2550049}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1676856606
@@ -6724,6 +6724,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 2084258910}
+    - target: {fileID: 608731958142456281, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.4610596
+      objectReference: {fileID: 0}
     - target: {fileID: 662232852245306223, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -6794,7 +6798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1302237440440664347, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.49998474
+      value: 0.49996948
       objectReference: {fileID: 0}
     - target: {fileID: 1745299233297654130, guid: 0ec635ac772cdc643a17a6401e5e790b, type: 3}
       propertyPath: m_AnchorMax.y
