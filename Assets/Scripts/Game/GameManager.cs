@@ -14,7 +14,11 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public RewardManager RewardManager { get; private set; }
     [field: SerializeField] public ScoreManager ScoreManager { get; private set; }
     [field: SerializeField] public ObjectPoolManager ObjectPoolManager { get; private set; }
-    [field: SerializeField] public UIManager UIManager { get; private set; }
+    [field: SerializeField] public ScoreUI ScoreUI { get; private set; }
+    [field: SerializeField] public HealthUI HealthUI { get; private set; }
+    [field: SerializeField] public LeaderboardUI LeaderboardUI { get; private set; }
+    [field: SerializeField] public MobileInputUI MobileInputUI { get; private set; }
+    [field: SerializeField] public BellyDisplayUI BellyDisplayUI { get; private set; }
     [field: SerializeField] public TimeScaler TimeScaler { get; private set; }
     [field: SerializeField] public TutorialManager TutorialManager { get; private set; }
     [field: SerializeField] public ActionManager ActionManager { get; private set; }
@@ -70,7 +74,7 @@ public class GameManager : MonoBehaviour
         character.InitializeComponents(this);
         ObjectPoolManager.Initialize();
         ingredientSpawner.Initialize(OrderManager, ObjectPoolManager, conveyorManager);
-        ScoreManager.Initialize(playerDataHandler, UIManager);
+        ScoreManager.Initialize(playerDataHandler, ScoreUI);
         RewardManager.OnReceivedReward += OnReceivedReward;
         OrderManager.Initialize(ScoreManager, ObjectPoolManager, DifficultyManager);
         conveyorManager.Initialize(DifficultyManager);
@@ -79,9 +83,9 @@ public class GameManager : MonoBehaviour
         inputManager.OnSwipeDownInput += character.BellyFrog.ThrowUpAllIngredients;
         
         if (_firebaseDataManager) //This is for playing game directly from Game scene
-            UIManager.LeaderboardUI.InitializeLeaderboard(_firebaseDataManager?.LeaderboardManager);
-        
-        UIManager.BellyDisplayUI.Initialize(character.BellyFrog);
+            LeaderboardUI.InitializeLeaderboard(_firebaseDataManager?.LeaderboardManager);
+
+        BellyDisplayUI.Initialize(character.BellyFrog);
 
         foreach (var order in ObjectPoolManager.OrderPool.Orders)
         {
@@ -107,7 +111,7 @@ public class GameManager : MonoBehaviour
 
         displayUserInfoUI.Initialize(playerDataHandler);
         powerUpManager.Initialize(playerDataHandler);
-        UIManager.MobileInputUI.Initialize(inputManager);
+        MobileInputUI.Initialize(inputManager);
     }
     
     public void StartGame()
@@ -128,15 +132,15 @@ public class GameManager : MonoBehaviour
         }
 
         character.BellyFrog.ResetBellyFrog();
-        UIManager.ShowMenu(false);
-        UIManager.MobileInputUI.ShowUI(true);
-        UIManager.BellyDisplayUI.ResetUI();
+        ScreenManager.Instance.Open(ScreenId.Game);
+        MobileInputUI.ShowUI(true);
+        BellyDisplayUI.ResetUI();
 
         an.SetTrigger("Game");
         
 
         AudioManager.instance.PlayGameMusic();
-        TutorialManager.TryStartTutorial();
+        //TutorialManager.TryStartTutorial();
 
         _startGameTime = (int)Time.time;
         
@@ -151,15 +155,15 @@ public class GameManager : MonoBehaviour
         character.BellyFrog.gameObject.transform.DORotate(rotationVector, 0.7f, RotateMode.Fast);
         gameStates = GameStates.finish;
         an.SetTrigger("Menu");
-        //UIManager.ShowHidePostGame(shouldShow: true);
-        
+        //ScreenManager.Instance.Open(ScreenId.PostGame);
+
         if (_firebaseDataManager)
             _firebaseDataManager.SavePlayerData();
 
         OrderManager.ResetOrders();
         DifficultyManager.ResetDifficulty();
 
-        UIManager.MobileInputUI.ShowUI(false);
+        MobileInputUI.ShowUI(false);
         
         int timePlayed = (int)(Time.time - _startGameTime);
         GameAnalyticsManager.Track("game_end", 
@@ -171,6 +175,7 @@ public class GameManager : MonoBehaviour
     public void GoToMenu()
     {
         TimeScaler.ShouldStopTime(false);
+        ScreenManager.Instance.Open(ScreenId.Menu);
     }
 
     public void OnDie()
@@ -179,7 +184,7 @@ public class GameManager : MonoBehaviour
         
         ScoreManager.CalculateFinalScore();
         ScoreManager.UpdateScore();
-        UIManager.ShowSecondChance(true);
+        ScreenManager.Instance.Open(ScreenId.SecondChance);
         gameFlowManager.PauseGame(true);
 
        
@@ -192,6 +197,7 @@ public class GameManager : MonoBehaviour
     {
         character.Health.Heal(2);
         gameFlowManager.PauseGame(false);
+        OrderManager.FreezeActiveOrders();
         GameAnalyticsManager.Track("rewarded_ad_received");
     }
 
@@ -205,7 +211,19 @@ public class GameManager : MonoBehaviour
     public void PauseGame(bool shouldPause)
     {
         gameFlowManager.PauseGame(shouldPause);
-        UIManager.ShowPauseInGame(shouldPause);
+        
+        if (shouldPause)
+            ScreenManager.Instance.Open(ScreenId.Pause);
+        else
+            ScreenManager.Instance.CloseTop();
+    }
+
+    public void OpenSettings(bool shouldOpen)
+    {
+        if (shouldOpen)
+            ScreenManager.Instance.Open(ScreenId.Settings);
+        else
+            ScreenManager.Instance.CloseTop();
     }
     
     public void QuitGame()

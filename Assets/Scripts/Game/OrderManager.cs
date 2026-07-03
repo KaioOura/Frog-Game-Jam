@@ -27,6 +27,9 @@ public class OrderManager : MonoBehaviour
     [Tooltip("Time in seconds to spawn order based on difficulty")]
     [SerializeField] private float[] timeToSpawn;
 
+    [Tooltip("Tempo (segundos) que os timers dos pedidos ficam congelados após ver um ad de recompensa")]
+    [SerializeField] private float postAdFreezeSeconds = 5f;
+
     [FormerlySerializedAs("lastOrderMeal")]
     [SerializeField] private MealSo lastOrderMealSo;
 
@@ -42,6 +45,8 @@ public class OrderManager : MonoBehaviour
     private string _lastMealExpired;
     
     private List<MealSo> _eligibleMealsPool = new List<MealSo>(10);
+    private bool _ordersFrozen;
+    private Coroutine _freezeRoutine;
     
     // Start is called before the first frame update
     void Start()
@@ -163,9 +168,38 @@ public class OrderManager : MonoBehaviour
         order.transform.localScale = Vector3.one;
 
         order.InitializeOrder(mealSo, this);
+
+        // Pedidos que nascem dentro da janela de freeze também começam congelados.
+        if (_ordersFrozen)
+            order.SetFrozen(true);
+
         lastOrderMealSo = mealSo;
         _activeOrders.Add(order);
         OnOrderSpawned?.Invoke(mealSo);
+    }
+
+    // Congela os timers de todos os pedidos ativos por postAdFreezeSeconds
+    // (chamado após o jogador assistir a um ad de recompensa / segunda chance).
+    public void FreezeActiveOrders()
+    {
+        if (_freezeRoutine != null)
+            StopCoroutine(_freezeRoutine);
+
+        _freezeRoutine = StartCoroutine(FreezeOrdersRoutine(postAdFreezeSeconds));
+    }
+
+    private IEnumerator FreezeOrdersRoutine(float seconds)
+    {
+        _ordersFrozen = true;
+        foreach (var order in _activeOrders)
+            order.SetFrozen(true);
+
+        yield return new WaitForSeconds(seconds);
+
+        foreach (var order in _activeOrders)
+            order.SetFrozen(false);
+        _ordersFrozen = false;
+        _freezeRoutine = null;
     }
     
     private void OnSuccessMealDelivered(MealSo mealSo)

@@ -12,11 +12,11 @@ public class ScoreManager : MonoBehaviour
     
     private PlayerDataHandler _playerDataHandler;
 
-    public void Initialize(PlayerDataHandler playerDataHandler, UIManager uIManager)
+    public void Initialize(PlayerDataHandler playerDataHandler, ScoreUI scoreUI)
     {
         _playerDataHandler = playerDataHandler;
-        OnScoreChanged += uIManager.UpdateScore;
-        OnHighScoreChanged += uIManager.UpdateHighScore;
+        OnScoreChanged += scoreUI.UpdateScore;
+        OnHighScoreChanged += scoreUI.UpdateHighScore;
     }
     
     public void AddScore(int scoreToAdd)

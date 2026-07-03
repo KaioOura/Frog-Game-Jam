@@ -26,9 +26,12 @@ public class Order : MonoBehaviour
 
     private float _timeRemaining;
     private int _urgentCursor;
+    private bool _isFrozen;
     private IEnumerator countDownRoutine;
     private OrderHighlighter _orderHighlighter;
     private RectTransform _rect;
+
+    public void SetFrozen(bool frozen) => _isFrozen = frozen;
 
     private void Awake()
     {
@@ -47,6 +50,7 @@ public class Order : MonoBehaviour
         orignalMealTime = mealSo.timeSecondsToPrepare;
         _timeRemaining = orignalMealTime;
         _urgentCursor = 0;
+        _isFrozen = false;
 
         timeCount.fillAmount = GetTimeRemainingNormalized();
 
@@ -83,11 +87,14 @@ public class Order : MonoBehaviour
                 yield break;
             }
 
-            _timeRemaining -= Time.deltaTime;
+            if (!_isFrozen)
+            {
+                _timeRemaining -= Time.deltaTime;
 
-            float timeRemaining = GetTimeRemainingNormalized();
-            timeCount.fillAmount = timeRemaining;
-            timeCount.color = GetTimeColor(timeRemaining);
+                float timeRemaining = GetTimeRemainingNormalized();
+                timeCount.fillAmount = timeRemaining;
+                timeCount.color = GetTimeColor(timeRemaining);
+            }
 
             yield return null;
         }
